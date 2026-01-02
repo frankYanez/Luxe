@@ -1,0 +1,193 @@
+.testimonialsContent {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: var(--space-md);
+}
+
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
+/* Marquee Container */
+.marqueeContainer {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-lg) 0;
+}
+
+.marqueeContainer::before,
+.marqueeContainer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marqueeContainer::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-deep-black), transparent);
+}
+
+.marqueeContainer::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-deep-black), transparent);
+}
+
+/* Marquee Animation */
+.marquee {
+    display: flex;
+    gap: var(--space-lg);
+    animation: marqueeScroll 60s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.marquee:hover {
+    animation-play-state: paused;
+}
+
+/* Testimonial Card */
+.testimonialCard {
+    flex-shrink: 0;
+    width: 380px;
+    padding: var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-base);
+}
+
+.testimonialCard:hover {
+    border-color: var(--color-matte-gold);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-gold);
+}
+
+/* Card Header */
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-matte-gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    flex-shrink: 0;
+}
+
+.customerInfo {
+    flex: 1;
+}
+
+.customerName {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-cream-white);
+    margin-bottom: 0.25rem;
+}
+
+.customerLocation {
+    font-size: 0.875rem;
+    color: var(--color-gray-100);
+}
+
+/* Rating */
+.rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: var(--space-sm);
+}
+
+.star {
+    color: var(--color-matte-gold);
+    font-size: 1.125rem;
+}
+
+/* Comment */
+.comment {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray-100);
+    font-style: italic;
+    margin-bottom: var(--space-md);
+}
+
+/* Product Tag */
+.productTag {
+    display: inline-block;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    color: var(--color-matte-gold);
+    background: rgba(197, 160, 89, 0.1);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-xs);
+}
+
+/* Verified Badge */
+.verified {
+    font-size: 0.75rem;
+    color: var(--color-matte-gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .testimonialCard {
+        width: 320px;
+        padding: var(--space-lg);
+    }
+
+    .marqueeContainer::before,
+    .marqueeContainer::after {
+        width: 80px;
+    }
+}

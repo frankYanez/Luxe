@@ -1,0 +1,174 @@
+.decantsContent {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: var(--space-md);
+}
+
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
+.description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-gray-100);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin: var(--space-3xl) 0;
+    padding-left: var(--space-2xl);
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 40px;
+    bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--color-matte-gold) 20%,
+            var(--color-matte-gold) 80%,
+            transparent 100%);
+}
+
+.timelineItem {
+    position: relative;
+    display: flex;
+    gap: var(--space-lg);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.timelineIcon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-matte-gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-gold);
+    position: relative;
+    z-index: 1;
+}
+
+.iconNumber {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+}
+
+.timelineContent {
+    flex: 1;
+    padding-top: var(--space-xs);
+}
+
+.timelineTitle {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+    color: var(--color-cream-white);
+}
+
+.timelineText {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray-100);
+}
+
+/* Benefits Grid */
+.benefitsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-3xl);
+}
+
+.benefitCard {
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    transition: transform var(--transition-base);
+    animation: scaleIn 0.6s ease-out;
+}
+
+.benefitCard:hover {
+    transform: translateY(-8px);
+}
+
+.benefitIcon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    filter: grayscale(0.3) brightness(1.2);
+}
+
+.benefitTitle {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-matte-gold);
+}
+
+.benefitText {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-gray-100);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: var(--space-lg);
+    }
+
+    .timeline::before {
+        left: 12px;
+    }
+
+    .timelineItem {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .timelineIcon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .iconNumber {
+        font-size: 1.25rem;
+    }
+
+    .benefitsGrid {
+        grid-template-columns: 1fr;
+    }
+}

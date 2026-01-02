@@ -1,0 +1,113 @@
+.productsContent {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: var(--space-md);
+}
+
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
+.description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-gray-100);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Filter Bar */
+.filterBar {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+    flex-wrap: wrap;
+}
+
+.filterButton {
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-cream-white);
+    background: transparent;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.filterButton:hover {
+    border-color: var(--color-matte-gold);
+    background: rgba(197, 160, 89, 0.1);
+}
+
+.filterActive {
+    background: var(--color-matte-gold);
+    color: var(--color-deep-black);
+    border-color: var(--color-matte-gold);
+}
+
+/* Product Grid */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .productGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .filterBar {
+        gap: var(--space-sm);
+    }
+
+    .filterButton {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9375rem;
+    }
+}
+
+/* Empty State */
+.emptyState {
+    grid-column: 1 / -1;
+    padding: var(--space-3xl);
+    text-align: center;
+}
+
+.emptyText {
+    font-size: 1.25rem;
+    color: var(--color-gray-100);
+}
+
+/* Disabled filter buttons */
+.filterButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

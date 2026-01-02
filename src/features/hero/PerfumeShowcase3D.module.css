@@ -1,0 +1,112 @@
+.showcase {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.showcaseCard {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+}
+
+/* Glow Effect */
+.showcaseGlow {
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(ellipse at center,
+            rgba(197, 160, 89, 0.3) 0%,
+            rgba(197, 160, 89, 0.1) 40%,
+            transparent 70%);
+    filter: blur(40px);
+    animation: pulse-gold 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Perfume Image Container */
+.showcaseImage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.4));
+}
+
+/* Floating Particles */
+.particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--color-matte-gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat 5s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.8);
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100%) scale(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100%) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Reflection Effect */
+.showcaseReflection {
+    position: absolute;
+    bottom: -10%;
+    left: 10%;
+    right: 10%;
+    height: 40%;
+    background: linear-gradient(to top,
+            transparent 0%,
+            rgba(197, 160, 89, 0.05) 50%,
+            transparent 100%);
+    transform: scaleY(-1);
+    pointer-events: none;
+    filter: blur(20px);
+    opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .showcaseCard {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .showcaseCard {
+        max-width: 300px;
+    }
+
+    .showcaseGlow {
+        filter: blur(30px);
+    }
+}

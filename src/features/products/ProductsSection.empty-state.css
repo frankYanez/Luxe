@@ -1,0 +1,17 @@
+/* Empty state */
+.emptyState {
+    grid-column: 1 / -1;
+    padding: var(--space-3xl);
+    text-align: center;
+}
+
+.emptyText {
+    font-size: 1.25rem;
+    color: var(--color-gray-100);
+}
+
+/* Disabled filter buttons */
+.filterButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

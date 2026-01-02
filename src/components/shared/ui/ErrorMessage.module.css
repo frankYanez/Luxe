@@ -1,0 +1,105 @@
+.errorContainer {
+    grid-column: 1 / -1;
+    padding: var(--space-3xl);
+    border-radius: var(--radius-2xl);
+    text-align: center;
+    border: 2px solid rgba(255, 100, 100, 0.3);
+}
+
+.errorIcon {
+    font-size: 4rem;
+    margin-bottom: var(--space-md);
+    filter: grayscale(0.3);
+}
+
+.errorTitle {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-cream-white);
+}
+
+.errorMessage {
+    font-size: 1.125rem;
+    color: var(--color-gray-100);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.retryButton {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-deep-black);
+    background: var(--color-matte-gold);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    margin-bottom: var(--space-xl);
+}
+
+.retryButton:hover {
+    background: var(--color-gold-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
+}
+
+.errorHint {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    background: rgba(10, 10, 10, 0.5);
+    border-radius: var(--radius-lg);
+    text-align: left;
+}
+
+.hintTitle {
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    margin-bottom: var(--space-sm);
+    font-size: 1rem;
+}
+
+.hintList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hintList li {
+    font-size: 0.9375rem;
+    color: var(--color-gray-100);
+    margin-bottom: var(--space-xs);
+    padding-left: var(--space-md);
+    position: relative;
+    line-height: 1.6;
+}
+
+.hintList li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-matte-gold);
+}
+
+.hintList code {
+    padding: 0.125rem 0.375rem;
+    background: rgba(197, 160, 89, 0.1);
+    border-radius: var(--radius-sm);
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: var(--color-matte-gold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .errorContainer {
+        padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .errorHint {
+        padding: var(--space-md);
+    }
+}

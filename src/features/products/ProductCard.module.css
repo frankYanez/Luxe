@@ -1,0 +1,221 @@
+.card {
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    animation: scaleIn 0.6s ease-out both;
+}
+
+.card:hover {
+    transform: translateY(-12px) rotateX(2deg) rotateY(2deg);
+    border-color: var(--color-matte-gold);
+    box-shadow:
+        var(--shadow-xl),
+        0 0 40px rgba(197, 160, 89, 0.3);
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 2;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: rgba(10, 10, 10, 0.8);
+    color: var(--color-gray-100);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(8px);
+}
+
+.badgeFeatured {
+    background: linear-gradient(135deg, var(--color-gold-light), var(--color-matte-gold));
+    color: var(--color-deep-black);
+}
+
+/* Image Container */
+.imageContainer {
+    position: relative;
+    height: 280px;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.6), rgba(10, 10, 10, 0.9));
+    overflow: hidden;
+}
+
+.imageGlow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+            rgba(197, 160, 89, 0.15) 0%,
+            transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+    z-index: 1;
+}
+
+.card:hover .imageGlow {
+    opacity: 1;
+}
+
+.productImage {
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.card:hover .productImage {
+    transform: scale(1.05);
+}
+
+.imagePlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: var(--space-sm);
+}
+
+.imageIcon {
+    font-size: 4rem;
+    filter: grayscale(0.2) brightness(1.1);
+    animation: float 3s ease-in-out infinite;
+}
+
+.imageLabel {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+}
+
+/* Content */
+.content {
+    padding: var(--space-lg);
+}
+
+.category {
+    font-size: 0.875rem;
+    color: var(--color-matte-gold);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+}
+
+.productName {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--color-cream-white);
+}
+
+.brand {
+    font-size: 1rem;
+    color: var(--color-gray-100);
+    margin-bottom: var(--space-sm);
+    font-weight: 500;
+}
+
+.shortDesc {
+    font-size: 0.9375rem;
+    color: var(--color-gray-100);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    height: 2.8em;
+    overflow: hidden;
+}
+
+/* Olfactory Notes */
+.notes {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    margin-bottom: var(--space-md);
+}
+
+.notesVisible {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.noteGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: var(--space-sm);
+    font-size: 0.875rem;
+}
+
+.noteType {
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: capitalize;
+}
+
+.noteList {
+    color: var(--color-gray-100);
+    line-height: 1.5;
+}
+
+/* Pricing */
+.pricing {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.priceGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.priceLabel {
+    font-size: 0.75rem;
+    color: var(--color-gray-100);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-cream-white);
+}
+
+.priceDecant {
+    color: var(--color-matte-gold);
+}
+
+/* CTA Button */
+.cta {
+    width: 100%;
+    font-weight: 600;
+}
+
+.cta:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .imageContainer {
+        height: 220px;
+    }
+
+    .content {
+        padding: var(--space-md);
+    }
+
+    .productName {
+        font-size: 1.5rem;
+    }
+}
