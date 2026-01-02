@@ -14,7 +14,7 @@ export function BannersSection() {
                 ctaText="Explorar Colección Masculina"
                 ctaLink="#productos"
                 variant="masculine"
-                videoUrl="/videos/banners/masculine-banner.mp4"
+                videoUrl="https://res.cloudinary.com/dcacitrad/video/upload/masculine-banner_pw3knx.mp4"
             />
 
             <CTABanner
@@ -23,7 +23,7 @@ export function BannersSection() {
                 ctaText="Descubrir Colección Femenina"
                 ctaLink="#productos"
                 variant="feminine"
-                videoUrl="/videos/banners/feminine-banner.mp4"
+                videoUrl="https://res.cloudinary.com/dcacitrad/video/upload/feminine-banner_j2ebex.mp4"
             />
         </div>
     );

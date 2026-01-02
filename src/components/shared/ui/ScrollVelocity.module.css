@@ -1,0 +1,46 @@
+.parallax {
+    overflow: hidden;
+    letter-spacing: -2px;
+    line-height: 0.8;
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.scroller {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 64px;
+    display: flex;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: black;
+}
+
+.scroller span {
+    display: block;
+    margin-right: 30px;
+    color: white;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.scroller span:hover {
+    color: rgba(255, 255, 255, 0.8);
+    -webkit-text-stroke: 1px transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Variant for solid text */
+.scroller.solid span {
+    color: var(--color-gold-400);
+    -webkit-text-stroke: 0;
+}
+
+@media (max-width: 768px) {
+    .scroller {
+        font-size: 48px;
+    }
+}

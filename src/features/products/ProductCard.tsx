@@ -52,7 +52,7 @@ export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
                         alt={product.name}
                         fill
                         className={styles.productImage}
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'contain' }}
                         onError={() => setImageError(true)}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
@@ -73,7 +73,7 @@ export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
                 </div>
 
                 <h3 className={styles.productName}>{product.name}</h3>
-                <p className={styles.brand}>{product.brand}</p>
+                {/* <p className={styles.brand}>{product.brand}</p> */}
                 <p className={styles.shortDesc}>{product.shortDescription}</p>
 
                 {/* Olfactory Notes - Animated Reveal */}

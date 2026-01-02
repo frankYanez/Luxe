@@ -1,5 +1,6 @@
 import { HeroSection } from '@/features/hero/HeroSection';
 import { FeaturedCarousel } from '@/features/offers/FeaturedCarousel';
+import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
 import { DecantsSection } from '@/features/decants/DecantsSection';
 import { ProductsSection } from '@/features/products/ProductsSection';
 import { BannersSection } from '@/features/banners/BannersSection';
@@ -18,6 +19,7 @@ export default function HomePage() {
             <FeaturedCarousel />
             <DecantsSection />
             <ProductsSection />
+            <ScrollVelocity text="3 CUOTAS SIN INTERÉS • ENVÍOS GRATIS • " velocity={1} />
             <BannersSection />
             <TestimonialsSection />
             <WhatsAppCTA />

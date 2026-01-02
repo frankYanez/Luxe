@@ -6,6 +6,17 @@
     overflow: hidden;
 }
 
+.heroBackground {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    /* Allow clicking through if needed, though ColorBends might have interactive elements */
+}
+
 /* Fade gradient at bottom */
 .hero::after {
     content: '';
@@ -30,7 +41,7 @@
     right: 0;
     bottom: 5%;
     z-index: 2;
-    transform: translateX(-50%);
+    transform: translateX(-20%);
 }
 
 .heroImage2 {
@@ -44,8 +55,64 @@
     top: auto;
     bottom: 0;
     z-index: 1;
-    transform: translateX(-10%);
+    transform: translateX(-50%);
     opacity: 0.9;
+}
+
+/* Floating Glass Badges */
+.floatingBadge {
+    position: absolute;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    color: var(--color-gold-400);
+    /* Use gold for visibility on dark/glass */
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: floatBadge 6s ease-in-out infinite;
+    white-space: nowrap;
+}
+
+.badgeOriginal {
+    top: 20%;
+    right: -20px;
+    animation-delay: 0s;
+}
+
+.badgeDiscount {
+    bottom: 25%;
+    left: 20%;
+    animation-delay: 3s;
+    background: rgba(197, 160, 89, 0.15);
+    /* Slight gold tint */
+    border-color: rgba(197, 160, 89, 0.3);
+}
+
+@keyframes floatBadge {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .floatingBadge {
+        display: none;
+        /* Hide on mobile if they clutter the view, or adjust positioning */
+    }
 }
 
 /* Animated Grid Background */

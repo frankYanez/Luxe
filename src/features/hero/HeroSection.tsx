@@ -3,12 +3,11 @@
 import React from 'react';
 import { Container } from '@/components/shared/ui/Container';
 import { Button } from '@/components/shared/ui/Button';
-
-import { PerfumeShowcase3D } from './PerfumeShowcase3D';
 import { ShinyButton } from './ShinyButton';
 import styles from './HeroSection.module.css';
 import Image from 'next/image';
-import Prism from '@/components/backgrounds/Prism';
+import ColorBends from '@/components/backgrounds/Blends';
+import globalStyles from '@/styles/global.module.css';
 
 /**
  * Hero Section Component
@@ -18,18 +17,18 @@ export function HeroSection() {
     return (
         <section className={styles.hero}>
             {/* Prism Animated Background */}
-            <Prism
-                animationType="rotate"
-                timeScale={0.25}
-                height={4.5}
-                baseWidth={6.5}
-                scale={2.2}
-                hueShift={0.15}
-                colorFrequency={0.6}
-                noise={0.15}
-                glow={1.2}
-                bloom={1.5}
-                transparent={true}
+            <ColorBends
+                className={styles.heroBackground}
+                colors={["#C5A059", "#C5A059", "#C5A059"]}
+                rotation={30}
+                speed={1}
+                scale={0.5}
+                frequency={1.4}
+                warpStrength={1.2}
+                mouseInfluence={0.8}
+                parallax={0.1}
+                noise={0.08}
+                transparent
             />
 
             {/* Gradient Overlay */}
@@ -99,6 +98,14 @@ export function HeroSection() {
                             height={500}
                             className={styles.heroImage}
                         />
+
+                        {/* Floating Badges */}
+                        <div className={`${styles.floatingBadge} ${styles.badgeOriginal}`}>
+                            <span>✨</span> 100% Original
+                        </div>
+                        <div className={`${styles.floatingBadge} ${styles.badgeDiscount}`}>
+                            <span>💵</span> 10% OFF Efectivo
+                        </div>
                     </div>
                 </div>
             </Container>
