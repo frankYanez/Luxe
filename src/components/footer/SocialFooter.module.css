@@ -1,0 +1,320 @@
+.footer {
+    position: relative;
+    padding: var(--space-3xl) 0 var(--space-xl);
+    background: linear-gradient(180deg, var(--color-cream-white) 0%, var(--color-soft-white) 100%);
+    overflow: hidden;
+    margin-top: var(--space-3xl);
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* CTA Section */
+.ctaSection {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-deep-black);
+    margin-bottom: var(--space-md);
+    line-height: 1.2;
+}
+
+.titleAccent {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-matte-gold) 0%, var(--color-gold-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--color-gray-700);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Social Grid */
+.socialGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+}
+
+.socialCard {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-2xl);
+    text-decoration: none;
+    transition: all var(--transition-slow);
+    overflow: hidden;
+}
+
+.socialCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--social-color), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+}
+
+.socialCard:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--social-color);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.socialCard:hover::before {
+    opacity: 0.1;
+}
+
+/* Icon Container */
+.iconContainer {
+    position: relative;
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(197, 160, 89, 0.05));
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-base);
+}
+
+.socialCard:hover .iconContainer {
+    background: var(--social-color);
+    transform: rotate(-5deg) scale(1.1);
+}
+
+.icon {
+    font-size: 2.5rem;
+    filter: grayscale(0.3);
+    transition: filter var(--transition-base);
+    z-index: 1;
+}
+
+.socialCard:hover .icon {
+    filter: grayscale(0) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+/* Pulse Animation */
+.pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--social-color);
+    opacity: 0;
+    animation: socialPulse 2s ease-out infinite;
+}
+
+.socialCard:hover .pulse {
+    animation-play-state: running;
+}
+
+@keyframes socialPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Social Info */
+.socialInfo {
+    flex: 1;
+}
+
+.socialName {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    margin-bottom: 0.25rem;
+    transition: color var(--transition-base);
+}
+
+.socialCard:hover .socialName {
+    color: var(--social-color);
+}
+
+.socialHandle {
+    font-size: 0.9375rem;
+    color: var(--color-gray-500);
+    font-family: monospace;
+}
+
+/* Arrow */
+.arrow {
+    flex-shrink: 0;
+    color: var(--color-gray-300);
+    transition: all var(--transition-base);
+}
+
+.socialCard:hover .arrow {
+    color: var(--social-color);
+    transform: translate(4px, -4px);
+}
+
+/* Brand Section */
+.brandSection {
+    text-align: center;
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    margin-bottom: var(--space-xl);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.logoIcon {
+    font-size: 2rem;
+    color: var(--color-matte-gold);
+    animation: float 3s ease-in-out infinite;
+}
+
+.logoText {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+}
+
+.tagline {
+    font-size: 1.125rem;
+    color: var(--color-gray-700);
+    font-style: italic;
+    margin-bottom: var(--space-lg);
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    font-size: 0.9375rem;
+}
+
+.contactLink {
+    color: var(--color-matte-gold);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.contactLink:hover {
+    color: var(--color-gold-dark);
+    text-decoration: underline;
+}
+
+.separator {
+    color: var(--color-gray-300);
+}
+
+.location {
+    color: var(--color-gray-500);
+}
+
+/* Copyright */
+.copyright {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+}
+
+/* Decorative Orbs */
+.decorativeOrb1,
+.decorativeOrb2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.decorativeOrb1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.4) 0%, transparent 70%);
+    top: 10%;
+    right: -10%;
+}
+
+.decorativeOrb2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(212, 181, 118, 0.3) 0%, transparent 70%);
+    bottom: 10%;
+    left: -10%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer {
+        padding: var(--space-2xl) 0 var(--space-lg);
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .socialGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .socialCard {
+        padding: var(--space-lg);
+    }
+
+    .iconContainer {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon {
+        font-size: 2rem;
+    }
+
+    .socialName {
+        font-size: 1.25rem;
+    }
+
+    .contact {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+
+    .separator {
+        display: none;
+    }
+}

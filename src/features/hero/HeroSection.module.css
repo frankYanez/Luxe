@@ -4,11 +4,52 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: var(--color-deep-black);
+}
+
+/* Fade gradient at bottom */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(to top, var(--color-cream-white) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Hero Visual Images */
+.heroImage {
+    /* Club de Nuit - Front/Right */
+    width: auto;
+    height: 90%;
+    object-fit: contain;
+    border-radius: var(--radius-xl);
+    position: absolute;
+    right: 0;
+    bottom: 5%;
+    z-index: 2;
+    transform: translateX(-50%);
+}
+
+.heroImage2 {
+    /* Honor - Back/Left */
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-xl);
+    position: absolute;
+    left: 35%;
+    top: auto;
+    bottom: 0;
+    z-index: 1;
+    transform: translateX(-10%);
+    opacity: 0.9;
 }
 
 /* Animated Grid Background */
-.gridBackground {
+/* .gridBackground {
     position: absolute;
     inset: 0;
     background-image:
@@ -17,7 +58,7 @@
     background-size: 50px 50px;
     animation: gridMove 20s linear infinite;
     pointer-events: none;
-}
+} */
 
 @keyframes gridMove {
     0% {
@@ -30,15 +71,15 @@
 }
 
 /* Gradient Overlay */
-.gradientOverlay {
+/* .gradientOverlay {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at 50% 50%,
-            rgba(197, 160, 89, 0.08) 0%,
-            rgba(10, 10, 10, 0.4) 50%,
-            rgba(10, 10, 10, 0.95) 100%);
+            rgba(197, 160, 89, 0.05) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(249, 249, 247, 0.6) 100%);
     pointer-events: none;
-}
+} */
 
 /* Hero Content Layout */
 .heroContent {
@@ -82,9 +123,9 @@
     line-height: 1.1;
     margin-bottom: var(--space-lg);
     background: linear-gradient(135deg,
-            var(--color-cream-white) 0%,
-            var(--color-gold-light) 50%,
-            var(--color-cream-white) 100%);
+            var(--color-deep-black) 0%,
+            var(--color-gold-dark) 50%,
+            var(--color-deep-black) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -109,7 +150,7 @@
 .heroDescription {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
     margin-bottom: var(--space-xl);
     max-width: 540px;
 }
@@ -136,7 +177,7 @@
 }
 
 .statNumber {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Poppins', serif;
     font-size: 2rem;
     font-weight: 700;
     color: var(--color-matte-gold);
@@ -144,7 +185,7 @@
 
 .statLabel {
     font-size: 0.875rem;
-    color: var(--color-gray-100);
+    color: var(--color-gray-500);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -154,6 +195,7 @@
     position: relative;
     height: 600px;
     animation: fadeIn 1.2s ease-out 0.3s both;
+    z-index: 0;
 }
 
 /* Scroll Indicator */
@@ -239,6 +281,15 @@
 
     .heroTitle {
         font-size: 2.5rem;
+    }
+
+    .statLabel {
+        font-size: 0.75rem;
+    }
+
+    /* Hide hero visual (perfumes) on mobile */
+    .heroVisual {
+        display: none;
     }
 
     .subtitle {

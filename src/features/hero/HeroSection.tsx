@@ -3,9 +3,12 @@
 import React from 'react';
 import { Container } from '@/components/shared/ui/Container';
 import { Button } from '@/components/shared/ui/Button';
+
 import { PerfumeShowcase3D } from './PerfumeShowcase3D';
 import { ShinyButton } from './ShinyButton';
 import styles from './HeroSection.module.css';
+import Image from 'next/image';
+import Prism from '@/components/backgrounds/Prism';
 
 /**
  * Hero Section Component
@@ -14,11 +17,23 @@ import styles from './HeroSection.module.css';
 export function HeroSection() {
     return (
         <section className={styles.hero}>
-            {/* Animated Grid Background */}
-            <div className={styles.gridBackground} />
+            {/* Prism Animated Background */}
+            <Prism
+                animationType="rotate"
+                timeScale={0.25}
+                height={4.5}
+                baseWidth={6.5}
+                scale={2.2}
+                hueShift={0.15}
+                colorFrequency={0.6}
+                noise={0.15}
+                glow={1.2}
+                bloom={1.5}
+                transparent={true}
+            />
 
             {/* Gradient Overlay */}
-            <div className={styles.gradientOverlay} />
+            {/* <div className={styles.gradientOverlay} /> */}
 
             <Container>
                 <div className={styles.heroContent}>
@@ -69,7 +84,21 @@ export function HeroSection() {
 
                     {/* Right Content - 3D Perfume Showcase */}
                     <div className={styles.heroVisual}>
-                        <PerfumeShowcase3D />
+                        {/* <PerfumeShowcase3D /> */}
+                        <Image
+                            src="/images/Honor.png"
+                            alt="Perfume Showcase"
+                            width={800}
+                            height={800}
+                            className={styles.heroImage2}
+                        />
+                        <Image
+                            src="/images/club-de-nuit.png"
+                            alt="Perfume Showcase"
+                            width={500}
+                            height={500}
+                            className={styles.heroImage}
+                        />
                     </div>
                 </div>
             </Container>

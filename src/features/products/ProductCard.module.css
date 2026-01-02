@@ -109,19 +109,19 @@
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
-    color: var(--color-cream-white);
+    color: var(--color-deep-black);
 }
 
 .brand {
     font-size: 1rem;
-    color: var(--color-gray-100);
+    color: var(--color-gray-500);
     margin-bottom: var(--space-sm);
     font-weight: 500;
 }
 
 .shortDesc {
     font-size: 0.9375rem;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
     line-height: 1.6;
     margin-bottom: var(--space-md);
     height: 2.8em;
@@ -157,7 +157,7 @@
 }
 
 .noteList {
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
     line-height: 1.5;
 }
 
@@ -178,7 +178,7 @@
 
 .priceLabel {
     font-size: 0.75rem;
-    color: var(--color-gray-100);
+    color: var(--color-gray-500);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -187,7 +187,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-cream-white);
+    color: var(--color-deep-black);
 }
 
 .priceDecant {

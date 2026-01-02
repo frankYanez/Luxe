@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/shared/ui/Button';
 import type { Product } from '@/core/types/product';
+import { useCart } from '@/context/CartContext';
 import { siteConfig } from '@/core/config/site';
 import styles from './ProductCard.module.css';
 
@@ -17,6 +18,7 @@ interface ProductCardProps {
  * Ultra-clean card with 3D hover rotation and olfactory notes reveal
  */
 export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
+    const { addToCart } = useCart();
     const [showNotes, setShowNotes] = useState(false);
     const [imageError, setImageError] = useState(false);
 
@@ -105,14 +107,39 @@ export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
                 </div>
 
                 {/* CTA */}
-                <Button
-                    variant="primary"
-                    onClick={handleWhatsAppClick}
-                    disabled={!product.inStock}
-                    className={styles.cta}
-                >
-                    {product.inStock ? 'Comprar por WhatsApp' : 'No disponible'}
-                </Button>
+                <div className={styles.ctaGroup}>
+                    <Button
+                        variant="primary"
+                        onClick={() => addToCart({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.image,
+                            variant: 'Frasco'
+                        })}
+                        disabled={!product.inStock}
+                        className={styles.cta}
+                    >
+                        {product.inStock ? 'Agregar al Carrito 🛍️' : 'No disponible'}
+                    </Button>
+
+                    {product.decantPrice && (
+                        <Button
+                            variant="secondary"
+                            onClick={() => addToCart({
+                                id: `${product.id}-decant`,
+                                name: product.name,
+                                price: product.decantPrice!,
+                                image: product.image,
+                                variant: 'Decant'
+                            })}
+                            disabled={!product.inStock}
+                            className={styles.ctaDecant}
+                        >
+                            Decant 🧴
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -1,0 +1,85 @@
+.banner {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 36px;
+    background: var(--color-deep-black);
+    color: var(--color-cream-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 100;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    /* 13px */
+    letter-spacing: 0.05em;
+}
+
+.message.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.icon {
+    font-size: 1rem;
+}
+
+.text {
+    font-weight: 700;
+    color: var(--color-matte-gold);
+}
+
+.separator {
+    color: var(--color-gray-600);
+    margin: 0 4px;
+    font-weight: 300;
+}
+
+.subtext {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .banner {
+        height: 48px;
+    }
+
+    .message {
+        flex-direction: column;
+        gap: 2px;
+        line-height: 1.2;
+    }
+
+    .separator {
+        display: none;
+    }
+
+    .subtext {
+        font-size: 0.75rem;
+    }
+}

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { siteConfig } from '@/core/config/site';
+import { PageLoader } from '@/components/shared/PageLoader';
+import { TopBanner } from '@/components/layout/TopBanner';
 
 export const metadata: Metadata = {
     title: siteConfig.meta.title,
@@ -27,6 +29,10 @@ export const metadata: Metadata = {
     },
 };
 
+import { CartProvider } from '@/context/CartContext';
+import { CartDrawer } from '@/components/cart/CartDrawer';
+import { FloatingCart } from '@/components/cart/FloatingCart';
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -34,7 +40,15 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="es">
-            <body>{children}</body>
+            <body>
+                <CartProvider>
+                    <PageLoader />
+                    <TopBanner />
+                    <CartDrawer />
+                    <FloatingCart />
+                    {children}
+                </CartProvider>
+            </body>
         </html>
     );
 }

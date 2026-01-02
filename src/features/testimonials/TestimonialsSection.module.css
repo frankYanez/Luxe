@@ -50,12 +50,12 @@
 
 .marqueeContainer::before {
     left: 0;
-    background: linear-gradient(to right, var(--color-deep-black), transparent);
+    background: linear-gradient(to right, var(--color-cream-white), transparent);
 }
 
 .marqueeContainer::after {
     right: 0;
-    background: linear-gradient(to left, var(--color-deep-black), transparent);
+    background: linear-gradient(to left, var(--color-cream-white), transparent);
 }
 
 /* Marquee Animation */
@@ -128,13 +128,13 @@
 .customerName {
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--color-cream-white);
+    color: var(--color-deep-black);
     margin-bottom: 0.25rem;
 }
 
 .customerLocation {
     font-size: 0.875rem;
-    color: var(--color-gray-100);
+    color: var(--color-gray-500);
 }
 
 /* Rating */
@@ -153,7 +153,7 @@
 .comment {
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
     font-style: italic;
     margin-bottom: var(--space-md);
 }

@@ -1,0 +1,224 @@
+.header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--space-md);
+    color: var(--color-deep-black);
+}
+
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
+/* Carousel Container */
+.carouselContainer {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-md) 0;
+}
+
+/* Fade Edges Effect */
+.fadeEdge {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.fadeLeft {
+    left: 0;
+    background: linear-gradient(to right, var(--color-cream-white) 0%, transparent 100%);
+}
+
+.fadeRight {
+    right: 0;
+    background: linear-gradient(to left, var(--color-cream-white) 0%, transparent 100%);
+}
+
+/* Carousel Track with Animation */
+.carouselTrack {
+    display: flex;
+    gap: var(--space-xl);
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+}
+
+.carouselTrack.paused {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-50% - var(--space-xl) / 2));
+    }
+}
+
+/* Offer Card */
+.offerCard {
+    flex: 0 0 380px;
+    height: 280px;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-slow);
+    cursor: pointer;
+}
+
+.offerCard:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+.offerCard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right,
+            rgba(255, 255, 255, 0.3) 0%,
+            transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition-slow);
+}
+
+.offerCard:hover::before {
+    opacity: 1;
+}
+
+/* Card Content */
+.cardContent {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--space-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Discount Display */
+.discount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.discountLabel {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-md);
+}
+
+.offerTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--space-xs);
+    line-height: 1.2;
+}
+
+.offerDescription {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: auto;
+    line-height: 1.5;
+}
+
+/* CTA Button */
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    align-self: flex-start;
+}
+
+.ctaButton:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateX(4px);
+}
+
+.ctaButton svg {
+    transition: transform var(--transition-base);
+}
+
+.ctaButton:hover svg {
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .offerCard {
+        flex: 0 0 300px;
+        height: 260px;
+        padding: var(--space-lg);
+    }
+
+    .discount {
+        font-size: 3rem;
+    }
+
+    .discountLabel {
+        font-size: 1.25rem;
+    }
+
+    .offerTitle {
+        font-size: 1.25rem;
+    }
+
+    .offerDescription {
+        font-size: 0.9375rem;
+    }
+
+    .fadeEdge {
+        width: 80px;
+    }
+}

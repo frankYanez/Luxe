@@ -1,0 +1,343 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    /* background: rgba(0, 0, 0, 0.6); */
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    justify-content: flex-end;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.drawer {
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    background: var(--color-pure-white);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.slideIn {
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slideOut {
+    animation: slideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fadeOut {
+    animation: fadeOut 0.4s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Header */
+.header {
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    padding: var(--space-xs);
+    transition: color var(--transition-base);
+}
+
+.closeButton:hover {
+    color: var(--color-deep-black);
+}
+
+/* Items List */
+.itemsContainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-xl);
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: var(--space-lg);
+    text-align: center;
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.emptyText {
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-md);
+}
+
+.itemList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.item {
+    display: flex;
+    gap: var(--space-md);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-gray-100);
+    position: relative;
+}
+
+.itemImageContainer {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--color-gray-100);
+}
+
+.itemImage {
+    object-fit: cover;
+}
+
+.itemInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.itemName {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-deep-black);
+}
+
+.itemVariant {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+}
+
+.itemPrice {
+    font-weight: 600;
+    color: var(--color-matte-gold);
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xs);
+    background: var(--color-gray-50);
+    width: fit-content;
+    padding: 2px;
+    border-radius: var(--radius-full);
+}
+
+.quantityBtn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: var(--color-pure-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s;
+}
+
+.quantityBtn:active {
+    transform: scale(0.95);
+}
+
+.quantity {
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.removeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.removeButton:hover {
+    opacity: 1;
+}
+
+/* Footer */
+.footer {
+    padding: var(--space-xl);
+    border-top: 1px solid var(--color-gray-100);
+    background: var(--color-gray-50);
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--space-sm);
+}
+
+.totalLabel {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.totalAmount {
+    font-family: 'Poppins', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+}
+
+.disclaimer {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-lg);
+}
+
+.checkoutButton {
+    width: 100%;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.whatsappIcon {
+    font-size: 1.25rem;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: var(--space-md) 0;
+    color: var(--color-gray-400);
+    font-size: 0.875rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.divider span {
+    padding: 0 var(--space-md);
+}
+
+.onlineButton {
+    background: linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
+    border: 1px solid var(--color-gray-800);
+}
+
+.onlineButton:hover {
+    background: linear-gradient(135deg, #333 0%, #111 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cardIcon {
+    font-size: 1.25rem;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .drawer {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .itemImageContainer {
+        width: 70px;
+        height: 70px;
+    }
+}

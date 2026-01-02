@@ -10,12 +10,15 @@ import { useProducts } from '@/core/hooks/useProducts';
 import type { Category } from '@/core/types/product';
 import styles from './ProductsSection.module.css';
 
+const PRODUCTS_PER_PAGE = 6;
+
 /**
  * Products Catalog Section
- * Premium product showcase with WooCommerce integration
+ * Premium product showcase with WooCommerce integration and Load More
  */
 export function ProductsSection() {
     const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
+    const [displayCount, setDisplayCount] = useState(PRODUCTS_PER_PAGE);
 
     // Fetch productos desde WooCommerce
     const { products, loading, error, refetch } = useProducts({
@@ -23,10 +26,18 @@ export function ProductsSection() {
         autoFetch: true,
     });
 
-    // Refetch cuando cambia la categoría
+    // Reset displayCount cuando cambia categoría
     useEffect(() => {
+        setDisplayCount(PRODUCTS_PER_PAGE);
         refetch();
     }, [selectedCategory]);
+
+    const handleLoadMore = () => {
+        setDisplayCount(prev => prev + PRODUCTS_PER_PAGE);
+    };
+
+    const displayedProducts = products.slice(0, displayCount);
+    const hasMore = displayCount < products.length;
 
     return (
         <Section id="catalogo">
@@ -58,7 +69,7 @@ export function ProductsSection() {
                             onClick={() => setSelectedCategory('masculino')}
                             disabled={loading}
                         >
-                            Masculin os
+                            Masculinos
                         </button>
                         <button
                             className={`${styles.filterButton} ${selectedCategory === 'femenino' ? styles.filterActive : ''}`}
@@ -87,7 +98,7 @@ export function ProductsSection() {
                         )}
 
                         {/* Products */}
-                        {!loading && !error && products.length > 0 && products.map((product, index) => (
+                        {!loading && !error && displayedProducts.length > 0 && displayedProducts.map((product, index) => (
                             <ProductCard
                                 key={product.id}
                                 product={product}
@@ -104,6 +115,21 @@ export function ProductsSection() {
                             </div>
                         )}
                     </div>
+
+                    {/* Load More Button */}
+                    {!loading && !error && hasMore && (
+                        <div className={styles.loadMoreContainer}>
+                            <button
+                                className={styles.loadMoreButton}
+                                onClick={handleLoadMore}
+                            >
+                                <span>Ver Más Productos</span>
+                                <span className={styles.loadMoreCount}>
+                                    ({products.length - displayCount} restantes)
+                                </span>
+                            </button>
+                        </div>
+                    )}
                 </div>
             </Container>
         </Section>

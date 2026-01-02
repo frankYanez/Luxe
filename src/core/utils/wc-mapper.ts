@@ -94,7 +94,8 @@ export function mapWooProductToProduct(wcProduct: WCProduct): Product {
         : '/images/products/placeholder.jpg';
 
     return {
-        id: wcProduct.slug,
+        id: String(wcProduct.id),
+        slug: wcProduct.slug,
         name: wcProduct.name,
         brand,
         category: mapCategory(wcProduct.categories),

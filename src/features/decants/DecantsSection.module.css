@@ -33,7 +33,7 @@
 .description {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
     max-width: 800px;
     margin: 0 auto;
 }
@@ -98,13 +98,13 @@
 .timelineTitle {
     font-size: 1.5rem;
     margin-bottom: var(--space-xs);
-    color: var(--color-cream-white);
+    color: var(--color-deep-black);
 }
 
 .timelineText {
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
 }
 
 /* Benefits Grid */
@@ -141,7 +141,7 @@
 .benefitText {
     font-size: 0.9375rem;
     line-height: 1.6;
-    color: var(--color-gray-100);
+    color: var(--color-gray-700);
 }
 
 /* Responsive Design */

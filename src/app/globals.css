@@ -5,37 +5,40 @@
  */
 
 /* ========================================
-   COLOR PALETTE - LUXURY THEME
+   COLOR PALETTE - LUXURY LIGHT THEME
    ======================================== */
 :root {
-  /* Primary Colors */
+  /* Primary Colors - Inverted for light theme */
   --color-deep-black: #0A0A0A;
-  --color-cream-white: #F9F9F7;
+  --color-cream-white: #FFFFFF;
+  --color-soft-white: #F9F9F7;
   --color-matte-gold: #C5A059;
-  
+
   /* Accent Variations */
   --color-gold-light: #D4B576;
   --color-gold-dark: #9D7E3F;
-  
-  /* Neutral Tones */
-  --color-gray-900: #1A1A1A;
-  --color-gray-800: #2A2A2A;
-  --color-gray-700: #3A3A3A;
+
+  /* Neutral Tones - Inverted for light theme */
+  --color-gray-900: #0F0F0F;
+  --color-gray-800: #1A1A1A;
+  --color-gray-700: #2A2A2A;
+  --color-gray-500: #6B6B6B;
+  --color-gray-300: #D1D1D1;
   --color-gray-100: #F0F0EE;
   --color-gray-50: #FAFAFA;
-  
-  /* Glassmorphism */
-  --glass-bg: rgba(250, 250, 247, 0.08);
-  --glass-border: rgba(197, 160, 89, 0.15);
-  --glass-shadow: 0 8px 32px 0 rgba(10, 10, 10, 0.37);
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(10, 10, 10, 0.1);
-  --shadow-md: 0 4px 16px rgba(10, 10, 10, 0.15);
-  --shadow-lg: 0 8px 32px rgba(10, 10, 10, 0.25);
-  --shadow-xl: 0 16px 48px rgba(10, 10, 10, 0.35);
-  --shadow-gold: 0 4px 24px rgba(197, 160, 89, 0.25);
-  
+
+  /* Glassmorphism - Adjusted for light background */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(197, 160, 89, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(10, 10, 10, 0.1);
+
+  /* Shadows - Softer for light theme */
+  --shadow-sm: 0 2px 8px rgba(10, 10, 10, 0.08);
+  --shadow-md: 0 4px 16px rgba(10, 10, 10, 0.12);
+  --shadow-lg: 0 8px 32px rgba(10, 10, 10, 0.15);
+  --shadow-xl: 0 16px 48px rgba(10, 10, 10, 0.2);
+  --shadow-gold: 0 4px 24px rgba(197, 160, 89, 0.3);
+
   /* Spacing Scale */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -44,14 +47,15 @@
   --space-xl: 3rem;
   --space-2xl: 4rem;
   --space-3xl: 6rem;
-  
-  /* Border Radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  
+
+  /* Border Radius - Modernized (more rounded) */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -80,17 +84,22 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  color: var(--color-cream-white);
-  background-color: var(--color-deep-black);
+  color: var(--color-gray-800);
+  background-color: var(--color-cream-white);
   overflow-x: hidden;
 }
 
 /* Headings - Serif for elegance */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 600;
   line-height: 1.2;
-  color: var(--color-cream-white);
+  color: var(--color-deep-black);
   margin-bottom: var(--space-md);
 }
 
@@ -140,7 +149,7 @@ p {
 }
 
 /* ========================================
-   GLASSMORPHISM UTILITIES
+   GLASSMORPHISM UTILITIES - LIGHT THEME
    ======================================== */
 .glass {
   background: var(--glass-bg);
@@ -151,27 +160,32 @@ p {
 }
 
 .glass-strong {
-  background: rgba(250, 250, 247, 0.12);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  box-shadow: var(--shadow-lg);
 }
 
 .glass-subtle {
-  background: rgba(250, 250, 247, 0.05);
+  background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(197, 160, 89, 0.1);
+  border: 1px solid rgba(197, 160, 89, 0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========================================
    ANIMATION KEYFRAMES
    ======================================== */
 @keyframes pulse-gold {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7);
   }
+
   50% {
     opacity: 0.85;
     box-shadow: 0 0 0 12px rgba(197, 160, 89, 0);
@@ -182,15 +196,19 @@ p {
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -201,6 +219,7 @@ p {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -211,6 +230,7 @@ p {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -221,6 +241,7 @@ p {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -259,66 +280,68 @@ p {
 .gradient-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 10, 10, 0.8) 0%,
-    rgba(10, 10, 10, 0.6) 50%,
-    rgba(10, 10, 10, 0.9) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(10, 10, 10, 0.8) 0%,
+      rgba(10, 10, 10, 0.6) 50%,
+      rgba(10, 10, 10, 0.9) 100%);
   pointer-events: none;
 }
 
 /* ========================================
-   BUTTON STYLES
+   BUTTON STYLES - MODERNIZED
    ======================================== */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
-  padding: 0.875rem 2rem;
+  padding: 0.625rem 1.5rem;
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  font-weight: 600;
   text-decoration: none;
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-base);
   white-space: nowrap;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary {
   background: var(--color-matte-gold);
-  color: var(--color-deep-black);
+  color: var(--color-cream-white);
   box-shadow: var(--shadow-gold);
 }
 
 .btn-primary:hover {
-  background: var(--color-gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 32px rgba(197, 160, 89, 0.4);
+  background: var(--color-gold-dark);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(197, 160, 89, 0.4);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--color-cream-white);
-  border: 1px solid var(--color-matte-gold);
+  background: var(--color-cream-white);
+  color: var(--color-gray-800);
+  border: 2px solid var(--color-matte-gold);
 }
 
 .btn-secondary:hover {
   background: var(--color-matte-gold);
-  color: var(--color-deep-black);
+  color: var(--color-cream-white);
   border-color: var(--color-matte-gold);
+  transform: translateY(-2px);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--color-matte-gold);
+  box-shadow: none;
 }
 
 .btn-ghost:hover {
   background: rgba(197, 160, 89, 0.1);
+  transform: translateY(-1px);
 }
 
 /* ========================================
@@ -374,7 +397,7 @@ p {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-gray-900);
+  background: var(--color-gray-100);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -383,7 +406,7 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold-light);
+  background: var(--color-gold-dark);
 }
 
 /* ========================================
@@ -406,11 +429,11 @@ p {
     max-width: 720px;
     padding: 0 var(--space-sm);
   }
-  
+
   h1 {
     font-size: 2.5rem;
   }
-  
+
   h2 {
     font-size: 2rem;
   }
