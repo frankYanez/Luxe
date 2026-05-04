@@ -20,6 +20,27 @@ function createWooCommerceClient(): AxiosInstance {
             username: wooConfig.consumerKey,
             password: wooConfig.consumerSecret,
         },
+        // Strip injected content (e.g. malware <script> tags) after the JSON payload
+        transformResponse: [(data: string) => {
+            if (typeof data !== 'string') return data;
+            const first = data[0];
+            if (first !== '[' && first !== '{') return JSON.parse(data);
+            const open = first === '[' ? '[' : '{';
+            const close = first === '[' ? ']' : '}';
+            let depth = 0;
+            let inString = false;
+            let escape = false;
+            for (let i = 0; i < data.length; i++) {
+                const c = data[i];
+                if (escape) { escape = false; continue; }
+                if (c === '\\' && inString) { escape = true; continue; }
+                if (c === '"') { inString = !inString; continue; }
+                if (inString) continue;
+                if (c === open) depth++;
+                else if (c === close) { depth--; if (depth === 0) return JSON.parse(data.slice(0, i + 1)); }
+            }
+            return JSON.parse(data);
+        }],
     });
 
     // Request Interceptor

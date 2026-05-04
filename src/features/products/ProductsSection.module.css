@@ -42,32 +42,42 @@
 .filterBar {
     display: flex;
     justify-content: center;
-    gap: var(--space-md);
+    gap: 0.5rem;
     margin-bottom: var(--space-3xl);
     flex-wrap: wrap;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(197,160,89,0.2);
+    border-radius: 3rem;
+    padding: 0.4rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .filterButton {
-    padding: 0.75rem 1.75rem;
-    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--color-gray-700);
+    color: var(--color-gray-500);
     background: transparent;
-    border: 1px solid rgba(197, 160, 89, 0.3);
-    border-radius: var(--radius-full);
+    border: none;
+    border-radius: 2rem;
     cursor: pointer;
     transition: all var(--transition-base);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.01em;
 }
 
-.filterButton:hover {
-    border-color: var(--color-matte-gold);
-    background: rgba(197, 160, 89, 0.1);
+.filterButton:hover:not(:disabled) {
+    color: var(--color-deep-black);
+    background: rgba(197,160,89,0.08);
 }
 
 .filterActive {
     background: var(--color-matte-gold);
-    color: white;
-    border-color: var(--color-matte-gold);
+    color: white !important;
+    box-shadow: 0 2px 12px rgba(197,160,89,0.35);
 }
 
 /* Product Grid */

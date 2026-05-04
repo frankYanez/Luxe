@@ -14,8 +14,8 @@ export const siteConfig = {
 
     meta: {
         title: 'Luxe Essence | Perfumes Árabes Premium en Tandil',
-        description: 'Explorá el mundo de las fragancias árabes de lujo. Perfumes originales y decants exclusivos en Tandil, Argentina.',
-        keywords: 'perfumes árabes, fragancias de lujo, decants, Tandil, Argentina, Khamrah, perfumes premium',
+        description: 'Perfumes árabes originales y decants exclusivos en Tandil, Argentina. Fragancias de lujo como Khamrah, Oud y Bakhoor con envío a todo el país.',
+        keywords: 'perfumes árabes, fragancias árabes, decants perfumes, perfumes Tandil, perfumes originales Argentina, Khamrah perfume, Oud perfume, Bakhoor, perfumes de lujo, fragancias orientales, perfumes exclusivos Buenos Aires',
     },
 
     business: {

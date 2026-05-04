@@ -1,30 +1,38 @@
 import { NextResponse } from 'next/server';
 import { wooConfig, getWooApiUrl } from '@/core/config/woocommerce';
+import { createUalaPayment } from '@/core/api/uala-client';
+
+interface CustomerData {
+    fullName: string;
+    email: string;
+    phone: string;
+    address: string;
+}
 
 export async function POST(request: Request) {
     try {
-        // Validate configuration first
         if (!wooConfig.url || !wooConfig.consumerKey || !wooConfig.consumerSecret) {
             console.error('WooCommerce configuration missing');
             return NextResponse.json(
-                { error: 'Server configuration error: Missing WooCommerce credentials' },
+                { error: 'Error de configuración del servidor: faltan credenciales de WooCommerce.' },
                 { status: 500 }
             );
         }
 
-        const { items } = await request.json();
+        const body = await request.json();
+        const { items, customer }: { items: any[]; customer?: CustomerData } = body;
 
         if (!items || !Array.isArray(items) || items.length === 0) {
-            return NextResponse.json({ error: 'No items in cart' }, { status: 400 });
+            return NextResponse.json({ error: 'No hay productos en el carrito.' }, { status: 400 });
         }
 
-        // Format line items for WooCommerce
+        // Build line items
         const line_items = items.map((item: any) => {
-            const isDecant = item.id.includes('-decant');
-            const productId = parseInt(item.id.replace('-decant', ''));
+            const isDecant = String(item.id).includes('-decant');
+            const productId = parseInt(String(item.id).replace('-decant', ''));
 
             if (isNaN(productId)) {
-                throw new Error(`Invalid product ID: ${item.id}`);
+                throw new Error(`ID de producto inválido: ${item.id}`);
             }
 
             const lineItem: any = {
@@ -32,28 +40,46 @@ export async function POST(request: Request) {
                 quantity: item.quantity,
             };
 
-            // Add metadata for variants (important for Decants)
             if (item.variant) {
                 lineItem.meta_data = [
-                    {
-                        key: 'Tamaño',
-                        value: item.variant
-                    }
+                    { key: 'Tamaño', value: item.variant },
+                    ...(isDecant ? [{ key: 'Tipo', value: 'Decant' }] : []),
                 ];
             }
 
             return lineItem;
         });
 
-        const data = {
-            payment_method: 'bacs', // Default, user can change on checkout page
-            payment_method_title: 'Transferencia Bancaria / Ualá',
+        // Build billing/shipping from customer data
+        const billing = customer ? (() => {
+            const parts = (customer.fullName || '').trim().split(' ');
+            const firstName = parts[0] || '';
+            const lastName = parts.slice(1).join(' ') || '';
+            return {
+                first_name: firstName,
+                last_name: lastName,
+                email: customer.email,
+                phone: customer.phone,
+                address_1: customer.address || '',
+                city: 'Tandil',
+                state: 'Buenos Aires',
+                country: 'AR',
+                postcode: '',
+            };
+        })() : {};
+
+        const orderData: any = {
             set_paid: false,
+            status: 'pending',
             line_items,
-            status: 'pending' // Order created as pending payment
+            billing,
+            shipping: billing,
+            meta_data: [
+                { key: '_created_via', value: 'luxe-essence-web' },
+            ],
         };
 
-        console.log('📦 Creating WooCommerce Order:', JSON.stringify(data, null, 2));
+        console.log('📦 Creando orden WooCommerce:', JSON.stringify(orderData, null, 2));
 
         const url = `${getWooApiUrl()}/orders?consumer_key=${wooConfig.consumerKey}&consumer_secret=${wooConfig.consumerSecret}`;
 
@@ -61,54 +87,69 @@ export async function POST(request: Request) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                Accept: 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(orderData),
         });
 
-        // Handle non-JSON responses (like critical WP errors)
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('text/html')) {
-            const htmlText = await response.text();
-            console.error('❌ WordPress Critical Error (HTML):', htmlText);
-            throw new Error('Error crítico en WordPress. Revisa los logs de tu servidor o desactiva plugins conflictivos.');
+        // Detect WordPress HTML error pages
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('text/html')) {
+            const html = await response.text();
+            console.error('❌ WordPress devolvió HTML en lugar de JSON:', html.slice(0, 500));
+            throw new Error('Error en WordPress. Revisá los logs del servidor o plugins conflictivos.');
         }
 
         if (!response.ok) {
-            const errorData = await response.json();
+            const errorData = await response.json().catch(() => ({}));
             console.error('❌ WooCommerce API Error:', errorData);
-            throw new Error(errorData.message || 'Error creating order');
+
+            // Provide clearer messages for common errors
+            let msg = errorData.message || 'Error al crear el pedido.';
+            if (response.status === 401 || response.status === 403) {
+                msg = 'Credenciales de WooCommerce inválidas. Verificá las claves en .env.local.';
+            } else if (response.status === 404) {
+                msg = 'No se encontró la URL de WooCommerce. Verificá NEXT_PUBLIC_WC_URL.';
+            }
+            throw new Error(msg);
         }
 
         const order = await response.json();
+        console.log('✅ WC orden creada:', order.id);
 
-        // Check if we got a payment URL (usually only for some gateways or requires specific plugin settings)
-        // Standard WC 'order-pay' logic: /checkout/order-pay/:id/?pay_for_order=true&key=:order_key
-        // But if WC is headless, we might need to direct to standard checkout page.
+        // Compute total from items for Ualá
+        const total = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
 
-        // Actually, easiest way is to use the order key to construct the Pay URL manually if not provided,
-        // OR standard "pay" link from response if available.
-        // WC API v3 response usually has 'payment_url' field.
+        // Derive base URL from the incoming request
+        const host  = request.headers.get('host') ?? 'localhost:3000';
+        const proto = request.headers.get('x-forwarded-proto') ?? 'http';
+        const baseUrl = `${proto}://${host}`;
 
-        let paymentUrl = order.payment_url;
-
-        // Fallback if payment_url is empty (common in some configs)
-        if (!paymentUrl && order.id && order.order_key) {
-            // Construct standard WP checkout pay link
-            // Adjust domain as needed
-            paymentUrl = `${wooConfig.url}/checkout/order-pay/${order.id}/?pay_for_order=true&key=${order.order_key}`;
+        let paymentUrl: string | null = null;
+        try {
+            const uala = await createUalaPayment({
+                amount:      total,
+                description: `Luxe Essence - Pedido #${order.id}`,
+                orderId:     order.id,
+                baseUrl,
+            });
+            paymentUrl = uala.checkoutLink;
+            console.log('💳 Ualá checkout link:', paymentUrl, '| UUID:', uala.uuid);
+        } catch (ualaErr: any) {
+            console.error('⚠️ Ualá payment creation failed, proceeding without payment URL:', ualaErr.message);
         }
 
         return NextResponse.json({
             success: true,
+            orderId: order.id,
+            orderKey: order.order_key,
             paymentUrl,
-            orderId: order.id
         });
 
     } catch (error: any) {
         console.error('Checkout Error:', error);
         return NextResponse.json(
-            { error: error.message || 'Internal Server Error' },
+            { error: error.message || 'Error interno del servidor.' },
             { status: 500 }
         );
     }

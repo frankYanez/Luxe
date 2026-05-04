@@ -8,6 +8,7 @@ import { Product } from '../types/product';
 export const products: Product[] = [
     {
         id: 'khamrah',
+        slug: 'khamrah',
         name: 'Khamrah',
         brand: 'Lattafa',
         category: 'unisex',
@@ -37,6 +38,7 @@ export const products: Product[] = [
     },
     {
         id: 'asad',
+        slug: 'asad',
         name: 'Asad',
         brand: 'Lattafa',
         category: 'masculino',
@@ -66,6 +68,7 @@ export const products: Product[] = [
     },
     {
         id: 'yara',
+        slug: 'yara',
         name: 'Yara',
         brand: 'Lattafa',
         category: 'femenino',
@@ -95,6 +98,7 @@ export const products: Product[] = [
     },
     {
         id: 'badee-al-oud',
+        slug: 'badee-al-oud',
         name: "Bade'e Al Oud Amethyst",
         brand: 'Lattafa',
         category: 'unisex',
@@ -123,6 +127,7 @@ export const products: Product[] = [
     },
     {
         id: 'qaed-al-fursan',
+        slug: 'qaed-al-fursan',
         name: 'Qaed Al Fursan',
         brand: 'Lattafa',
         category: 'masculino',
@@ -151,6 +156,7 @@ export const products: Product[] = [
     },
     {
         id: 'velvet-oud',
+        slug: 'velvet-oud',
         name: 'Velvet Oud',
         brand: 'Al Haramain',
         category: 'unisex',

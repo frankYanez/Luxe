@@ -1,0 +1,63 @@
+/*
+ * GlowingEffect — glowing border that follows the mouse.
+ *
+ * Technique:
+ *   1. Absolute inset div with a radial gradient at (--x, --y)
+ *   2. CSS mask with `exclude` composite: shows ONLY the border band
+ *      (the `padding: --bw` area), hiding the interior.
+ *   3. Result: only the card BORDER glows where the cursor is.
+ */
+
+.glow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Fallback position (center) until JS fires */
+    --x: 50%;
+    --y: 50%;
+    --spread: 200px;
+    --bw: 2px;
+    --color: rgba(197, 160, 89, 0.85);
+    --opacity: 0;
+
+    opacity: var(--opacity);
+    transition: opacity 0.4s ease;
+
+    background: radial-gradient(
+        var(--spread) circle at var(--x) var(--y),
+        var(--color),
+        transparent 70%
+    );
+
+    /* The mask trick: exclude inner area → only border band shows */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    padding: var(--bw);
+}
+
+/* Optional: add a soft outer glow using a second box-shadow layer */
+.withGlow {
+    filter: blur(0px);
+}
+
+.withGlow::after {
+    content: '';
+    position: absolute;
+    inset: calc(var(--bw) * -3);
+    border-radius: inherit;
+    background: radial-gradient(
+        calc(var(--spread) * 0.6) circle at var(--x) var(--y),
+        rgba(197, 160, 89, 0.25),
+        transparent 70%
+    );
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--opacity);
+    transition: opacity 0.4s ease;
+}

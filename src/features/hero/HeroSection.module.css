@@ -159,10 +159,8 @@
     padding: var(--space-3xl) 0;
 }
 
-/* Left Content */
-.heroText {
-    animation: fadeInUp 1s ease-out;
-}
+/* Left Content — GSAP handles entrance */
+.heroText {}
 
 .badge {
     display: inline-flex;
@@ -187,17 +185,21 @@
 .heroTitle {
     font-size: clamp(3rem, 6vw, 5rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
     margin-bottom: var(--space-lg);
+    /* Word reveal: each [data-word] span inherits color from parent.
+       We keep the gradient on the wrapper so it tiles across all spans. */
     background: linear-gradient(135deg,
             var(--color-deep-black) 0%,
             var(--color-gold-dark) 50%,
             var(--color-deep-black) 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: var(--color-deep-black);
     animation: shimmer 8s linear infinite;
     background-size: 200% 100%;
+    /* Needed so overflow:hidden on word wrappers doesn't clip the whole title */
+    overflow: visible;
 }
 
 .subtitle {
@@ -211,7 +213,7 @@
             var(--color-gold-light) 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: var(--color-deep-black);
 }
 
 .heroDescription {
@@ -257,11 +259,10 @@
     letter-spacing: 0.05em;
 }
 
-/* Right Visual */
+/* Right Visual — GSAP handles entrance */
 .heroVisual {
     position: relative;
     height: 600px;
-    animation: fadeIn 1.2s ease-out 0.3s both;
     z-index: 0;
 }
 

@@ -60,20 +60,11 @@ export function mapWooProductToProduct(wcProduct: WCProduct): Product {
     const corazonString = getMetaValue(metaData, '_olfactory_notes_corazon');
     const fondoString = getMetaValue(metaData, '_olfactory_notes_fondo');
 
-    const olfactoryNotes: OlfactoryNote[] = [
-        {
-            type: 'salida',
-            notes: parseNotes(salidaString),
-        },
-        {
-            type: 'corazon',
-            notes: parseNotes(corazonString),
-        },
-        {
-            type: 'fondo',
-            notes: parseNotes(fondoString),
-        },
-    ].filter(note => note.notes.length > 0);
+    const olfactoryNotes: OlfactoryNote[] = ([
+        { type: 'salida' as const, notes: parseNotes(salidaString) },
+        { type: 'corazon' as const, notes: parseNotes(corazonString) },
+        { type: 'fondo' as const, notes: parseNotes(fondoString) },
+    ] as OlfactoryNote[]).filter(note => note.notes.length > 0);
 
     // Extraer marca desde atributos o meta data
     const brand = getMetaValue(metaData, '_brand') ||

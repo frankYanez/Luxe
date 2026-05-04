@@ -1,0 +1,261 @@
+/* ============================================
+   GALERIA SECTION — Asymmetric masonry grid
+   ============================================ */
+
+.section {
+    padding: var(--space-3xl) 0;
+    background: var(--color-soft-white);
+    overflow: hidden;
+}
+
+/* ── Header ── */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    color: var(--color-deep-black);
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+}
+
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
+.description {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-gray-500);
+    margin: 0;
+}
+
+/* ── Masonry Grid ── */
+/*
+  Layout on desktop (4 cols × variable rows):
+  [khamrah tall] [aqua]     [text: oud]   [honor tall]
+  [khamrah tall] [club-nuit][text: decant] [honor tall]
+  [masc wide ——————————]    [femme]         [femme]
+*/
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 260px;
+    gap: 1rem;
+}
+
+/* Base card */
+.card {
+    border-radius: 1.25rem;
+    overflow: hidden;
+    position: relative;
+    transition:
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* GSAP sets initial opacity:0, y:48, scale:0.96 */
+}
+
+/* Size variants */
+.card--tall {
+    grid-row: span 2;
+}
+
+.card--wide {
+    grid-column: span 2;
+}
+
+.card--normal {
+    /* default: 1×1 */
+}
+
+/* ── Image card ── */
+.imageCard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #0a0a0a;
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+        0 2px 6px rgba(0, 0, 0, 0.45),
+        0 10px 28px rgba(0, 0, 0, 0.35),
+        0 24px 48px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .imageCard {
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.07) inset,
+        0 4px 10px rgba(0, 0, 0, 0.55),
+        0 16px 40px rgba(0, 0, 0, 0.45),
+        0 40px 80px rgba(0, 0, 0, 0.28),
+        0 56px 100px rgba(197, 160, 89, 0.08);
+}
+
+.image {
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageCard:hover .image {
+    transform: scale(1.07);
+}
+
+.imageOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        transparent 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem 1.5rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.imageCard:hover .imageOverlay {
+    opacity: 1;
+}
+
+.imageLabel {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+}
+
+/* ── Text card ── */
+.textCard {
+    width: 100%;
+    height: 100%;
+    padding: 2rem 1.75rem;
+    background: linear-gradient(150deg, #131313 0%, #0d0d0d 100%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+        0 2px 6px rgba(0, 0, 0, 0.4),
+        0 10px 28px rgba(0, 0, 0, 0.32),
+        0 24px 48px rgba(0, 0, 0, 0.18);
+}
+
+.textCard:hover {
+    transform: translateY(-8px);
+    border-color: rgba(197, 160, 89, 0.28);
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+        0 4px 10px rgba(0, 0, 0, 0.5),
+        0 16px 40px rgba(0, 0, 0, 0.42),
+        0 36px 72px rgba(0, 0, 0, 0.26),
+        0 48px 96px rgba(197, 160, 89, 0.08);
+}
+
+.textCardAccent {
+    font-size: 2rem;
+    color: var(--color-matte-gold);
+    margin-bottom: 1rem;
+    display: block;
+    line-height: 1;
+}
+
+.textCardHeading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+.textCardBody {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    flex: 1;
+}
+
+.textCardCta {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-matte-gold);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: gap 0.2s ease, opacity 0.2s ease;
+}
+
+.textCardCta:hover {
+    opacity: 0.8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 220px;
+    }
+
+    .card--wide {
+        grid-column: span 2;
+    }
+
+    .card--tall {
+        grid-row: span 2;
+    }
+
+    .imageOverlay {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+    }
+
+    .card--tall,
+    .card--wide {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}

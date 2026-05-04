@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════════════════════════
+   FEATURED CAROUSEL — dark 21st.dev style
+   ═══════════════════════════════════════════════════════════ */
+
 .header {
     text-align: center;
     margin-bottom: var(--space-2xl);
@@ -20,19 +24,17 @@
 }
 
 .titleAccent {
-    display: block;
     color: var(--color-matte-gold);
     font-style: italic;
 }
 
-/* Carousel Container */
+/* ── Carousel Container ──────────────────────────────────── */
 .carouselContainer {
     position: relative;
     overflow: hidden;
-    padding: var(--space-md) 0;
+    padding: var(--space-lg) 0;
 }
 
-/* Fade Edges Effect */
 .fadeEdge {
     position: absolute;
     top: 0;
@@ -44,18 +46,18 @@
 
 .fadeLeft {
     left: 0;
-    background: linear-gradient(to right, var(--color-cream-white) 0%, transparent 100%);
+    background: linear-gradient(to right, var(--color-cream-white), transparent);
 }
 
 .fadeRight {
     right: 0;
-    background: linear-gradient(to left, var(--color-cream-white) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--color-cream-white), transparent);
 }
 
-/* Carousel Track with Animation */
+/* ── Track ───────────────────────────────────────────────── */
 .carouselTrack {
     display: flex;
-    gap: var(--space-xl);
+    gap: 1.5rem;
     animation: scroll 40s linear infinite;
     will-change: transform;
 }
@@ -70,44 +72,61 @@
     }
 
     100% {
-        transform: translateX(calc(-50% - var(--space-xl) / 2));
+        transform: translateX(calc(-50% - 0.75rem));
     }
 }
 
-/* Product Card */
+/* ── Card ────────────────────────────────────────────────── */
 .productCard {
-    flex: 0 0 350px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-2xl);
+    position: relative;
+    flex: 0 0 320px;
+    height: 420px;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    transition: all var(--transition-slow);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
+    transition:
+        border-color 0.4s ease,
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    /* Layered shadow system */
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+        0 2px 6px rgba(0, 0, 0, 0.5),
+        0 10px 28px rgba(0, 0, 0, 0.38),
+        0 24px 48px rgba(0, 0, 0, 0.22);
 }
 
 .productCard:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: var(--shadow-xl);
-    border-color: var(--color-matte-gold);
+    border-color: rgba(197, 160, 89, 0.3);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
+        0 4px 10px rgba(0, 0, 0, 0.6),
+        0 16px 40px rgba(0, 0, 0, 0.5),
+        0 40px 80px rgba(0, 0, 0, 0.3),
+        0 60px 100px rgba(197, 160, 89, 0.09);
 }
 
-/* Image Container */
+/* ── Image area ──────────────────────────────────────────── */
 .imageContainer {
-    position: relative;
-    height: 300px;
-    background: linear-gradient(135deg, #F0F0EE 0%, #FAFAFA 100%);
-    overflow: hidden;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 .productImage {
     object-fit: cover;
-    transition: transform var(--transition-slow);
+
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
 }
 
 .productCard:hover .productImage {
-    transform: scale(1.08);
+    transform: scale(1.07) translateY(-6px);
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(197, 160, 89, 0.1));
 }
 
 .imagePlaceholder {
@@ -115,167 +134,159 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    background: linear-gradient(135deg, var(--color-soft-white) 0%, var(--color-gray-100) 100%);
+    padding-bottom: 120px;
 }
 
 .placeholderIcon {
-    font-size: 5rem;
+    font-size: 4rem;
     opacity: 0.3;
 }
 
-/* Image Overlay */
+/* Dark gradient overlay */
 .imageOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(5, 5, 5, 1) 0%,
+            rgba(5, 5, 5, 0.82) 32%,
+            rgba(5, 5, 5, 0.2) 60%,
+            transparent 82%);
+    pointer-events: none;
+}
+
+/* ── Featured Badge ──────────────────────────────────────── */
+.featuredBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, rgba(197, 160, 89, 0.9), rgba(157, 126, 63, 0.9));
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    backdrop-filter: blur(8px);
+}
+
+/* ── Product Info ─────────────────────────────────────────── */
+.productInfo {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 120px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity var(--transition-slow);
-}
-
-.productCard:hover .imageOverlay {
-    opacity: 1;
-}
-
-/* Featured Badge */
-.featuredBadge {
-    position: absolute;
-    top: var(--space-md);
-    right: var(--space-md);
-    padding: 0.5rem 1rem;
-    background: rgba(197, 160, 89, 0.95);
-    backdrop-filter: blur(10px);
-    color: white;
-    font-size: 0.875rem;
-    font-weight: 700;
-    border-radius: var(--radius-full);
-    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.4);
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    z-index: 1;
-}
-
-/* Product Info */
-.productInfo {
-    padding: var(--space-lg);
+    z-index: 10;
+    padding: 1.25rem 1.25rem 1.25rem;
 }
 
 .category {
-    font-size: 0.875rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
     color: var(--color-matte-gold);
-    margin-bottom: var(--space-xs);
-    font-weight: 600;
+    margin-bottom: 0.3rem;
 }
 
 .productName {
-    font-size: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
     font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
     margin-bottom: 0.25rem;
-    color: var(--color-deep-black);
-    line-height: 1.2;
 }
 
 .brand {
-    font-size: 1rem;
-    color: var(--color-gray-500);
-    margin-bottom: var(--space-md);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
     font-weight: 500;
+    margin-bottom: 0.75rem;
 }
 
-/* Pricing */
+/* ── Pricing ─────────────────────────────────────────────── */
 .pricing {
     display: flex;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-md);
-    padding: var(--space-md);
-    background: rgba(197, 160, 89, 0.08);
-    border-radius: var(--radius-lg);
+    gap: 1.25rem;
+    margin-bottom: 0.875rem;
+    padding: 0.6rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .priceGroup {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.1rem;
 }
 
 .priceLabel {
-    font-size: 0.75rem;
-    color: var(--color-gray-500);
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.35);
     font-weight: 600;
 }
 
 .price {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--color-deep-black);
+    color: #fff;
+    line-height: 1;
 }
 
 .priceDecant {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-matte-gold);
+    line-height: 1;
 }
 
-/* CTA Button */
+/* ── CTA Button ──────────────────────────────────────────── */
 .ctaButton {
+    position: relative;
+    overflow: hidden;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-xs);
-    padding: 0.75rem 1.5rem;
-    background: var(--color-matte-gold);
-    color: white;
+    gap: 0.4rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, var(--color-matte-gold) 0%, var(--color-gold-dark) 100%);
+    color: #fff;
     border: none;
-    border-radius: var(--radius-full);
-    font-size: 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
-    transition: all var(--transition-base);
-    box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.3s;
 }
 
 .ctaButton:hover {
-    background: var(--color-gold-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(197, 160, 89, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(197, 160, 89, 0.4);
 }
 
 .ctaButton svg {
-    transition: transform var(--transition-base);
+    transition: transform 0.2s ease;
 }
 
 .ctaButton:hover svg {
-    transform: translateX(4px);
+    transform: translateX(3px);
 }
 
-/* Responsive */
+/* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
     .productCard {
-        flex: 0 0 280px;
-    }
-
-    .imageContainer {
-        height: 240px;
-    }
-
-    .productInfo {
-        padding: var(--space-md);
-    }
-
-    .productName {
-        font-size: 1.25rem;
-    }
-
-    .pricing {
-        gap: var(--space-md);
+        flex: 0 0 260px;
+        height: 360px;
     }
 
     .fadeEdge {

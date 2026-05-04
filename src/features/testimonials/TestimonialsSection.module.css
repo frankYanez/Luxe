@@ -85,17 +85,35 @@
     flex-shrink: 0;
     width: 380px;
     padding: var(--space-xl);
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(197, 160, 89, 0.15);
     border-radius: var(--radius-xl);
-    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Layered light shadow */
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+        0 1px 3px rgba(10, 10, 10, 0.06),
+        0 4px 16px rgba(10, 10, 10, 0.08),
+        0 12px 32px rgba(10, 10, 10, 0.06),
+        0 0 0 0 rgba(197, 160, 89, 0);
 }
 
 .testimonialCard:hover {
-    border-color: var(--color-matte-gold);
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-gold);
+    border-color: rgba(197, 160, 89, 0.5);
+    transform: translateY(-10px);
+    box-shadow:
+        0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+        0 2px 6px rgba(10, 10, 10, 0.09),
+        0 8px 24px rgba(10, 10, 10, 0.12),
+        0 20px 48px rgba(10, 10, 10, 0.08),
+        0 32px 64px rgba(197, 160, 89, 0.1);
 }
 
 /* Card Header */

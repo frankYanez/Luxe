@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Bash(claude mcp:*)",
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest add badge dialog tooltip sheet --yes)",
+      "Bash(npx shadcn@latest add button input label select separator skeleton toast --yes)",
+      "Bash(npx shadcn@latest add button input label select separator skeleton sonner --yes)",
+      "WebFetch(domain:www.reactbits.dev)",
+      "Bash(npm list:*)",
+      "WebSearch",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:3000/api/products)",
+      "Bash(curl -s http://localhost:3001/api/products)",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const j=JSON.parse\\(d\\); console.log\\('success:', j.success, '| count:', j.count, '| first:', j.data[0]?.name\\);\")",
+      "Bash(curl *)",
+      "WebFetch(domain:developers.ualabis.com.ar)",
+      "WebFetch(domain:www.ualabis.com.ar)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

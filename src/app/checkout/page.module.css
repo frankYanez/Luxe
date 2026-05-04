@@ -1,0 +1,684 @@
+/* ─── Page Layout ─────────────────────────────────────────── */
+.page {
+    min-height: 100vh;
+    background: var(--color-soft-white);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.bgGlow {
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bgGlow2 {
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.emptyPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-gray-500);
+}
+
+/* ─── Header ──────────────────────────────────────────────── */
+.header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: color var(--transition-fast);
+    padding: 0.5rem 0;
+}
+
+.backBtn:hover { color: var(--color-deep-black); }
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    letter-spacing: 0.05em;
+}
+
+.secureTag {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    letter-spacing: 0.03em;
+}
+
+/* ─── Step Indicator ──────────────────────────────────────── */
+.stepIndicator {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 2rem 1rem 1.5rem;
+}
+
+.stepItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.4;
+    transition: opacity var(--transition-base);
+}
+
+.stepItem.stepActive,
+.stepItem.stepDone { opacity: 1; }
+
+.stepCircle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    background: white;
+    transition: all var(--transition-base);
+}
+
+.stepActive .stepCircle {
+    border-color: var(--color-matte-gold);
+    color: var(--color-matte-gold);
+    box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
+}
+
+.stepDone .stepCircle {
+    background: var(--color-matte-gold);
+    border-color: var(--color-matte-gold);
+    color: white;
+}
+
+.stepLabel {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.stepActive .stepLabel { color: var(--color-matte-gold); font-weight: 600; }
+.stepDone .stepLabel { color: var(--color-deep-black); }
+
+.stepConnector {
+    width: 60px;
+    height: 2px;
+    background: var(--color-gray-300);
+    margin-bottom: 1.5rem;
+    transition: background var(--transition-base);
+    flex-shrink: 0;
+}
+
+.stepConnector.connectorDone { background: var(--color-matte-gold); }
+
+/* ─── Main Card ───────────────────────────────────────────── */
+.main {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 40px rgba(10, 10, 10, 0.08), 0 0 0 1px rgba(255,255,255,0.5) inset;
+    animation: cardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.cardTitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    margin-bottom: 0.25rem;
+}
+
+.cardSubtitle {
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* ─── Cart Item List ──────────────────────────────────────── */
+.itemList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.itemImgWrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-100);
+}
+
+.itemImg { object-fit: cover; }
+
+.itemInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.itemName {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-deep-black);
+}
+
+.itemVariant {
+    font-size: 0.8rem;
+    color: var(--color-matte-gold);
+    font-weight: 500;
+}
+
+.itemQty {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+
+.itemPrice {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-deep-black);
+    white-space: nowrap;
+}
+
+.divider {
+    height: 1px;
+    background: var(--color-gray-100);
+    margin: 1rem 0;
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.totalLabel {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gray-500);
+    font-weight: 500;
+}
+
+.totalAmount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    line-height: 1;
+}
+
+/* ─── Form ────────────────────────────────────────────────── */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.formStack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.fullWidth { grid-column: 1 / -1; }
+
+.labelOptional {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-gray-300);
+    font-size: 0.75rem;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-gray-500);
+}
+
+.input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--color-gray-100);
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-deep-black);
+    background: var(--color-soft-white);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--color-matte-gold);
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+    background: white;
+}
+
+.input::placeholder { color: var(--color-gray-300); }
+
+/* ─── Buttons ─────────────────────────────────────────────── */
+.btnRow {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.primaryBtn {
+    flex: 1;
+    background: linear-gradient(135deg, var(--color-matte-gold) 0%, var(--color-gold-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.primaryBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
+}
+
+.primaryBtn:active:not(:disabled) { transform: translateY(0); }
+.primaryBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.secondaryBtn {
+    background: none;
+    border: 1.5px solid var(--color-gray-300);
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap;
+}
+
+.secondaryBtn:hover {
+    border-color: var(--color-deep-black);
+    color: var(--color-deep-black);
+}
+
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Success Badge (shadcn Badge override) ───────────────── */
+.successBadgeRow {
+    margin-bottom: 1.5rem;
+}
+
+.successBadge {
+    background: rgba(34, 197, 94, 0.12) !important;
+    color: #16a34a !important;
+    border: 1px solid rgba(34, 197, 94, 0.25) !important;
+    border-radius: 2rem !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+}
+
+/* ─── Payment Options ─────────────────────────────────────── */
+.paymentOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+}
+
+.paymentOption {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    border: 1.5px solid var(--color-gray-100);
+    background: var(--color-soft-white);
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-base);
+    width: 100%;
+}
+
+.paymentOption:hover {
+    border-color: var(--color-matte-gold);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.paymentWhatsApp:hover { border-color: #22c55e; box-shadow: 0 4px 20px rgba(34,197,94,0.15); }
+
+.paymentOnline:hover { border-color: var(--color-matte-gold); box-shadow: var(--shadow-gold); }
+
+.payIcon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.payInfo {
+    flex: 1;
+}
+
+.payInfo strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-deep-black);
+    margin-bottom: 0.2rem;
+}
+
+.payInfo p {
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    margin: 0;
+}
+
+.payArrow {
+    color: var(--color-gray-300);
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.paymentOption:hover .payArrow {
+    transform: translateX(4px);
+    color: var(--color-matte-gold);
+}
+
+.payNote {
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    text-align: center;
+}
+
+.payLink {
+    color: var(--color-matte-gold);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.payLink:hover { text-decoration: underline; }
+
+/* ─── Order tag ───────────────────────────────────────────── */
+.orderTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #16a34a;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 2rem;
+    padding: 0.35rem 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.orderTagDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #16a34a;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ─── Waiting state ───────────────────────────────────────── */
+.waitingBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(197, 160, 89, 0.07);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 1rem;
+    margin: 1.5rem 0;
+}
+
+.waitingSpinner {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(197, 160, 89, 0.3);
+    border-top-color: var(--color-matte-gold);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin-top: 2px;
+}
+
+.waitingTitle {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-deep-black);
+    margin: 0 0 0.3rem;
+}
+
+.waitingDesc {
+    font-size: 0.82rem;
+    color: var(--color-gray-500);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.cancelWaitBtn {
+    flex-shrink: 0;
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.cancelWaitBtn:hover {
+    border-color: var(--color-deep-black);
+    color: var(--color-deep-black);
+}
+
+/* ─── Success step ────────────────────────────────────────── */
+.successCard {
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.successIcon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 32px rgba(34, 197, 94, 0.35);
+    animation: successPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes successPop {
+    from { transform: scale(0) rotate(-15deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+.successTitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-deep-black);
+    margin-bottom: 0.75rem;
+}
+
+.successSubtitle {
+    font-size: 0.95rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.successDetails {
+    background: var(--color-soft-white);
+    border: 1px solid var(--color-gray-100);
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.successRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.successRow span {
+    color: var(--color-gray-500);
+}
+
+.successRow strong {
+    color: var(--color-deep-black);
+    font-weight: 600;
+}
+
+.successStatus {
+    color: #16a34a !important;
+}
+
+.successWa {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-matte-gold);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.successWa:hover { opacity: 0.75; }
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .header { padding: 1rem; }
+    .card { padding: 1.75rem 1.25rem; }
+    .formGrid { grid-template-columns: 1fr; }
+    .fullWidth { grid-column: 1; }
+    .stepConnector { width: 32px; }
+    .cardTitle { font-size: 1.6rem; }
+    .totalAmount { font-size: 1.6rem; }
+    .overlayCard { height: 92vh; border-radius: 1rem 1rem 0 0; align-self: flex-end; }
+}

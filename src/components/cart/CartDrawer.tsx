@@ -2,20 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { Button } from '@/components/shared/ui/Button';
 import { siteConfig } from '@/core/config/site';
 import styles from './CartDrawer.module.css';
 
-/**
- * Premium Cart Drawer
- * Side panel with glassmorphism, showing cart items and WhatsApp checkout
- */
 export function CartDrawer() {
     const { items, isOpen, toggleCart, removeFromCart, updateQuantity, cartTotal } = useCart();
     const [isClosing, setIsClosing] = useState(false);
+    const router = useRouter();
 
-    // Handle escape key to close
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) handleClose();
@@ -24,13 +20,9 @@ export function CartDrawer() {
         return () => window.removeEventListener('keydown', handleEsc);
     }, [isOpen]);
 
-    // Lock body scroll when open
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
     }, [isOpen]);
 
     const handleClose = () => {
@@ -38,85 +30,60 @@ export function CartDrawer() {
         setTimeout(() => {
             toggleCart();
             setIsClosing(false);
-        }, 400); // Match animation duration
+        }, 400);
     };
 
-    const handleCheckout = () => {
+    const handleGoToCheckout = () => {
+        handleClose();
+        setTimeout(() => router.push('/checkout'), 420);
+    };
+
+    const handleWhatsApp = () => {
         const phone = siteConfig.whatsapp.replace('+', '');
-
-        let message = `*Hola Luxe Essence!* Quiero realizar el siguiente pedido:\n\n`;
-
+        let msg = `*¡Hola Luxe Essence!* Quiero realizar el siguiente pedido:\n\n`;
         items.forEach(item => {
-            message += `▫️ ${item.quantity}x *${item.name}*`;
-            if (item.variant) message += ` (${item.variant})`;
-            message += ` - $${(item.price * item.quantity).toLocaleString('es-AR')}\n`;
+            msg += `▫️ ${item.quantity}x *${item.name}*`;
+            if (item.variant) msg += ` (${item.variant})`;
+            msg += ` - $${(item.price * item.quantity).toLocaleString('es-AR')}\n`;
         });
-
-        message += `\n*Total:* $${cartTotal.toLocaleString('es-AR')}\n\n`;
-        message += `Aguardo confirmación para coordinar el pago y envío. Gracias! ✨`;
-
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    };
-
-    const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-    const handleOnlineCheckout = async () => {
-        setIsCheckingOut(true);
-        try {
-            const response = await fetch('/api/checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ items }),
-            });
-
-            const data = await response.json();
-
-            if (data.success && data.paymentUrl) {
-                window.location.href = data.paymentUrl;
-            } else {
-                console.error('Checkout Error:', data);
-                const errorMessage = data.error || 'Error al iniciar el pago.';
-
-                if (errorMessage.includes('Missing WooCommerce credentials')) {
-                    alert('⚠️ Error de Configuración: Faltan las claves de WooCommerce en el servidor (.env.local).');
-                } else {
-                    alert(`⚠️ ${errorMessage}\n\nPor favor intenta finalizar por WhatsApp.`);
-                }
-            }
-        } catch (error) {
-            console.error('Checkout Error:', error);
-            alert('Error de conexión. Intenta nuevamente.');
-        } finally {
-            setIsCheckingOut(false);
-        }
+        msg += `\n*Total:* $${cartTotal.toLocaleString('es-AR')}\n\nAguardo confirmación. ¡Gracias! ✨`;
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
     };
 
     if (!isOpen && !isClosing) return null;
 
     return (
-        <div className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`} onClick={handleClose}>
+        <div
+            className={`${styles.overlay} ${isClosing ? styles.fadeOut : ''}`}
+            onClick={handleClose}
+        >
             <div
                 className={`${styles.drawer} ${isClosing ? styles.slideOut : styles.slideIn}`}
                 onClick={e => e.stopPropagation()}
             >
                 {/* Header */}
                 <div className={styles.header}>
-                    <h2 className={styles.title}>Tu Selección</h2>
-                    <button onClick={handleClose} className={styles.closeButton}>
+                    <div>
+                        <h2 className={styles.title}>Tu Selección</h2>
+                        {items.length > 0 && (
+                            <p className={styles.itemCount}>{items.reduce((s, i) => s + i.quantity, 0)} artículo{items.reduce((s, i) => s + i.quantity, 0) !== 1 ? 's' : ''}</p>
+                        )}
+                    </div>
+                    <button onClick={handleClose} className={styles.closeButton} aria-label="Cerrar carrito">
                         ✕
                     </button>
                 </div>
 
-                {/* Items List */}
+                {/* Items */}
                 <div className={styles.itemsContainer}>
                     {items.length === 0 ? (
                         <div className={styles.emptyState}>
-                            <span className={styles.emptyIcon}>🛍️</span>
-                            <p className={styles.emptyText}>Tu carrito está vacío</p>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Explorar Colección
-                            </Button>
+                            <span className={styles.emptyIcon}>🌿</span>
+                            <p className={styles.emptyTitle}>Tu carrito está vacío</p>
+                            <p className={styles.emptyText}>Explorá nuestra colección de fragancias árabes.</p>
+                            <button className={styles.exploreBtn} onClick={handleClose}>
+                                Ver Colección
+                            </button>
                         </div>
                     ) : (
                         <ul className={styles.itemList}>
@@ -128,27 +95,32 @@ export function CartDrawer() {
                                             alt={item.name}
                                             fill
                                             className={styles.itemImage}
+                                            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                                         />
                                     </div>
 
                                     <div className={styles.itemInfo}>
                                         <h3 className={styles.itemName}>{item.name}</h3>
-                                        <p className={styles.itemVariant}>{item.variant}</p>
+                                        {item.variant && (
+                                            <p className={styles.itemVariant}>{item.variant}</p>
+                                        )}
                                         <p className={styles.itemPrice}>
-                                            ${item.price.toLocaleString('es-AR')}
+                                            ${(item.price * item.quantity).toLocaleString('es-AR')}
                                         </p>
 
                                         <div className={styles.quantityControls}>
                                             <button
                                                 className={styles.quantityBtn}
                                                 onClick={() => updateQuantity(item.id, -1)}
+                                                aria-label="Reducir cantidad"
                                             >
-                                                -
+                                                −
                                             </button>
                                             <span className={styles.quantity}>{item.quantity}</span>
                                             <button
                                                 className={styles.quantityBtn}
                                                 onClick={() => updateQuantity(item.id, 1)}
+                                                aria-label="Aumentar cantidad"
                                             >
                                                 +
                                             </button>
@@ -158,8 +130,9 @@ export function CartDrawer() {
                                     <button
                                         className={styles.removeButton}
                                         onClick={() => removeFromCart(item.id)}
+                                        aria-label="Eliminar producto"
                                     >
-                                        🗑️
+                                        ✕
                                     </button>
                                 </li>
                             ))}
@@ -167,46 +140,27 @@ export function CartDrawer() {
                     )}
                 </div>
 
-                {/* Footer / Checkout */}
+                {/* Footer */}
                 {items.length > 0 && (
                     <div className={styles.footer}>
                         <div className={styles.totalRow}>
-                            <span className={styles.totalLabel}>Total Estimado</span>
+                            <span className={styles.totalLabel}>Total estimado</span>
                             <span className={styles.totalAmount}>
                                 ${cartTotal.toLocaleString('es-AR')}
                             </span>
                         </div>
 
-                        <p className={styles.disclaimer}>
-                            El envío se calcula al coordinar por WhatsApp.
-                        </p>
+                        {/* Primary CTA → checkout page */}
+                        <button className={styles.checkoutBtn} onClick={handleGoToCheckout}>
+                            <span>Finalizar compra</span>
+                            <span className={styles.btnArrow}>→</span>
+                        </button>
 
-                        <Button
-                            variant="primary"
-                            className={styles.checkoutButton}
-                            onClick={handleCheckout}
-                        >
-                            <span className={styles.whatsappIcon}>💬</span>
-                            Finalizar Pedido en WhatsApp
-                        </Button>
-
-                        <div className={styles.divider}>
-                            <span>O</span>
-                        </div>
-
-                        <Button
-                            variant="primary"
-                            className={`${styles.checkoutButton} ${styles.onlineButton}`}
-                            onClick={handleOnlineCheckout}
-                            disabled={isCheckingOut}
-                        >
-                            {isCheckingOut ? (
-                                <span className={styles.spinner}>⌛</span>
-                            ) : (
-                                <span className={styles.cardIcon}>💳</span>
-                            )}
-                            {isCheckingOut ? 'Procesando...' : 'Pagar Online (Ualá/Tarjetas)'}
-                        </Button>
+                        {/* Quick WhatsApp option */}
+                        <button className={styles.whatsappBtn} onClick={handleWhatsApp}>
+                            <span className={styles.waIcon}>💬</span>
+                            Consultar por WhatsApp
+                        </button>
                     </div>
                 )}
             </div>
