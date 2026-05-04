@@ -19,7 +19,8 @@
       "Bash(curl *)",
       "WebFetch(domain:developers.ualabis.com.ar)",
       "WebFetch(domain:www.ualabis.com.ar)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(git fetch *)"
     ]
   }
 }
