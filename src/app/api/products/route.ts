@@ -5,6 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchProducts } from '@/core/api/products.api';
+
+export const dynamic = 'force-dynamic';
 import type { Category } from '@/core/types/product';
 
 export async function GET(request: NextRequest) {

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServiceClient } from '@/core/api/supabase-client';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     const db = getServiceClient();
     const { data, error } = await db

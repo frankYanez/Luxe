@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServiceClient } from '@/core/api/supabase-client';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;

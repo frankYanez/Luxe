@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServiceClient } from '@/core/api/supabase-client';
 
+export const dynamic = 'force-dynamic';
+
 const SHEET_ID = '1zTK5lsrm5gzdx80-PytZ-qLhbKXawgwjfyDMTXQyOHE';
 
 function toSlug(name: string) {

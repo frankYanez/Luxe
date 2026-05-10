@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServiceClient } from '@/core/api/supabase-client';
+
+export const dynamic = 'force-dynamic';
 import { sendWhatsApp } from '@/core/api/whatsapp-notify';
 import { encodeOrderId } from '@/core/utils/order-code';
 
