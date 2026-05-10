@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { wooConfig, getWooApiUrl } from '@/core/config/woocommerce';
+import { getServiceClient } from '@/core/api/supabase-client';
+import { sendWhatsApp } from '@/core/api/whatsapp-notify';
+import { encodeOrderId } from '@/core/utils/order-code';
 
 export async function POST(request: Request) {
     try {
@@ -9,18 +11,29 @@ export async function POST(request: Request) {
         const { external_reference, status, uuid } = body;
 
         if (status === 'APPROVED' && external_reference) {
-            const orderId = parseInt(external_reference, 10);
-            if (!isNaN(orderId)) {
-                const url = `${getWooApiUrl()}/orders/${orderId}?consumer_key=${wooConfig.consumerKey}&consumer_secret=${wooConfig.consumerSecret}`;
-                const wcRes = await fetch(url, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        status: 'processing',
-                        meta_data: [{ key: '_uala_payment_uuid', value: uuid ?? '' }],
-                    }),
-                });
-                console.log(`✅ WC order ${orderId} updated to processing:`, wcRes.status);
+            const db = getServiceClient();
+
+            const { data: order } = await db
+                .from('orders')
+                .update({ status: 'processing', uala_uuid: uuid ?? null })
+                .eq('id', external_reference)
+                .select('id, customer_name, customer_phone, total, items')
+                .single();
+
+            if (order) {
+                console.log(`✅ Order ${order.id} updated to processing`);
+
+                const itemsList = (order.items ?? []).map((i: any) =>
+                    `• ${i.quantity}x ${i.name}`
+                ).join('\n');
+
+                await sendWhatsApp(
+                    `✅ PAGO CONFIRMADO — ${encodeOrderId(order.id)}\n\n` +
+                    `👤 ${order.customer_name}\n` +
+                    `📱 ${order.customer_phone}\n\n` +
+                    `${itemsList}\n\n` +
+                    `💰 $${Number(order.total).toLocaleString('es-AR')} · Pagado con Ualá 💳`
+                );
             }
         }
 

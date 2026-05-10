@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Container } from '@/components/shared/ui/Container';
-
 import { siteConfig } from '@/core/config/site';
 import styles from './SocialFooter.module.css';
-import PrismaticBurst from '../backgrounds/Plasma';
 
 /**
  * Social Footer Component
@@ -38,19 +37,6 @@ export function SocialFooter() {
 
     return (
         <footer className={styles.footer}>
-            {/* Plasma Animated Background */}
-            <PrismaticBurst
-                animationType="rotate3d"
-                intensity={1.2}
-                speed={0.3}
-                distort={0.3}
-                paused={false}
-                offset={{ x: 0, y: 0 }}
-                hoverDampness={0.25}
-                rayCount={12}
-                mixBlendMode="soft-light"
-                colors={['#C5A059', '#D4B576', '#FFFFFF', '#9D7E3F']}
-            />
 
             <Container>
                 <div className={styles.content}>
@@ -127,6 +113,7 @@ export function SocialFooter() {
                     {/* Copyright */}
                     <div className={styles.copyright}>
                         <p>© {new Date().getFullYear()} Luxe Essence. Todos los derechos reservados.</p>
+                        <Link href="/admin" className={styles.adminLink}>Admin</Link>
                     </div>
                 </div>
             </Container>

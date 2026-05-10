@@ -16,6 +16,10 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'wp.luxefragancias.com',
+            },
+            {
+                protocol: 'https',
                 hostname: '**', // Fallback para otros dominios
             },
         ],

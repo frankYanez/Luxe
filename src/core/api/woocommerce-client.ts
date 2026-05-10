@@ -6,6 +6,15 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { wooConfig, getWooApiUrl, validateWooConfig } from '../config/woocommerce';
 
+function redactWooParams(params: Record<string, any> | undefined) {
+    if (!params) return params;
+    const { consumer_secret, ...rest } = params;
+    return {
+        ...rest,
+        ...(consumer_secret ? { consumer_secret: '[redacted]' } : {}),
+    };
+}
+
 /**
  * Crea instancia de axios configurada para WooCommerce
  */
@@ -15,11 +24,12 @@ function createWooCommerceClient(): AxiosInstance {
         timeout: 15000,
         headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
+            // Some security layers block unknown/empty User-Agent values.
+            'User-Agent': 'LuxeEssence/1.0 (+https://luxefragancias.com)',
         },
-        auth: {
-            username: wooConfig.consumerKey,
-            password: wooConfig.consumerSecret,
-        },
+        // Prefer query-string auth for compatibility with hosts/WAFs
+        // that reject the Authorization header and respond with 403.
         // Strip injected content (e.g. malware <script> tags) after the JSON payload
         transformResponse: [(data: string) => {
             if (typeof data !== 'string') return data;
@@ -46,11 +56,21 @@ function createWooCommerceClient(): AxiosInstance {
     // Request Interceptor
     client.interceptors.request.use(
         (config) => {
+            // Ensure credentials are always passed server-side.
+            // (WooCommerce supports both Basic Auth and query params; query params
+            // tends to work more reliably on shared hosting and behind security plugins.)
+            config.params = {
+                ...(config.params || {}),
+                consumer_key: (config.params as any)?.consumer_key ?? wooConfig.consumerKey,
+                consumer_secret: (config.params as any)?.consumer_secret ?? wooConfig.consumerSecret,
+            };
+
             if (wooConfig.debug) {
                 console.log('🔵 WooCommerce Request:', {
                     method: config.method?.toUpperCase(),
+                    baseURL: config.baseURL,
                     url: config.url,
-                    params: config.params,
+                    params: redactWooParams(config.params as any),
                 });
             }
             return config;
@@ -80,6 +100,7 @@ function createWooCommerceClient(): AxiosInstance {
                     status: error.response?.status,
                     message: error.message,
                     data: error.response?.data,
+                    headers: error.response?.headers,
                 });
             }
 

@@ -37,5 +37,5 @@ export function validateWooConfig(): boolean {
  * Obtiene la URL base de la API de WooCommerce
  */
 export function getWooApiUrl(): string {
-    return `${wooConfig.url}/wp-json/${wooConfig.version}`;
+    return `${wooConfig.url.replace(/\/$/, '')}/wp-json/${wooConfig.version}`;
 }
