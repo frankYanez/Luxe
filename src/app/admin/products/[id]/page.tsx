@@ -26,6 +26,8 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
         price:                   String(product.price ?? ''),
         decant_price:            product.decant_price ? String(product.decant_price) : '',
         stock_quantity:          String(product.stock_quantity ?? 0),
+        cost_usd:                product.cost_usd ? String(product.cost_usd) : '',
+        discount_percentage:     product.discount_percentage ? String(product.discount_percentage) : '',
         olfactory_notes_salida:  getNotes('salida'),
         olfactory_notes_corazon: getNotes('corazon'),
         olfactory_notes_fondo:   getNotes('fondo'),
