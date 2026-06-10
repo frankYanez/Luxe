@@ -1,15 +1,21 @@
-import { HeroSection } from '@/features/hero/HeroSection';
+import dynamic from 'next/dynamic';
+
+// 🎁 Día del Padre — para revertir: cambiar a '@/features/hero/HeroSection'
+import { HeroSectionFathersDay as HeroSection } from '@/features/hero/HeroSectionFathersDay';
 import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
-import { FeaturedCarousel } from '@/features/offers/FeaturedCarousel';
-import { BrandSection } from '@/features/brand/BrandSection';
-import { BannersSection } from '@/features/banners/BannersSection';
-import { ProductsSection } from '@/features/products/ProductsSection';
-import { DecantsSection } from '@/features/decants/DecantsSection';
-import { GaleriaSection } from '@/features/gallery/GaleriaSection';
-import { TestimonialsSection } from '@/features/testimonials/TestimonialsSection';
-import { FAQSection } from '@/features/faq/FAQSection';
-import { WhatsAppCTA } from '@/features/checkout/WhatsAppCTA';
-import { SocialFooter } from '@/components/footer/SocialFooter';
+
+// Below-fold sections — lazy loaded to reduce initial bundle
+const FathersDaySection   = dynamic(() => import('@/features/fathers-day/FathersDaySection').then(m => ({ default: m.FathersDaySection })));
+const FeaturedCarousel    = dynamic(() => import('@/features/offers/FeaturedCarousel').then(m => ({ default: m.FeaturedCarousel })));
+const BrandSection        = dynamic(() => import('@/features/brand/BrandSection').then(m => ({ default: m.BrandSection })));
+const BannersSection      = dynamic(() => import('@/features/banners/BannersSection').then(m => ({ default: m.BannersSection })));
+const ProductsSection     = dynamic(() => import('@/features/products/ProductsSection').then(m => ({ default: m.ProductsSection })));
+const DecantsSection      = dynamic(() => import('@/features/decants/DecantsSection').then(m => ({ default: m.DecantsSection })));
+const GaleriaSection      = dynamic(() => import('@/features/gallery/GaleriaSection').then(m => ({ default: m.GaleriaSection })));
+const TestimonialsSection = dynamic(() => import('@/features/testimonials/TestimonialsSection').then(m => ({ default: m.TestimonialsSection })));
+const FAQSection          = dynamic(() => import('@/features/faq/FAQSection').then(m => ({ default: m.FAQSection })));
+const WhatsAppCTA         = dynamic(() => import('@/features/checkout/WhatsAppCTA').then(m => ({ default: m.WhatsAppCTA })));
+const SocialFooter        = dynamic(() => import('@/components/footer/SocialFooter').then(m => ({ default: m.SocialFooter })));
 
 /**
  * Homepage — Luxe Essence
@@ -35,6 +41,8 @@ export default function HomePage() {
                 text="3 CUOTAS SIN INTERÉS • ENVÍOS A TODO EL PAÍS • 100% ORIGINALES • "
                 velocity={1}
             />
+            {/* 🎁 TEMPORARIO: Día del Padre — remover después del 21 de junio */}
+            <FathersDaySection />
             <FeaturedCarousel />
             <BrandSection />
             <BannersSection />

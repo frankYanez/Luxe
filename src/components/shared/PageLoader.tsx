@@ -14,7 +14,7 @@ export function PageLoader() {
 
     useEffect(() => {
         // Minimum loading time of 1.5 seconds
-        const minLoadTime = 1500;
+        const minLoadTime = 100;
         const startTime = Date.now();
 
         const handleLoad = () => {
@@ -23,10 +23,7 @@ export function PageLoader() {
 
             setTimeout(() => {
                 setFadeOut(true);
-                // Remove loader after fade animation completes
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 800); // Match CSS transition duration
+                setTimeout(() => setIsLoading(false), 300);
             }, remaining);
         };
 

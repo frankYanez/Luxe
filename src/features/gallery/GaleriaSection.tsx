@@ -15,9 +15,9 @@ gsap.registerPlugin(ScrollTrigger);
 const CARDS = [
     {
         type: 'image' as const,
-        src: '/images/hero/khamrah-hero.png',
-        alt: 'Khamrah — Lattafa',
-        label: 'Khamrah · Lattafa',
+        src: '/images/asad.jpg',
+        alt: 'Asad — Lattafa',
+        label: 'Asad · Lattafa',
         size: 'tall',          // spans 2 rows
     },
     {
@@ -36,9 +36,9 @@ const CARDS = [
     },
     {
         type: 'image' as const,
-        src: '/images/Honor.png',
-        alt: 'Honor — colección premium',
-        label: 'Honor · Premium',
+        src: '/images/eclair.png',
+        alt: 'Eclaire — colección premium',
+        label: 'Eclaire · Premium',
         size: 'tall',
     },
     {
@@ -58,14 +58,14 @@ const CARDS = [
     },
     {
         type: 'image' as const,
-        src: '/videos/banners/masculine-banner.png',
+        src: '/images/yara.jpg',
         alt: 'Fragancias Masculinas',
         label: 'Colección Masculina',
         size: 'wide',
     },
     {
         type: 'image' as const,
-        src: '/videos/banners/feminine-banner.png',
+        src: '/images/elixir.png',
         alt: 'Fragancias Femeninas',
         label: 'Colección Femenina',
         size: 'normal',

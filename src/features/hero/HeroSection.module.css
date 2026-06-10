@@ -110,7 +110,7 @@
 
 @media (max-width: 768px) {
     .floatingBadge {
-        display: none;
+        z-index: 10;
         /* Hide on mobile if they clutter the view, or adjust positioning */
     }
 }
@@ -336,11 +336,16 @@
     .heroStats {
         gap: var(--space-lg);
     }
+
+    .badge {
+        align-self: center;
+    }
 }
 
 @media (max-width: 768px) {
     .hero {
         min-height: auto;
+        justify-content: center;
     }
 
     .heroContent {
@@ -349,6 +354,15 @@
 
     .heroTitle {
         font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .badge {
+        display: none;
+        width: auto;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
     }
 
     .statLabel {
@@ -357,7 +371,26 @@
 
     /* Hide hero visual (perfumes) on mobile */
     .heroVisual {
-        display: none;
+        display: flex;
+    }
+
+    .heroImage {
+        position: absolute;
+        top: -100px;
+        width: 500px;
+        height: 500px;
+        object-fit: contain;
+    }
+
+    .heroImage2 {
+        position: absolute;
+        top: -130px;
+        left: 280px;
+        width: 600px;
+        height: 600px;
+        object-fit: contain;
+        z-index: 10;
+
     }
 
     .subtitle {
@@ -370,14 +403,18 @@
 
     .ctaGroup {
         flex-direction: column;
+        align-items: center;
     }
 
     .heroStats {
         flex-wrap: wrap;
         gap: var(--space-md);
+        justify-content: center;
     }
 
     .heroVisual {
         height: 300px;
     }
+
+
 }

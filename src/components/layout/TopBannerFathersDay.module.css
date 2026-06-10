@@ -1,0 +1,244 @@
+/* ============================================================
+   TOP BANNER — DÍA DEL PADRE
+   Para revertir: en layout.tsx cambiar el import de vuelta a TopBanner
+   ============================================================ */
+
+.banner {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 44px;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1.25rem;
+    overflow: hidden;
+
+    /* Warm dark bg with subtle gold gradient */
+    background: linear-gradient(
+        135deg,
+        #0c0a06 0%,
+        #0f0c07 40%,
+        #100e08 60%,
+        #0c0a06 100%
+    );
+    border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+}
+
+/* ---------- Shimmer line (bottom) ---------- */
+
+.shimmerLine {
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(197, 160, 89, 0.7) 50%,
+        transparent 100%
+    );
+    animation: lineSlide 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes lineSlide {
+    0%   { left: -60%; }
+    100% { left: 140%; }
+}
+
+/* ---------- Side columns ---------- */
+
+.side {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+}
+
+/* ---------- SVG icons ---------- */
+
+.giftSvg,
+.fatherSvg {
+    color: #C5A059;
+    flex-shrink: 0;
+    opacity: 0.9;
+}
+
+.giftSvg {
+    animation: giftBounce 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(197, 160, 89, 0.35));
+}
+
+@keyframes giftBounce {
+    0%, 100% { transform: translateY(0)   rotate(0deg); }
+    30%       { transform: translateY(-3px) rotate(-4deg); }
+    60%       { transform: translateY(-1px) rotate(3deg); }
+}
+
+.fatherSvg {
+    color: rgba(197, 160, 89, 0.65);
+    animation: fatherPulse 5s ease-in-out infinite;
+}
+
+@keyframes fatherPulse {
+    0%, 100% { opacity: 0.65; transform: scale(1); }
+    50%       { opacity: 0.9;  transform: scale(1.05); }
+}
+
+/* ---------- Rotating messages (center) ---------- */
+
+.center {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.message {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    font-size: 0.78rem;
+    letter-spacing: 0.055em;
+    pointer-events: none;
+}
+
+.message.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.msgIcon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.msgText {
+    font-weight: 700;
+    color: #C5A059;
+    letter-spacing: 0.07em;
+}
+
+.sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 300;
+    font-size: 0.7rem;
+}
+
+.msgSub {
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- Right: CTA chip ---------- */
+
+.ctaChip {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(197, 160, 89, 0.12);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 9999px;
+    padding: 0.22rem 0.65rem;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.ctaChip:hover {
+    background: rgba(197, 160, 89, 0.22);
+    border-color: rgba(197, 160, 89, 0.55);
+}
+
+.ctaDays {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #C5A059;
+    letter-spacing: 0.03em;
+}
+
+.ctaLabel {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.04em;
+}
+
+.todayBadge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #C5A059;
+    animation: todayFlash 0.8s ease-in-out infinite alternate;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@keyframes todayFlash {
+    from { opacity: 1; }
+    to   { opacity: 0.4; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+    .banner {
+        height: 52px;
+        padding: 0 0.75rem;
+        gap: 0.5rem;
+    }
+
+    /* Hide father silhouette on mobile — too tight */
+    .fatherSvg {
+        display: none;
+    }
+
+    .message {
+        font-size: 0.72rem;
+        flex-direction: column;
+        gap: 0.15rem;
+        line-height: 1.25;
+    }
+
+    .sep {
+        display: none;
+    }
+
+    .msgSub {
+        font-size: 0.68rem;
+    }
+
+    .ctaChip {
+        padding: 0.18rem 0.5rem;
+    }
+
+    .ctaLabel {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .side:first-child {
+        display: none;
+    }
+
+    .banner {
+        grid-template-columns: 1fr auto;
+    }
+}

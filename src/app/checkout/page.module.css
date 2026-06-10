@@ -17,8 +17,8 @@
     justify-content: space-between;
     padding: 0.875rem 1.5rem;
     background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(197,160,89,0.15);
 }
 
@@ -211,8 +211,8 @@
     border: 1px solid rgba(197,160,89,0.18);
     border-radius: 20px;
     padding: 2rem;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     box-shadow:
         0 0 0 1px rgba(255,255,255,0.8) inset,
         0 4px 24px rgba(0,0,0,0.07),

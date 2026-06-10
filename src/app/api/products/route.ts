@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchProducts } from '@/core/api/products.api';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 import type { Category } from '@/core/types/product';
 
 export async function GET(request: NextRequest) {
@@ -22,11 +22,10 @@ export async function GET(request: NextRequest) {
 
         const products = await fetchProducts(params);
 
-        return NextResponse.json({
-            success: true,
-            data: products,
-            count: products.length,
-        });
+        return NextResponse.json(
+            { success: true, data: products, count: products.length },
+            { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' } }
+        );
     } catch (error) {
         console.error('API Route Error:', error);
 

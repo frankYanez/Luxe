@@ -3,7 +3,8 @@ import './globals.css';
 import '@/styles/tailwind.css';
 import { siteConfig } from '@/core/config/site';
 import { PageLoader } from '@/components/shared/PageLoader';
-import { TopBanner } from '@/components/layout/TopBanner';
+// 🎁 Día del Padre — para revertir: cambiar a '@/components/layout/TopBanner'
+import { TopBanner } from '@/components/layout/TopBannerFathersDay';
 
 const SITE_URL = 'https://luxefragancias.com';
 

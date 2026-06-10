@@ -24,7 +24,7 @@ const CATEGORY_LABEL: Record<string, string> = {
     unisex: 'Unisex',
 };
 
-export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
+export const ProductCard = React.memo(function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
     const { addToCart } = useCart();
     const [imageError, setImageError] = useState(false);
     const [addedBottle, setAddedBottle] = useState(false);
@@ -228,4 +228,4 @@ export function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
             </div>
         </article>
     );
-}
+}, (prev, next) => prev.product.id === next.product.id && prev.animationDelay === next.animationDelay);

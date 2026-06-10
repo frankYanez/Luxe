@@ -172,11 +172,16 @@ export default function ColorBends({
         const mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
 
-        const renderer = new THREE.WebGLRenderer({
-            antialias: false,
-            powerPreference: 'high-performance',
-            alpha: true
-        });
+        let renderer: THREE.WebGLRenderer;
+        try {
+            renderer = new THREE.WebGLRenderer({
+                antialias: false,
+                powerPreference: 'high-performance',
+                alpha: true
+            });
+        } catch {
+            return;
+        }
         rendererRef.current = renderer;
         (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -226,7 +231,19 @@ export default function ColorBends({
         };
         rafRef.current = requestAnimationFrame(loop);
 
+        // Pause animation when tab is hidden — saves GPU/CPU when user is away
+        const onVisibility = () => {
+            if (document.hidden) {
+                if (rafRef.current !== null) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+            } else {
+                clock.getDelta(); // reset delta so no jump on resume
+                rafRef.current = requestAnimationFrame(loop);
+            }
+        };
+        document.addEventListener('visibilitychange', onVisibility);
+
         return () => {
+            document.removeEventListener('visibilitychange', onVisibility);
             if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
             if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
             else (window as Window).removeEventListener('resize', handleResize);

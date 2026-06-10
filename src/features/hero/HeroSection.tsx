@@ -34,40 +34,40 @@ export function HeroSection() {
             { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power2.out' }
         )
 
-        /* Title words — clip reveal from bottom */
-        .fromTo(titleWords ?? [],
-            { y: '115%' },
-            { y: '0%', duration: 0.9, stagger: 0.055, ease: 'power3.out' },
-            '-=0.25'
-        )
+            /* Title words — clip reveal from bottom */
+            .fromTo(titleWords ?? [],
+                { y: '115%' },
+                { y: '0%', duration: 0.9, stagger: 0.055, ease: 'power3.out' },
+                '-=0.25'
+            )
 
-        /* Description */
-        .fromTo(descRef.current,
-            { opacity: 0, y: 32 },
-            { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
-            '-=0.5'
-        )
+            /* Description */
+            .fromTo(descRef.current,
+                { opacity: 0, y: 32 },
+                { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
+                '-=0.5'
+            )
 
-        /* CTAs */
-        .fromTo(ctaRef.current,
-            { opacity: 0, y: 24, scale: 0.97 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power2.out' },
-            '-=0.45'
-        )
+            /* CTAs */
+            .fromTo(ctaRef.current,
+                { opacity: 0, y: 24, scale: 0.97 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power2.out' },
+                '-=0.45'
+            )
 
-        /* Stats */
-        .fromTo(statsRef.current,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-            '-=0.35'
-        )
+            /* Stats */
+            .fromTo(statsRef.current,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+                '-=0.35'
+            )
 
-        /* Visual images */
-        .fromTo(visualRef.current,
-            { opacity: 0, x: 60, scale: 0.92 },
-            { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'power3.out' },
-            '-=0.8'
-        );
+            /* Visual images */
+            .fromTo(visualRef.current,
+                { opacity: 0, x: 60, scale: 0.92 },
+                { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'power3.out' },
+                '-=0.8'
+            );
     }, { scope: heroRef });
 
     return (
@@ -179,13 +179,7 @@ export function HeroSection() {
                 </div>
             </Container>
 
-            {/* Scroll Indicator */}
-            <div className={styles.scrollIndicator}>
-                <div className={styles.scrollMouse}>
-                    <div className={styles.scrollWheel} />
-                </div>
-                <span className={styles.scrollText}>Deslizá para explorar</span>
-            </div>
+
         </section>
     );
 }
