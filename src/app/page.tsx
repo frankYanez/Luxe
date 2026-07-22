@@ -1,11 +1,9 @@
 import dynamic from 'next/dynamic';
 
-// 🎁 Día del Padre — para revertir: cambiar a '@/features/hero/HeroSection'
-import { HeroSectionFathersDay as HeroSection } from '@/features/hero/HeroSectionFathersDay';
+import { HeroSection } from '@/features/hero/HeroSection';
 import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
 
 // Below-fold sections — lazy loaded to reduce initial bundle
-const FathersDaySection   = dynamic(() => import('@/features/fathers-day/FathersDaySection').then(m => ({ default: m.FathersDaySection })));
 const FeaturedCarousel    = dynamic(() => import('@/features/offers/FeaturedCarousel').then(m => ({ default: m.FeaturedCarousel })));
 const BrandSection        = dynamic(() => import('@/features/brand/BrandSection').then(m => ({ default: m.BrandSection })));
 const BannersSection      = dynamic(() => import('@/features/banners/BannersSection').then(m => ({ default: m.BannersSection })));
@@ -41,8 +39,6 @@ export default function HomePage() {
                 text="3 CUOTAS SIN INTERÉS • ENVÍOS A TODO EL PAÍS • 100% ORIGINALES • "
                 velocity={1}
             />
-            {/* 🎁 TEMPORARIO: Día del Padre — remover después del 21 de junio */}
-            <FathersDaySection />
             <FeaturedCarousel />
             <BrandSection />
             <BannersSection />
