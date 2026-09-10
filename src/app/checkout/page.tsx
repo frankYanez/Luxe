@@ -5,12 +5,13 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useCart } from '@/context/CartContext';
+import { useCart, type CartItem } from '@/context/CartContext';
 import { siteConfig } from '@/core/config/site';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { encodeOrderId } from '@/core/utils/order-code';
+import { fbTrack } from '@/lib/fbpixel';
 import styles from './page.module.css';
 
 gsap.registerPlugin(useGSAP);
@@ -104,7 +105,17 @@ function CheckoutInner() {
     useEffect(() => {
         setMounted(true);
         const payment = searchParams.get('payment');
-        if (!payment) return;
+        if (!payment) {
+            if (items.length > 0) {
+                fbTrack('InitiateCheckout', {
+                    value: cartTotal,
+                    content_ids: items.map(i => i.id),
+                    contents: items.map(i => ({ id: i.id, quantity: i.quantity })),
+                    num_items: items.reduce((n, i) => n + i.quantity, 0),
+                });
+            }
+            return;
+        }
         const raw = sessionStorage.getItem(SESSION_KEY);
         if (!raw) return;
         const saved = JSON.parse(raw);
@@ -112,6 +123,12 @@ function CheckoutInner() {
             setOrderId(saved.orderId);
             setCustomer(saved.customer);
             setSavedTotal(saved.total);
+            fbTrack('Purchase', {
+                value: saved.total,
+                content_ids: (saved.items || []).map((i: CartItem) => i.id),
+                contents: (saved.items || []).map((i: CartItem) => ({ id: i.id, quantity: i.quantity })),
+                num_items: (saved.items || []).reduce((n: number, i: CartItem) => n + i.quantity, 0),
+            });
             clearCart();
             sessionStorage.removeItem(SESSION_KEY);
             setStep('success');
@@ -231,6 +248,12 @@ function CheckoutInner() {
         if (customer.address) msg += `*Dirección:* ${customer.address}\n`;
         msg += `\nAguardo confirmación. ¡Gracias! ✨`;
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        fbTrack('Purchase', {
+            value: cartTotal,
+            content_ids: items.map(i => i.id),
+            contents: items.map(i => ({ id: i.id, quantity: i.quantity })),
+            num_items: items.reduce((n, i) => n + i.quantity, 0),
+        });
         clearCart();
         router.push('/');
     };

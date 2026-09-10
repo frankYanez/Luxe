@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { fbTrack } from '@/lib/fbpixel';
 
 export interface CartItem {
     id: string;
@@ -58,6 +59,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             return [...current, { ...newItem, quantity: 1 }];
         });
         setIsOpen(true); // Open cart when adding
+        fbTrack('AddToCart', {
+            value: newItem.price,
+            content_ids: [newItem.id],
+            content_name: newItem.name,
+            content_type: 'product',
+        });
     };
 
     const removeFromCart = (id: string) => {
