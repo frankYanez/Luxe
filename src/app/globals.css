@@ -64,8 +64,11 @@
 
 /* ========================================
    TYPOGRAPHY SYSTEM
+   Font <link> loaded in src/app/layout.tsx <head> (preconnect + stylesheet)
+   instead of @import here — @import blocks CSSOM construction and can't
+   be discovered by the browser's preload scanner, which delays the LCP
+   text paint until after the whole stylesheet parses.
    ======================================== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -85,7 +88,7 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: var(--color-gray-800);
-  background-color: transparent;
+  background-color: var(--color-cream-white);
   overflow-x: hidden;
 }
 

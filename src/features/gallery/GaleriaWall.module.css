@@ -1,0 +1,44 @@
+.section {
+    position: relative;
+    padding: 6rem 0 7rem;
+}
+
+.header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+    padding: 0 1.5rem;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-matte-gold);
+    margin-bottom: 0.75rem;
+}
+
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    color: var(--color-deep-black);
+    margin: 0;
+}
+
+.wallWrap {
+    position: relative;
+    height: 620px;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+}
+
+@media (max-width: 768px) {
+    .wallWrap {
+        height: 460px;
+    }
+}

@@ -5,11 +5,11 @@ import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
 
 // Below-fold sections — lazy loaded to reduce initial bundle
 const FeaturedCarousel    = dynamic(() => import('@/features/offers/FeaturedCarousel').then(m => ({ default: m.FeaturedCarousel })));
-const BrandSection        = dynamic(() => import('@/features/brand/BrandSection').then(m => ({ default: m.BrandSection })));
+const BrandManifesto      = dynamic(() => import('@/features/brand/BrandManifesto').then(m => ({ default: m.BrandManifesto })));
 const BannersSection      = dynamic(() => import('@/features/banners/BannersSection').then(m => ({ default: m.BannersSection })));
 const ProductsSection     = dynamic(() => import('@/features/products/ProductsSection').then(m => ({ default: m.ProductsSection })));
 const DecantsSection      = dynamic(() => import('@/features/decants/DecantsSection').then(m => ({ default: m.DecantsSection })));
-const GaleriaSection      = dynamic(() => import('@/features/gallery/GaleriaSection').then(m => ({ default: m.GaleriaSection })));
+const GaleriaWall         = dynamic(() => import('@/features/gallery/GaleriaWall').then(m => ({ default: m.GaleriaWall })));
 const TestimonialsSection = dynamic(() => import('@/features/testimonials/TestimonialsSection').then(m => ({ default: m.TestimonialsSection })));
 const FAQSection          = dynamic(() => import('@/features/faq/FAQSection').then(m => ({ default: m.FAQSection })));
 const WhatsAppCTA         = dynamic(() => import('@/features/checkout/WhatsAppCTA').then(m => ({ default: m.WhatsAppCTA })));
@@ -40,13 +40,14 @@ export default function HomePage() {
                 velocity={1}
             />
             <FeaturedCarousel />
-            <BrandSection />
-            <BannersSection />
+            <BrandManifesto />
+            {/* Temporarily commented out for review — untouched by the react-bits pass, re-enable when done reviewing */}
+            {/* <BannersSection /> */}
             <ProductsSection />
             <DecantsSection />
-            <GaleriaSection />
+            <GaleriaWall />
             <TestimonialsSection />
-            <FAQSection />
+            {/* <FAQSection /> */}
             <WhatsAppCTA />
             <SocialFooter />
         </main>

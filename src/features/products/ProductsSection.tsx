@@ -13,6 +13,7 @@ import { useProducts } from '@/core/hooks/useProducts';
 import type { Category } from '@/core/types/product';
 import styles from './ProductsSection.module.css';
 import { wordReveal } from '@/lib/wordReveal';
+import BlurText from '@/components/BlurText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,9 +101,14 @@ export function ProductsSection() {
                                 {wordReveal('transforman tu presencia')}
                             </span>
                         </h2>
-                        <p className={styles.description} data-desc>
-                            Cada perfume es una obra maestra olfativa. Intensos, duraderos y memorables.
-                        </p>
+                        <div data-desc>
+                            <BlurText
+                                text="Cada perfume es una obra maestra olfativa. Intensos, duraderos y memorables."
+                                className={styles.description}
+                                animateBy="words"
+                                delay={40}
+                            />
+                        </div>
                     </div>
 
                     {/* Category Filter */}

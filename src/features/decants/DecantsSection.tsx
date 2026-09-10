@@ -7,8 +7,11 @@ import { useGSAP } from '@gsap/react';
 import { Container } from '@/components/shared/ui/Container';
 import { Section } from '@/components/shared/ui/Section';
 import styles from './DecantsSection.module.css';
-import { GlowingEffect } from '@/components/shared/ui/GlowingEffect';
 import { wordReveal } from '@/lib/wordReveal';
+import MagicBento from '@/components/MagicBento';
+import DecryptedText from '@/components/DecryptedText';
+
+const LUXE_GOLD_RGB = '197, 160, 89';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +36,6 @@ export function DecantsSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
     const timelineRef = useRef<HTMLDivElement>(null);
-    const benefitsRef = useRef<HTMLDivElement>(null);
 
     /* ── GSAP header reveal ── */
     useGSAP(() => {
@@ -116,31 +118,6 @@ export function DecantsSection() {
         }
     }, { scope: timelineRef });
 
-    /* ── GSAP benefits grid stagger ── */
-    useGSAP(() => {
-        const el = benefitsRef.current;
-        if (!el) return;
-
-        const cards = el.querySelectorAll('[data-benefit]');
-
-        gsap.fromTo(cards,
-            { opacity: 0, y: 50, scale: 0.92 },
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 82%',
-                    toggleActions: 'play none none none',
-                },
-            }
-        );
-    }, { scope: benefitsRef });
-
     return (
         <Section id="decants">
             <Container>
@@ -169,7 +146,14 @@ export function DecantsSection() {
                         {STEPS.map(({ num, title, text }) => (
                             <div key={num} data-timeline-item className={styles.timelineItem}>
                                 <div className={styles.timelineIcon}>
-                                    <span className={styles.iconNumber}>{num}</span>
+                                    <DecryptedText
+                                        text={num}
+                                        className={styles.iconNumber}
+                                        encryptedClassName={styles.iconNumber}
+                                        animateOn="view"
+                                        speed={40}
+                                        maxIterations={8}
+                                    />
                                 </div>
                                 <div className={styles.timelineContent}>
                                     <h3 className={styles.timelineTitle}>{title}</h3>
@@ -179,16 +163,19 @@ export function DecantsSection() {
                         ))}
                     </div>
 
-                    {/* Benefits Grid */}
-                    <div ref={benefitsRef} className={styles.benefitsGrid}>
-                        {BENEFITS.map(({ icon, title, text }) => (
-                            <div key={title} data-benefit className={styles.benefitCard}>
-                                <GlowingEffect spread={160} borderWidth={1} glow />
-                                <div className={styles.benefitIcon}>{icon}</div>
-                                <h4 className={styles.benefitTitle}>{title}</h4>
-                                <p className={styles.benefitText}>{text}</p>
-                            </div>
-                        ))}
+                    {/* Benefits Grid — react-bits MagicBento */}
+                    <div className={styles.benefitsGrid}>
+                        <MagicBento
+                            cards={BENEFITS.map(({ icon, title, text }) => ({ icon, title, description: text }))}
+                            glowColor={LUXE_GOLD_RGB}
+                            spotlightRadius={260}
+                            particleCount={8}
+                            enableTilt
+                            enableBorderGlow
+                            enableStars
+                            clickEffect
+                            enableMagnetism
+                        />
                     </div>
                 </div>
             </Container>

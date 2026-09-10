@@ -110,9 +110,7 @@
 
 /* Benefits Grid */
 .benefitsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.25rem;
+    /* MagicBento owns its own internal grid — this wrapper is layout-plain */
     margin-top: var(--space-3xl);
 }
 
@@ -191,7 +189,4 @@
         font-size: 1.25rem;
     }
 
-    .benefitsGrid {
-        grid-template-columns: 1fr;
-    }
 }

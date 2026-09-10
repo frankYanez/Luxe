@@ -84,7 +84,7 @@
 .productGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
+    gap: var(--space-lg);
 }
 
 /* Load More Button */

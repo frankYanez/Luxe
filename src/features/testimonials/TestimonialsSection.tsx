@@ -10,6 +10,8 @@ import { testimonials } from '@/core/data/testimonials';
 import styles from './TestimonialsSection.module.css';
 import { GlowingEffect } from '@/components/shared/ui/GlowingEffect';
 import { wordReveal } from '@/lib/wordReveal';
+import SplitText from '@/components/SplitText';
+import GlareHover from '@/components/GlareHover';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,7 +54,9 @@ export function TestimonialsSection() {
                 <div className={styles.testimonialsContent}>
                     {/* Header */}
                     <div ref={headerRef} className={styles.header}>
-                        <span className={styles.eyebrow} data-eyebrow>Voces de Tandil</span>
+                        <span className={styles.eyebrow} data-eyebrow>
+                            <SplitText text="Voces de Tandil" tag="span" splitType="chars" duration={0.6} delay={30} />
+                        </span>
                         <h2 className={styles.title}>
                             {wordReveal('Lo que dicen')}
                             <span className={styles.titleAccent}>
@@ -65,7 +69,21 @@ export function TestimonialsSection() {
                     <div className={styles.marqueeContainer}>
                         <div className={styles.marquee}>
                             {[...testimonials, ...testimonials].map((testimonial, index) => (
-                                <div key={`${testimonial.id}-${index}`} className={styles.testimonialCard}>
+                                <GlareHover
+                                    key={`${testimonial.id}-${index}`}
+                                    className={styles.spotlightReset}
+                                    width="100%"
+                                    height="100%"
+                                    background="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="0px"
+                                    glareColor="#C5A059"
+                                    glareOpacity={0.3}
+                                    glareAngle={-30}
+                                    glareSize={100}
+                                    transitionDuration={700}
+                                >
+                                <div className={styles.testimonialCard}>
                                     <GlowingEffect spread={160} borderWidth={1} glow />
                                     <div className={styles.cardHeader}>
                                         <div className={styles.avatar}>
@@ -97,6 +115,7 @@ export function TestimonialsSection() {
                                         </div>
                                     )}
                                 </div>
+                                </GlareHover>
                             ))}
                         </div>
                     </div>

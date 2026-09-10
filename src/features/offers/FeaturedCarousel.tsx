@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -12,6 +11,8 @@ import { siteConfig } from '@/core/config/site';
 import styles from './FeaturedCarousel.module.css';
 import { GlowingEffect } from '@/components/shared/ui/GlowingEffect';
 import { wordReveal } from '@/lib/wordReveal';
+import ShinyText from '@/components/ShinyText';
+import TiltedCard from '@/components/TiltedCard';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,7 +71,9 @@ export function FeaturedCarousel() {
         <Section>
             <Container>
                 <div ref={headerRef} className={styles.header}>
-                    <span className={styles.eyebrow} data-eyebrow>Productos Destacados</span>
+                    <span className={styles.eyebrow} data-eyebrow>
+                        <ShinyText text="Productos Destacados" speed={4} color="#C5A059" shineColor="#F0DCA0" />
+                    </span>
                     <h2 className={styles.title}>
                         {wordReveal('Las fragancias más')}
                         {' '}
@@ -91,38 +94,8 @@ export function FeaturedCarousel() {
 
                     {/* Carousel track */}
                     <div className={`${styles.carouselTrack} ${isPaused ? styles.paused : ''}`}>
-                        {loopProducts.map((product, index) => (
-                            <div
-                                key={`${product.id}-${index}`}
-                                className={styles.productCard}
-                            >
-                                <GlowingEffect spread={220} borderWidth={1.5} glow />
-
-                                {/* Featured Badge */}
-                                <div className={styles.featuredBadge}>
-                                    ✦ Destacado
-                                </div>
-
-                                {/* Full-bleed image */}
-                                <div className={styles.imageContainer}>
-                                    {product.image ? (
-                                        <Image
-                                            src={product.image}
-                                            alt={product.name}
-                                            fill
-                                            className={styles.productImage}
-                                            style={{ objectFit: 'contain' }}
-                                            sizes="(max-width: 768px) 260px, 320px"
-                                        />
-                                    ) : (
-                                        <div className={styles.imagePlaceholder}>
-                                            <span className={styles.placeholderIcon}>🌟</span>
-                                        </div>
-                                    )}
-                                    <div className={styles.imageOverlay} />
-                                </div>
-
-                                {/* Product Info */}
+                        {loopProducts.map((product, index) => {
+                            const info = (
                                 <div className={styles.productInfo}>
                                     <span className={styles.category}>
                                         {product.category === 'masculino' ? 'Masculino' : product.category === 'femenino' ? 'Femenino' : 'Unisex'}
@@ -155,8 +128,53 @@ export function FeaturedCarousel() {
                                         </svg>
                                     </button>
                                 </div>
-                            </div>
-                        ))}
+                            );
+
+                            return (
+                                <div
+                                    key={`${product.id}-${index}`}
+                                    className={styles.productCard}
+                                >
+                                    <GlowingEffect spread={220} borderWidth={1.5} glow />
+
+                                    <div className={styles.featuredBadge}>
+                                        ✦ Destacado
+                                    </div>
+
+                                    {product.image ? (
+                                        <TiltedCard
+                                            imageSrc={product.image}
+                                            altText={product.name}
+                                            containerHeight="100%"
+                                            containerWidth="100%"
+                                            imageHeight="100%"
+                                            imageWidth="100%"
+                                            scaleOnHover={1.07}
+                                            rotateAmplitude={9}
+                                            showMobileWarning={false}
+                                            showTooltip={false}
+                                            displayOverlayContent
+                                            overlayContent={
+                                                <>
+                                                    <div className={styles.imageOverlay} />
+                                                    {info}
+                                                </>
+                                            }
+                                        />
+                                    ) : (
+                                        <>
+                                            <div className={styles.imageContainer}>
+                                                <div className={styles.imagePlaceholder}>
+                                                    <span className={styles.placeholderIcon}>🌟</span>
+                                                </div>
+                                                <div className={styles.imageOverlay} />
+                                            </div>
+                                            {info}
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </Container>

@@ -10,6 +10,18 @@
     initial-value: 0deg;
 }
 
+/* GlareHover sizes itself via CSS custom properties at the same
+   specificity as this class, so pin height/background/border with
+   !important to make the outcome deterministic regardless of CSS
+   import order. */
+.glareReset {
+    height: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 1.75rem !important;
+    overflow: visible !important;
+}
+
 .card {
     position: relative;
     display: flex;
@@ -68,25 +80,6 @@
 
 @keyframes spin {
     to { --angle: 360deg; }
-}
-
-/* ── Cursor light ────────────────────────────────────────── */
-.cursorLight {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: radial-gradient(
-        480px circle at var(--mouse-x, -200px) var(--mouse-y, -200px),
-        rgba(197, 160, 89, 0.1),
-        transparent 42%
-    );
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.card:hover .cursorLight {
-    opacity: 1;
 }
 
 /* ── Media ──────────────────────────────────────────────── */

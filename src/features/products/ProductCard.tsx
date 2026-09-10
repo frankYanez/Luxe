@@ -10,6 +10,7 @@ import { useCart } from '@/context/CartContext';
 import { siteConfig } from '@/core/config/site';
 import styles from './ProductCard.module.css';
 import { GlowingEffect } from '@/components/shared/ui/GlowingEffect';
+import GlareHover from '@/components/GlareHover';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -87,8 +88,6 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
             const dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
             card.style.transform = `perspective(900px) rotateX(${-dy * 7}deg) rotateY(${dx * 7}deg) translateY(-4px)`;
             card.style.transition = 'transform 0.06s linear';
-            card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
-            card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
         });
     }, []);
 
@@ -122,6 +121,19 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
     };
 
     return (
+        <GlareHover
+            className={styles.glareReset}
+            width="100%"
+            height="100%"
+            background="transparent"
+            borderColor="transparent"
+            borderRadius="1.75rem"
+            glareColor="#C5A059"
+            glareOpacity={0.35}
+            glareAngle={-30}
+            glareSize={100}
+            transitionDuration={700}
+        >
         <article
             ref={cardRef}
             className={`${styles.card} ${!product.inStock ? styles.cardOut : ''}`}
@@ -131,7 +143,6 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
         >
             <GlowingEffect spread={160} borderWidth={1.5} glow />
             <span className={styles.ring} aria-hidden="true" />
-            <div className={styles.cursorLight} />
 
             {/* ── Media ── */}
             <div className={styles.media}>
@@ -243,5 +254,6 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                 </div>
             </div>
         </article>
+        </GlareHover>
     );
 }, (prev, next) => prev.product.id === next.product.id && prev.animationDelay === next.animationDelay);

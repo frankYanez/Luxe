@@ -80,6 +80,24 @@
     animation-play-state: paused;
 }
 
+/* Neutralizes react-bits SpotlightCard's own box so it only contributes
+   the mouse-tracked glow layer; .testimonialCard below owns the visuals.
+   Keeps the marquee's flex sizing (flex-shrink/width mirror .testimonialCard). */
+/* GlareHover sizes itself via CSS custom properties (--gh-width/height) at
+   the same specificity as this class, so pin the marquee's fixed flex-basis
+   with !important to make the outcome deterministic regardless of CSS
+   import order. */
+.spotlightReset {
+    flex-shrink: 0;
+    width: 380px !important;
+    height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+}
+
 /* Testimonial Card */
 .testimonialCard {
     flex-shrink: 0;
@@ -202,6 +220,10 @@
     .testimonialCard {
         width: 320px;
         padding: var(--space-lg);
+    }
+
+    .spotlightReset {
+        width: 320px !important;
     }
 
     .marqueeContainer::before,

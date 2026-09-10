@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Container } from '@/components/shared/ui/Container';
 import { siteConfig } from '@/core/config/site';
 import styles from './SocialFooter.module.css';
+import DecryptedText from '@/components/DecryptedText';
 
 /**
  * Social Footer Component
@@ -97,9 +98,16 @@ export function SocialFooter() {
                             <span className={styles.logoText}>Luxe Essence</span>
                         </div>
 
-                        <p className={styles.tagline}>
-                            El arte prohibido de las fragancias árabes en Tandil
-                        </p>
+                        <div className={styles.tagline}>
+                            <DecryptedText
+                                text="El arte prohibido de las fragancias árabes en Tandil"
+                                animateOn="view"
+                                speed={28}
+                                maxIterations={9}
+                                revealDirection="center"
+                                sequential
+                            />
+                        </div>
 
                         <div className={styles.contact}>
                             <a href={`mailto:${siteConfig.email}`} className={styles.contactLink}>

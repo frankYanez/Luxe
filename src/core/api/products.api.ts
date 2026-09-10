@@ -39,7 +39,13 @@ export async function fetchProducts(params?: {
     if (params?.perPage)   query = query.limit(params.perPage);
 
     const { data, error } = await query;
-    if (error) { console.error('Supabase fetchProducts error:', error); return []; }
+    if (error) {
+        console.error('Supabase fetchProducts error:', error);
+        // Propagate — swallowing this into [] would let the API route cache
+        // an empty catalog for 60s+ (revalidate) on every transient Supabase
+        // hiccup, showing "no products" to every visitor during that window.
+        throw new Error(error.message || 'Supabase fetchProducts failed');
+    }
     return (data ?? []).map(mapRow);
 }
 

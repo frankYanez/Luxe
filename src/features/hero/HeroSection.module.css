@@ -17,14 +17,15 @@
     /* Allow clicking through if needed, though ColorBends might have interactive elements */
 }
 
-/* Fade gradient at bottom */
+/* Fade gradient at bottom — dissolves the molten background into the
+   plain white page below, so the effect stays hero-only. */
 .hero::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 150px;
+    height: 320px;
     background: linear-gradient(to top, var(--color-cream-white) 0%, transparent 100%);
     pointer-events: none;
     z-index: 1;
