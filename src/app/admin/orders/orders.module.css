@@ -26,7 +26,7 @@
 .logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
-    color: #C5A059;
+    color: #C9A84C;
     margin: 0;
 }
 
@@ -59,7 +59,7 @@
     transition: border-color 0.15s, color 0.15s;
 }
 
-.logoutBtn:hover { border-color: #C5A059; color: #C5A059; }
+.logoutBtn:hover { border-color: #C9A84C; color: #C9A84C; }
 
 /* ── Main ─────────────────────────────────────── */
 .main {
@@ -103,7 +103,7 @@
 
 .pendingNum { color: #f59e0b; }
 .paidNum    { color: #4ade80; }
-.revenueNum { color: #C5A059; font-size: 1.1rem; }
+.revenueNum { color: #C9A84C; font-size: 1.1rem; }
 
 /* ── Filter bar ──────────────────────────────── */
 .filterBar {
@@ -135,8 +135,8 @@
 .filterBtn:hover { border-color: #333; color: #aaa; }
 
 .filterActive {
-    border-color: #C5A059;
-    color: #C5A059;
+    border-color: #C9A84C;
+    color: #C9A84C;
 }
 
 .filterCount {
@@ -187,7 +187,7 @@
 
 .card_pending    { border-left: 3px solid #f59e0b; }
 .card_processing { border-left: 3px solid #4ade80; }
-.card_completed  { border-left: 3px solid #C5A059; }
+.card_completed  { border-left: 3px solid #C9A84C; }
 .card_cancelled  { border-left: 3px solid #3a3a3a; }
 .card_failed     { border-left: 3px solid #f87171; }
 
@@ -244,7 +244,7 @@
 
 .pending    { background: #2a1f00; color: #f59e0b; }
 .processing { background: #0a2a0a; color: #4ade80; }
-.completed  { background: #1a1200; color: #C5A059; }
+.completed  { background: #1a1200; color: #C9A84C; }
 .cancelled  { background: #1a1a1a; color: #666; }
 .failed     { background: #2a0f0f; color: #f87171; }
 
@@ -292,7 +292,7 @@
 }
 
 .orderTotal {
-    color: #C5A059;
+    color: #C9A84C;
     font-size: 0.9rem;
     font-weight: 700;
 }
@@ -382,7 +382,7 @@
     max-width: 200px;
 }
 
-.statusSelect:focus { border-color: #C5A059; }
+.statusSelect:focus { border-color: #C9A84C; }
 
 /* ── Responsive ───────────────────────────────── */
 @media (max-width: 600px) {

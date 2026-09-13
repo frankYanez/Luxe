@@ -93,7 +93,7 @@
     justify-content: center;
     margin-top: var(--space-2xl);
     padding-top: var(--space-xl);
-    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
 }
 
 .loadMoreButton {
@@ -110,12 +110,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-slow);
-    box-shadow: 0 4px 16px rgba(197, 160, 89, 0.3);
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
 }
 
 .loadMoreButton:hover {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 24px rgba(197, 160, 89, 0.5);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.5);
 }
 
 .loadMoreCount {

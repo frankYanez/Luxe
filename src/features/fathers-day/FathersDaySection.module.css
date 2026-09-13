@@ -20,16 +20,16 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 90% 55% at 50% -5%,  rgba(197, 160, 89, 0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 40% at 15% 90%,  rgba(197, 160, 89, 0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 45% 35% at 85% 85%,  rgba(197, 160, 89, 0.06) 0%, transparent 55%);
+        radial-gradient(ellipse 90% 55% at 50% -5%,  rgba(201, 168, 76, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 40% at 15% 90%,  rgba(201, 168, 76, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 35% at 85% 85%,  rgba(201, 168, 76, 0.06) 0%, transparent 55%);
     z-index: 0;
 }
 
 .bgGlow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 30% at 50% 50%, rgba(197, 160, 89, 0.04) 0%, transparent 70%);
+    background: radial-gradient(ellipse 60% 30% at 50% 50%, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
     animation: breathe 7s ease-in-out infinite alternate;
     z-index: 0;
 }
@@ -51,8 +51,8 @@
 .particle {
     position: absolute;
     border-radius: 50%;
-    background: #C5A059;
-    box-shadow: 0 0 6px rgba(197, 160, 89, 0.6);
+    background: #C9A84C;
+    box-shadow: 0 0 6px rgba(201, 168, 76, 0.6);
     will-change: transform, opacity;
 }
 
@@ -75,7 +75,7 @@
     user-select: none;
     pointer-events: none;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(197, 160, 89, 0.06);
+    -webkit-text-stroke: 1px rgba(201, 168, 76, 0.06);
     z-index: 1;
     animation: watermarkDrift 20s ease-in-out infinite alternate;
 }
@@ -106,9 +106,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    background: rgba(197, 160, 89, 0.09);
-    border: 1px solid rgba(197, 160, 89, 0.28);
-    color: #C5A059;
+    background: rgba(201, 168, 76, 0.09);
+    border: 1px solid rgba(201, 168, 76, 0.28);
+    color: #C9A84C;
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.22em;
@@ -123,8 +123,8 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #C5A059;
-    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.5);
+    background: #C9A84C;
+    box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.5);
     animation: pulse 2.2s ease-in-out infinite;
     flex-shrink: 0;
 }
@@ -150,7 +150,7 @@
 
 .headlineGold {
     display: block;
-    background: linear-gradient(120deg, #E8C97A 0%, #C5A059 30%, #9D7E3F 60%, #D4B576 85%, #E8C97A 100%);
+    background: linear-gradient(120deg, #E8C97A 0%, #C9A84C 30%, #9D7E3F 60%, #D4B576 85%, #E8C97A 100%);
     background-size: 250% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -197,8 +197,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(197, 160, 89, 0.06);
-    border: 1px solid rgba(197, 160, 89, 0.18);
+    background: rgba(201, 168, 76, 0.06);
+    border: 1px solid rgba(201, 168, 76, 0.18);
     border-radius: 0.65rem;
     width: 72px;
     height: 70px;
@@ -220,8 +220,8 @@
     font-size: 2.6rem;
     font-weight: 600;
     line-height: 1;
-    color: #C5A059;
-    text-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+    color: #C9A84C;
+    text-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
 }
 
 .countLabel {
@@ -238,7 +238,7 @@
 .colon {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 2.4rem;
-    color: rgba(197, 160, 89, 0.35);
+    color: rgba(201, 168, 76, 0.35);
     line-height: 1;
     margin-top: 0.15rem;
     animation: blink 1s step-end infinite;
@@ -271,8 +271,8 @@
 }
 
 .pill:hover {
-    border-color: rgba(197, 160, 89, 0.35);
-    color: rgba(197, 160, 89, 0.8);
+    border-color: rgba(201, 168, 76, 0.35);
+    color: rgba(201, 168, 76, 0.8);
 }
 
 /* ---------- CTAs ---------- */
@@ -288,7 +288,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    background: linear-gradient(135deg, #C5A059 0%, #9D7E3F 100%);
+    background: linear-gradient(135deg, #C9A84C 0%, #9D7E3F 100%);
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 600;
@@ -298,12 +298,12 @@
     padding: 1rem 2.4rem;
     border-radius: 0.5rem;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 4px 22px rgba(197, 160, 89, 0.22);
+    box-shadow: 0 4px 22px rgba(201, 168, 76, 0.22);
 }
 
 .btnPrimary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 36px rgba(197, 160, 89, 0.38);
+    box-shadow: 0 10px 36px rgba(201, 168, 76, 0.38);
 }
 
 .btnPrimary svg {

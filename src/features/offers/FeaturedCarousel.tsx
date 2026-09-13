@@ -72,7 +72,7 @@ export function FeaturedCarousel() {
             <Container>
                 <div ref={headerRef} className={styles.header}>
                     <span className={styles.eyebrow} data-eyebrow>
-                        <ShinyText text="Productos Destacados" speed={4} color="#C5A059" shineColor="#F0DCA0" />
+                        <ShinyText text="Productos Destacados" speed={4} color="#C9A84C" shineColor="#F0DCA0" />
                     </span>
                     <h2 className={styles.title}>
                         {wordReveal('Las fragancias más')}

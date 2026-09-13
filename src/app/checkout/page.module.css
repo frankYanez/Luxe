@@ -32,13 +32,13 @@
     padding: 0.45rem 0.875rem;
     transition: all 0.2s;
 }
-.backBtn:hover { color: #1a1a1a; border-color: #C5A059; background: rgba(197,160,89,0.1); }
+.backBtn:hover { color: #1a1a1a; border-color: #C9A84C; background: rgba(197,160,89,0.1); }
 
 .logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.4rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #C5A059 0%, #e8c97a 50%, #9D7E3F 100%);
+    background: linear-gradient(135deg, #C9A84C 0%, #e8c97a 50%, #9D7E3F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -180,16 +180,16 @@
 }
 
 .stepActive .stepCircle {
-    border-color: #C5A059;
-    color: #C5A059;
+    border-color: #C9A84C;
+    color: #C9A84C;
     background: rgba(197,160,89,0.06);
     box-shadow: 0 0 0 4px rgba(197,160,89,0.1);
 }
-.stepActive .stepLabel { color: #C5A059; }
+.stepActive .stepLabel { color: #C9A84C; }
 
 .stepDone .stepCircle {
-    border-color: #C5A059;
-    background: #C5A059;
+    border-color: #C9A84C;
+    background: #C9A84C;
     color: white;
 }
 .stepDone .stepLabel { color: #999; }
@@ -257,13 +257,13 @@
 .itemName { font-size: 0.9rem; font-weight: 500; color: #1a1a1a; }
 .itemVariant { font-size: 0.75rem; color: #999; }
 .itemQty { font-size: 0.73rem; color: #bbb; }
-.itemPrice { font-size: 0.9rem; font-weight: 600; color: #C5A059; white-space: nowrap; }
+.itemPrice { font-size: 0.9rem; font-weight: 600; color: #C9A84C; white-space: nowrap; }
 
 .divider { height: 1px; background: rgba(0,0,0,0.06); margin: 1rem 0; }
 
 .totalRow { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
 .totalLabel { color: #888; font-size: 0.9rem; }
-.totalAmount { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: #C5A059; }
+.totalAmount { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: #C9A84C; }
 
 /* ─── Form ───────────────────────────────────────────────── */
 .formStack { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
@@ -281,7 +281,7 @@
     transition: border-color 0.2s, box-shadow 0.2s !important;
 }
 .input:focus {
-    border-color: #C5A059 !important;
+    border-color: #C9A84C !important;
     box-shadow: 0 0 0 3px rgba(197,160,89,0.12) !important;
     outline: none !important;
 }
@@ -292,7 +292,7 @@
 
 .primaryBtn {
     flex: 1;
-    background: linear-gradient(135deg, #C5A059 0%, #a8854a 100%);
+    background: linear-gradient(135deg, #C9A84C 0%, #a8854a 100%);
     border: none;
     border-radius: 12px;
     color: white;
@@ -324,7 +324,7 @@
     transition: all 0.2s;
     white-space: nowrap;
 }
-.secondaryBtn:hover { color: #1a1a1a; border-color: #C5A059; }
+.secondaryBtn:hover { color: #1a1a1a; border-color: #C9A84C; }
 
 .spinner {
     display: inline-block;
@@ -353,7 +353,7 @@
     letter-spacing: 0.02em;
 }
 .orderTagDot {
-    width: 6px; height: 6px; border-radius: 50%; background: #C5A059;
+    width: 6px; height: 6px; border-radius: 50%; background: #C9A84C;
     animation: blink 2s ease-in-out infinite;
 }
 @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
@@ -378,7 +378,7 @@
 .paymentOption:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
 
 .paymentOnline { border-color: rgba(197,160,89,0.3); background: rgba(255,252,245,0.95); }
-.paymentOnline:hover { border-color: #C5A059; box-shadow: 0 6px 20px rgba(197,160,89,0.2); }
+.paymentOnline:hover { border-color: #C9A84C; box-shadow: 0 6px 20px rgba(197,160,89,0.2); }
 
 .paymentWhatsApp:hover { border-color: rgba(37,211,102,0.4); box-shadow: 0 6px 20px rgba(37,211,102,0.12); }
 
@@ -388,7 +388,7 @@
 .payInfo p { color: #999; font-size: 0.75rem; margin: 0; }
 
 .payArrow { color: #ccc; font-size: 1rem; transition: transform 0.2s, color 0.2s; }
-.paymentOption:hover .payArrow { transform: translateX(4px); color: #C5A059; }
+.paymentOption:hover .payArrow { transform: translateX(4px); color: #C9A84C; }
 
 .trustRow {
     display: flex;
@@ -403,7 +403,7 @@
 .trustItem { display: flex; align-items: center; gap: 0.3rem; color: #bbb; font-size: 0.7rem; }
 
 .payNote { color: #bbb; font-size: 0.78rem; margin-top: 0.75rem; text-align: center; }
-.payLink { color: #C5A059; text-decoration: none; }
+.payLink { color: #C9A84C; text-decoration: none; }
 .payLink:hover { text-decoration: underline; }
 
 /* ─── Success ─────────────────────────────────────────────── */
@@ -413,11 +413,11 @@
 .checkSvg { width: 80px; height: 80px; }
 .checkCircleBg { fill: none; stroke: rgba(197,160,89,0.2); stroke-width: 3; }
 .checkCircleFill {
-    fill: none; stroke: #C5A059; stroke-width: 3; stroke-linecap: round;
+    fill: none; stroke: #C9A84C; stroke-width: 3; stroke-linecap: round;
     stroke-dasharray: 157; stroke-dashoffset: 157;
 }
 .checkMark {
-    fill: none; stroke: #C5A059; stroke-width: 3;
+    fill: none; stroke: #C9A84C; stroke-width: 3;
     stroke-linecap: round; stroke-linejoin: round;
     stroke-dasharray: 30; stroke-dashoffset: 30;
 }
@@ -431,7 +431,7 @@
     line-height: 1.2;
 }
 
-.successTagline { color: #C5A059; font-style: italic; font-size: 0.9rem; margin: 0 0 0.75rem; }
+.successTagline { color: #C9A84C; font-style: italic; font-size: 0.9rem; margin: 0 0 0.75rem; }
 .successSubtitle { color: #888; font-size: 0.875rem; line-height: 1.6; margin: 0 0 1.5rem; }
 
 .successDetails {
@@ -447,7 +447,7 @@
 .successRow span { color: #999; }
 .successRow strong { color: #1a1a1a; }
 
-.successCode { font-family: 'Courier New', monospace; color: #C5A059; font-size: 1rem; letter-spacing: 0.06em; }
+.successCode { font-family: 'Courier New', monospace; color: #C9A84C; font-size: 1rem; letter-spacing: 0.06em; }
 
 .successStatus {
     background: rgba(74,222,128,0.08);

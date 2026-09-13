@@ -28,7 +28,7 @@ const STEPS = [
 
 const SESSION_KEY = 'luxe_pending_order';
 
-const CONFETTI_COLORS = ['#C5A059', '#e8c97a', '#a8854a', '#ffffff', '#d4af6a', '#8B6914'];
+const CONFETTI_COLORS = ['#C9A84C', '#e8c97a', '#a8854a', '#ffffff', '#d4af6a', '#8B6914'];
 
 function Confetti() {
     const wrapRef  = useRef<HTMLDivElement>(null);
@@ -405,7 +405,7 @@ function CheckoutInner() {
 
                             <h2 className={styles.cardTitle}>Elegí cómo pagar</h2>
                             <p className={styles.cardSubtitle}>
-                                Total: <strong style={{ color: '#C5A059' }}>${cartTotal.toLocaleString('es-AR')}</strong>
+                                Total: <strong style={{ color: '#C9A84C' }}>${cartTotal.toLocaleString('es-AR')}</strong>
                                 {' '}— Completá el pago para confirmar tu envío.
                             </p>
 
@@ -461,7 +461,7 @@ function CheckoutInner() {
                             <p data-reveal className={styles.successTagline}>Gracias por elegir Luxe Essence</p>
                             <p data-reveal className={styles.successSubtitle}>
                                 Recibimos tu pedido con éxito.{' '}
-                                {customer.email && <>Te enviaremos los detalles a <strong style={{ color: '#C5A059' }}>{customer.email}</strong>.</>}
+                                {customer.email && <>Te enviaremos los detalles a <strong style={{ color: '#C9A84C' }}>{customer.email}</strong>.</>}
                                 {' '}Nos pondremos en contacto para coordinar el envío.
                             </p>
 

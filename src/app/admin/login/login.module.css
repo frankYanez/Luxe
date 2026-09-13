@@ -134,7 +134,7 @@
     backdrop-filter: blur(8px);
 }
 .backBtn:hover {
-    color: #C5A059;
+    color: #C9A84C;
     border-color: rgba(197,160,89,0.35);
     background: rgba(197,160,89,0.07);
 }
@@ -178,7 +178,7 @@
 .brandIcon {
     display: block;
     font-size: 1.5rem;
-    color: #C5A059;
+    color: #C9A84C;
     margin-bottom: 0.5rem;
     animation: float 4s ease-in-out infinite;
 }
@@ -194,7 +194,7 @@
     font-weight: 600;
     color: #fff;
     margin: 0 0 0.2rem;
-    background: linear-gradient(135deg, #e8c97a 0%, #C5A059 50%, #9D7E3F 100%);
+    background: linear-gradient(135deg, #e8c97a 0%, #C9A84C 50%, #9D7E3F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -265,7 +265,7 @@
 }
 
 .btn {
-    background: linear-gradient(135deg, #C5A059 0%, #a8854a 100%);
+    background: linear-gradient(135deg, #C9A84C 0%, #a8854a 100%);
     border: none;
     border-radius: 10px;
     color: #0a0a0a;

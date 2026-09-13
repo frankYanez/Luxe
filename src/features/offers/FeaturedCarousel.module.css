@@ -100,14 +100,14 @@
 }
 
 .productCard:hover {
-    border-color: rgba(197, 160, 89, 0.3);
+    border-color: rgba(201, 168, 76, 0.3);
     transform: translateY(-10px) scale(1.02);
     box-shadow:
         0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
         0 4px 10px rgba(0, 0, 0, 0.6),
         0 16px 40px rgba(0, 0, 0, 0.5),
         0 40px 80px rgba(0, 0, 0, 0.3),
-        0 60px 100px rgba(197, 160, 89, 0.09);
+        0 60px 100px rgba(201, 168, 76, 0.09);
 }
 
 /* ── Image area ──────────────────────────────────────────── */
@@ -126,7 +126,7 @@
 
 .productCard:hover .productImage {
     transform: scale(1.07) translateY(-6px);
-    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(197, 160, 89, 0.1));
+    filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(201, 168, 76, 0.1));
 }
 
 .imagePlaceholder {
@@ -164,7 +164,7 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.3rem 0.8rem;
-    background: linear-gradient(135deg, rgba(197, 160, 89, 0.9), rgba(157, 126, 63, 0.9));
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.9), rgba(157, 126, 63, 0.9));
     color: #fff;
     font-size: 0.68rem;
     font-weight: 700;
@@ -271,7 +271,7 @@
 
 .ctaButton:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(197, 160, 89, 0.4);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
 }
 
 .ctaButton svg {

@@ -1,23 +1,32 @@
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 
+import { PerfumeFrameIntro } from '@/features/hero/PerfumeFrameIntro';
+import { SiteHeader } from '@/components/layout/SiteHeader';
 import { HeroSection } from '@/features/hero/HeroSection';
 import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
 
 // Below-fold sections — lazy loaded to reduce initial bundle
-const FeaturedCarousel    = dynamic(() => import('@/features/offers/FeaturedCarousel').then(m => ({ default: m.FeaturedCarousel })));
-const BrandManifesto      = dynamic(() => import('@/features/brand/BrandManifesto').then(m => ({ default: m.BrandManifesto })));
-const BannersSection      = dynamic(() => import('@/features/banners/BannersSection').then(m => ({ default: m.BannersSection })));
-const ProductsSection     = dynamic(() => import('@/features/products/ProductsSection').then(m => ({ default: m.ProductsSection })));
-const DecantsSection      = dynamic(() => import('@/features/decants/DecantsSection').then(m => ({ default: m.DecantsSection })));
-const GaleriaWall         = dynamic(() => import('@/features/gallery/GaleriaWall').then(m => ({ default: m.GaleriaWall })));
-const TestimonialsSection = dynamic(() => import('@/features/testimonials/TestimonialsSection').then(m => ({ default: m.TestimonialsSection })));
-const FAQSection          = dynamic(() => import('@/features/faq/FAQSection').then(m => ({ default: m.FAQSection })));
-const WhatsAppCTA         = dynamic(() => import('@/features/checkout/WhatsAppCTA').then(m => ({ default: m.WhatsAppCTA })));
-const SocialFooter        = dynamic(() => import('@/components/footer/SocialFooter').then(m => ({ default: m.SocialFooter })));
+const FeaturedCarousel    = nextDynamic(() => import('@/features/offers/FeaturedCarousel').then(m => ({ default: m.FeaturedCarousel })));
+const BrandManifesto      = nextDynamic(() => import('@/features/brand/BrandManifesto').then(m => ({ default: m.BrandManifesto })));
+const DecantsCTABand      = nextDynamic(() => import('@/features/decants/DecantsCTABand').then(m => ({ default: m.DecantsCTABand })));
+const BannersSection      = nextDynamic(() => import('@/features/banners/BannersSection').then(m => ({ default: m.BannersSection })));
+const ProductsSection     = nextDynamic(() => import('@/features/products/ProductsSection').then(m => ({ default: m.ProductsSection })));
+const DecantsSection      = nextDynamic(() => import('@/features/decants/DecantsSection').then(m => ({ default: m.DecantsSection })));
+const GaleriaWall         = nextDynamic(() => import('@/features/gallery/GaleriaWall').then(m => ({ default: m.GaleriaWall })));
+const TestimonialsSection = nextDynamic(() => import('@/features/testimonials/TestimonialsSection').then(m => ({ default: m.TestimonialsSection })));
+const FAQSection          = nextDynamic(() => import('@/features/faq/FAQSection').then(m => ({ default: m.FAQSection })));
+const WhatsAppCTA         = nextDynamic(() => import('@/features/checkout/WhatsAppCTA').then(m => ({ default: m.WhatsAppCTA })));
+const SocialFooter        = nextDynamic(() => import('@/components/footer/SocialFooter').then(m => ({ default: m.SocialFooter })));
+
+// Product data is live from Supabase and several below-fold sections use
+// browser-only libs (GSAP/OGL/canvas) that can't be statically prerendered —
+// render this route per-request instead of at build time.
+export const dynamic = 'force-dynamic';
 
 /**
  * Homepage — Luxe Essence
  * Sales funnel order:
+ *  0. PerfumeFrameIntro → pinned frame-scrub, perfume first, site reveals on scroll
  *  1. Hero           → gancho emocional + doble CTA
  *  2. ScrollVelocity → trust signals inmediatos (cuotas, envíos, originales)
  *  3. FeaturedCarousel → aspiración / best sellers
@@ -34,6 +43,8 @@ const SocialFooter        = dynamic(() => import('@/components/footer/SocialFoot
 export default function HomePage() {
     return (
         <main>
+            <PerfumeFrameIntro />
+            <SiteHeader />
             <HeroSection />
             <ScrollVelocity
                 text="3 CUOTAS SIN INTERÉS • ENVÍOS A TODO EL PAÍS • 100% ORIGINALES • "
@@ -41,6 +52,7 @@ export default function HomePage() {
             />
             <FeaturedCarousel />
             <BrandManifesto />
+            <DecantsCTABand />
             {/* Temporarily commented out for review — untouched by the react-bits pass, re-enable when done reviewing */}
             {/* <BannersSection /> */}
             <ProductsSection />

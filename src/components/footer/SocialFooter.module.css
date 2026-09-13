@@ -92,7 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(197, 160, 89, 0.05));
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.05));
     border-radius: var(--radius-xl);
     transition: all var(--transition-base);
 }
@@ -178,8 +178,8 @@
 .brandSection {
     text-align: center;
     padding: var(--space-2xl) 0;
-    border-top: 1px solid rgba(197, 160, 89, 0.2);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
     margin-bottom: var(--space-xl);
 }
 
@@ -257,7 +257,7 @@
     letter-spacing: 0.08em;
     transition: color 0.2s;
 }
-.adminLink:hover { color: #C5A059; }
+.adminLink:hover { color: #C9A84C; }
 
 /* Decorative Orbs */
 .decorativeOrb1,
@@ -273,7 +273,7 @@
 .decorativeOrb1 {
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(197, 160, 89, 0.4) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.4) 0%, transparent 70%);
     top: 10%;
     right: -10%;
 }

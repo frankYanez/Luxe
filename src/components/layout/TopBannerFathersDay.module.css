@@ -24,7 +24,7 @@
         #100e08 60%,
         #0c0a06 100%
     );
-    border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
 }
 
 /* ---------- Shimmer line (bottom) ---------- */
@@ -38,7 +38,7 @@
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(197, 160, 89, 0.7) 50%,
+        rgba(201, 168, 76, 0.7) 50%,
         transparent 100%
     );
     animation: lineSlide 4s linear infinite;
@@ -63,14 +63,14 @@
 
 .giftSvg,
 .fatherSvg {
-    color: #C5A059;
+    color: #C9A84C;
     flex-shrink: 0;
     opacity: 0.9;
 }
 
 .giftSvg {
     animation: giftBounce 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 4px rgba(197, 160, 89, 0.35));
+    filter: drop-shadow(0 0 4px rgba(201, 168, 76, 0.35));
 }
 
 @keyframes giftBounce {
@@ -80,7 +80,7 @@
 }
 
 .fatherSvg {
-    color: rgba(197, 160, 89, 0.65);
+    color: rgba(201, 168, 76, 0.65);
     animation: fatherPulse 5s ease-in-out infinite;
 }
 
@@ -130,7 +130,7 @@
 
 .msgText {
     font-weight: 700;
-    color: #C5A059;
+    color: #C9A84C;
     letter-spacing: 0.07em;
 }
 
@@ -151,8 +151,8 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    background: rgba(197, 160, 89, 0.12);
-    border: 1px solid rgba(197, 160, 89, 0.3);
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid rgba(201, 168, 76, 0.3);
     border-radius: 9999px;
     padding: 0.22rem 0.65rem;
     text-decoration: none;
@@ -162,14 +162,14 @@
 }
 
 .ctaChip:hover {
-    background: rgba(197, 160, 89, 0.22);
-    border-color: rgba(197, 160, 89, 0.55);
+    background: rgba(201, 168, 76, 0.22);
+    border-color: rgba(201, 168, 76, 0.55);
 }
 
 .ctaDays {
     font-size: 0.72rem;
     font-weight: 700;
-    color: #C5A059;
+    color: #C9A84C;
     letter-spacing: 0.03em;
 }
 
@@ -184,7 +184,7 @@
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.1em;
-    color: #C5A059;
+    color: #C9A84C;
     animation: todayFlash 0.8s ease-in-out infinite alternate;
     white-space: nowrap;
     flex-shrink: 0;

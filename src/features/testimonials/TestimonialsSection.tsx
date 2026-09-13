@@ -77,7 +77,7 @@ export function TestimonialsSection() {
                                     background="transparent"
                                     borderColor="transparent"
                                     borderRadius="0px"
-                                    glareColor="#C5A059"
+                                    glareColor="#C9A84C"
                                     glareOpacity={0.3}
                                     glareAngle={-30}
                                     glareSize={100}

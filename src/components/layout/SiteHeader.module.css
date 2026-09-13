@@ -1,0 +1,119 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    padding: 13px 5vw;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.09);
+}
+
+.logo {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(17px, 4.6vw, 21px);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-deep-black);
+}
+
+.dot {
+    color: var(--color-matte-gold);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 3.4vw, 26px);
+}
+
+.navLink {
+    color: rgba(17, 17, 17, 0.7);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color var(--transition-base);
+}
+
+.navLink:hover {
+    color: var(--color-deep-black);
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 22px;
+    border-radius: var(--radius-full);
+    background: var(--color-deep-black);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta:hover {
+    background: var(--color-matte-gold);
+    color: var(--color-deep-black);
+}
+
+.ctaDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-matte-gold);
+    animation: headerPulse 2s ease-in-out infinite;
+}
+
+@keyframes headerPulse {
+
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+.beamTrack {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    overflow: hidden;
+}
+
+.beam {
+    width: 34%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(201, 168, 76, 0), var(--color-matte-gold), rgba(201, 168, 76, 0));
+    animation: headerBeam 6s linear infinite;
+}
+
+@keyframes headerBeam {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+@media (max-width: 560px) {
+    .navLink {
+        display: none;
+    }
+}

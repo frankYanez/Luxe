@@ -80,8 +80,8 @@
 .tabBtn:hover { color: #aaa; }
 
 .tabActive {
-    border-bottom-color: #C5A059;
-    color: #C5A059;
+    border-bottom-color: #C9A84C;
+    color: #C9A84C;
 }
 
 /* ── Tab content ─────────────────────────────── */
@@ -116,7 +116,7 @@
 }
 
 .sectionTitle {
-    color: #C5A059;
+    color: #C9A84C;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.07em;
@@ -160,7 +160,7 @@
     box-sizing: border-box;
 }
 
-.input:focus, .select:focus, .textarea:focus { border-color: #C5A059; }
+.input:focus, .select:focus, .textarea:focus { border-color: #C9A84C; }
 .select { cursor: pointer; appearance: auto; }
 .textarea { resize: vertical; font-family: inherit; }
 .mt { margin-top: 0.5rem; }
@@ -217,7 +217,7 @@
     background: #1a1200;
     border: 1px solid #3a2800;
     border-radius: 6px;
-    color: #C5A059;
+    color: #C9A84C;
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
@@ -289,7 +289,7 @@
     font-size: 0.875rem;
 }
 
-.checkLabel input { accent-color: #C5A059; }
+.checkLabel input { accent-color: #C9A84C; }
 
 /* ── Error ───────────────────────────────────── */
 .error {
@@ -326,7 +326,7 @@
 .cancelBtn:hover { border-color: #555; color: #ccc; }
 
 .saveBtn {
-    background: #C5A059;
+    background: #C9A84C;
     border: none;
     border-radius: 8px;
     color: #0a0a0a;

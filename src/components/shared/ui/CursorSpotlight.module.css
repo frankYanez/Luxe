@@ -5,7 +5,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(197, 160, 89, 0.35) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.35) 0%, transparent 70%);
     pointer-events: none;
     z-index: 99998;
     mix-blend-mode: multiply;
@@ -19,7 +19,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1.5px solid rgba(197, 160, 89, 0.5);
+    border: 1.5px solid rgba(201, 168, 76, 0.5);
     pointer-events: none;
     z-index: 99997;
     will-change: transform;

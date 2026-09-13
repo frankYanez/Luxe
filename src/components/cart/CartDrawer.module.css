@@ -26,7 +26,7 @@
         -24px 0 64px rgba(10, 10, 10, 0.15),
         -48px 0 96px rgba(10, 10, 10, 0.08);
     position: relative;
-    border-left: 1px solid rgba(197, 160, 89, 0.18);
+    border-left: 1px solid rgba(201, 168, 76, 0.18);
 }
 
 /* ─── Animations ──────────────────────────────────────────── */
@@ -342,7 +342,7 @@
 
 .checkoutBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(197, 160, 89, 0.35);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
 }
 
 .checkoutBtn:active { transform: translateY(0); }

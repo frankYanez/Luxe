@@ -20,7 +20,7 @@
     --y: 50%;
     --spread: 200px;
     --bw: 2px;
-    --color: rgba(197, 160, 89, 0.85);
+    --color: rgba(201, 168, 76, 0.85);
     --opacity: 0;
 
     opacity: var(--opacity);
@@ -53,7 +53,7 @@
     border-radius: inherit;
     background: radial-gradient(
         calc(var(--spread) * 0.6) circle at var(--x) var(--y),
-        rgba(197, 160, 89, 0.25),
+        rgba(201, 168, 76, 0.25),
         transparent 70%
     );
     z-index: -1;

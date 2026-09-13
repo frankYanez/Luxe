@@ -27,7 +27,7 @@
 .logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
-    color: #C5A059;
+    color: #C9A84C;
     margin: 0;
     white-space: nowrap;
 }
@@ -81,7 +81,7 @@
     white-space: nowrap;
 }
 
-.logoutBtn:hover { border-color: #C5A059; color: #C5A059; }
+.logoutBtn:hover { border-color: #C9A84C; color: #C9A84C; }
 
 /* ── Main ─────────────────────────────────────── */
 .main {
@@ -112,7 +112,7 @@
     transition: border-color 0.2s;
 }
 
-.search:focus { border-color: #C5A059; }
+.search:focus { border-color: #C9A84C; }
 
 .importBtn {
     background: #0f2a0f;
@@ -131,7 +131,7 @@
 .importBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .newBtn {
-    background: #C5A059;
+    background: #C9A84C;
     border-radius: 8px;
     color: #0a0a0a;
     font-size: 0.82rem;
@@ -252,7 +252,7 @@
 }
 
 .cardPrice {
-    color: #C5A059;
+    color: #C9A84C;
     font-size: 0.88rem;
     font-weight: 600;
 }
@@ -336,7 +336,7 @@
     transition: border-color 0.2s;
 }
 
-.stockInput:focus { border-color: #C5A059; }
+.stockInput:focus { border-color: #C9A84C; }
 .stockInput::-webkit-inner-spin-button { opacity: 0; }
 .stockZero { color: #f87171; }
 
@@ -350,7 +350,7 @@
     background: #2a1500;
     border: 1px solid #5a3000;
     border-radius: 4px;
-    color: #C5A059;
+    color: #C9A84C;
     font-size: 0.72rem;
     font-weight: 700;
     padding: 0.15rem 0.4rem;

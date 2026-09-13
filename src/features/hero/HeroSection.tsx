@@ -6,11 +6,8 @@ import { useGSAP } from '@gsap/react';
 import { Container } from '@/components/shared/ui/Container';
 import { Button } from '@/components/shared/ui/Button';
 import { ShinyButton } from './ShinyButton';
-import MoltenMetal from '@/components/MoltenMetal';
 import styles from './HeroSection.module.css';
 import Image from 'next/image';
-
-const LUXE_MOLTEN_COLORS = { color1: '#3a2410', color2: '#C5A059', color3: '#F3E3C3' };
 
 /**
  * Hero Section
@@ -76,26 +73,9 @@ export function HeroSection() {
     return (
         <section ref={heroRef} className={styles.hero}>
             <div className={styles.heroBackground} aria-hidden>
-                <MoltenMetal
-                    color1={LUXE_MOLTEN_COLORS.color1}
-                    color2={LUXE_MOLTEN_COLORS.color2}
-                    color3={LUXE_MOLTEN_COLORS.color3}
-                    colorMode="molten"
-                    speed={0.24}
-                    scale={2.3}
-                    detail={4}
-                    glow={1.9}
-                    coreSize={0.15}
-                    swirl={0.9}
-                    fold={-0.18}
-                    blackPoint={0.12}
-                    brightness={1.7}
-                    grain
-                    grainIntensity={0.03}
-                    mouseInteraction
-                    mouseStrength={0.15}
-                    opacity={0.85}
-                />
+                <span className={styles.orb} />
+                <span className={styles.orb2} />
+                <span className={styles.dotGrid} />
             </div>
             <Container>
                 <div className={styles.heroContent}>

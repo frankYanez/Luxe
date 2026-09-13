@@ -11,7 +11,7 @@ import { wordReveal } from '@/lib/wordReveal';
 import MagicBento from '@/components/MagicBento';
 import DecryptedText from '@/components/DecryptedText';
 
-const LUXE_GOLD_RGB = '197, 160, 89';
+const LUXE_GOLD_RGB = '201, 168, 76';
 
 gsap.registerPlugin(ScrollTrigger);
 

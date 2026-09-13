@@ -23,7 +23,7 @@ interface GlowingEffectProps {
 export function GlowingEffect({
     spread = 200,
     borderWidth = 2,
-    color = 'rgba(197, 160, 89, 0.85)',
+    color = 'rgba(201, 168, 76, 0.85)',
     glow = true,
     disabled = false,
 }: GlowingEffectProps) {

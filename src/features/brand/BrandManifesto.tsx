@@ -7,7 +7,7 @@ import SplitText from '@/components/SplitText';
 import CountUp from '@/components/CountUp';
 import styles from './BrandManifesto.module.css';
 
-const GOLD_PARTICLES = ['#D4B576', '#C5A059', '#9D7E3F'];
+const GOLD_PARTICLES = ['#D4B576', '#C9A84C', '#9D7E3F'];
 
 /**
  * Brand Manifesto — Apple-style full-bleed statement section.

@@ -71,24 +71,24 @@
 }
 
 .item:hover {
-    border-color: rgba(197, 160, 89, 0.35);
+    border-color: rgba(201, 168, 76, 0.35);
     transform: translateX(4px);
     box-shadow:
         0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
         0 2px 6px rgba(10, 10, 10, 0.07),
         0 8px 24px rgba(10, 10, 10, 0.09),
         0 16px 40px rgba(10, 10, 10, 0.06),
-        0 24px 48px rgba(197, 160, 89, 0.07);
+        0 24px 48px rgba(201, 168, 76, 0.07);
 }
 
 .itemOpen {
-    border-color: rgba(197, 160, 89, 0.45);
+    border-color: rgba(201, 168, 76, 0.45);
     box-shadow:
         0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
         0 2px 8px rgba(10, 10, 10, 0.08),
         0 8px 28px rgba(10, 10, 10, 0.1),
         0 20px 48px rgba(10, 10, 10, 0.07),
-        0 32px 64px rgba(197, 160, 89, 0.09);
+        0 32px 64px rgba(201, 168, 76, 0.09);
 }
 
 /* ── Question button ── */
@@ -106,7 +106,7 @@
 }
 
 .question:hover {
-    background: rgba(197, 160, 89, 0.03);
+    background: rgba(201, 168, 76, 0.03);
 }
 
 .questionNum {
@@ -146,7 +146,7 @@
 }
 
 .itemOpen .chevron {
-    background: rgba(197, 160, 89, 0.12);
+    background: rgba(201, 168, 76, 0.12);
     transform: rotate(0deg);
 }
 
@@ -177,9 +177,9 @@
     padding: var(--space-xl);
     border-radius: var(--radius-xl);
     background: linear-gradient(135deg,
-        rgba(197, 160, 89, 0.06) 0%,
-        rgba(197, 160, 89, 0.02) 100%);
-    border: 1px solid rgba(197, 160, 89, 0.18);
+        rgba(201, 168, 76, 0.06) 0%,
+        rgba(201, 168, 76, 0.02) 100%);
+    border: 1px solid rgba(201, 168, 76, 0.18);
 }
 
 .bottomCtaText {
@@ -207,7 +207,7 @@
 .bottomCtaBtn:hover {
     background: var(--color-gold-dark);
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(197, 160, 89, 0.4);
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
 }
 
 /* ── Responsive ── */
