@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight, Pause, Play } from 'lucide-react';
 import type { Product } from '@/core/types/product';
 import { useCart } from '@/context/CartContext';
@@ -14,7 +15,9 @@ const noteLabels = { salida: 'Salida', corazon: 'Corazón', fondo: 'Fondo' };
 
 export function ProductDetail({ product, videoSrc }: { product: Product; videoSrc?: string }) {
     const { addToCart } = useCart();
-    const [variant, setVariant] = useState<'Frasco' | 'Decant'>('Frasco');
+    const searchParams = useSearchParams();
+    const startsAsDecant = searchParams.get('variant') === 'decant' && !!product.decantPrice;
+    const [variant, setVariant] = useState<'Frasco' | 'Decant'>(startsAsDecant ? 'Decant' : 'Frasco');
     const [mobile, setMobile] = useState(false);
     const [reducedMotion, setReducedMotion] = useState(true);
     const [videoFailed, setVideoFailed] = useState(false);
@@ -26,6 +29,10 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
         ? `/images/decants/${product.slug}.png`
         : product.image;
     const waUrl = `https://wa.me/${siteConfig.whatsapp.replace('+', '')}?text=${encodeURIComponent(`Hola! Me interesa ${product.name} de ${product.brand}, presentación ${variant}. ¿Está disponible?`)}`;
+
+    useEffect(() => {
+        setVariant(searchParams.get('variant') === 'decant' && product.decantPrice ? 'Decant' : 'Frasco');
+    }, [searchParams, product.decantPrice]);
 
     useEffect(() => {
         const screen = window.matchMedia('(max-width: 767px)');
@@ -66,10 +73,6 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
             {product.shortDescription && <p className={styles.summary}>{product.shortDescription}</p>}
             <div className={styles.purchase}>
                 <div className={styles.priceRow}><strong>${price.toLocaleString('es-AR')}</strong><span>{product.inStock ? 'Disponible' : 'Sin stock'}</span></div>
-                {product.decantPrice && <fieldset className={styles.variants}>
-                    <legend>Presentación</legend>
-                    {(['Frasco', 'Decant'] as const).map(option => <label key={option}><input type="radio" name="presentation" value={option} checked={variant === option} onChange={() => setVariant(option)} /><span>{option}</span></label>)}
-                </fieldset>}
                 <div className={styles.actions}>
                     <button type="button" disabled={!product.inStock} onClick={() => {
                         if (!product.inStock) return;
@@ -77,6 +80,12 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
                     }}>{product.inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
                     <a href={waUrl} target="_blank" rel="noreferrer">Consultar <ArrowUpRight size={18} /></a>
                 </div>
+                {variant === 'Frasco' && product.decantPrice && (
+                    <Link href={`/perfume/${product.id}?variant=decant`} className={styles.tryCta}>
+                        ¿Querés probarlo primero? Decant desde ${product.decantPrice.toLocaleString('es-AR')}
+                        <ArrowUpRight size={16} />
+                    </Link>
+                )}
             </div>
             <details className={styles.details}>
                 <summary>Conocer la fragancia</summary>

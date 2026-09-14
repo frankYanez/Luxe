@@ -13,14 +13,9 @@
 .priceRow { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .priceRow strong { font-size: 30px; font-weight: 500; }
 .priceRow > span { font-size: 12px; color: #555; }
-.variants { border: 0; margin: 20px 0 0; padding: 0; display: flex; gap: 10px; }
-.variants legend { font-size: 12px; margin-bottom: 8px; }
-.variants label { position: relative; cursor: pointer; }
-.variants input { position: absolute; opacity: 0; }
-.variants span { display: block; padding: 10px 22px; border: 1px solid #bbb; border-radius: 999px; font-size: 13px; }
-.variants input:checked + span { background: #171717; border-color: #171717; color: white; }
-.variants input:focus-visible + span { outline: 3px solid #9b7d33; outline-offset: 3px; }
 .actions { display: flex; gap: 12px; align-items: center; margin-top: 20px; }
+.tryCta { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 13px; color: #9b7d33; text-decoration: none; }
+.tryCta:hover { text-decoration: underline; }
 .actions button { flex: 1; border: 0; background: #171717; color: #fff; padding: 17px 22px; border-radius: 999px; font-size: 14px; cursor: pointer; white-space: nowrap; }
 .actions button:disabled { opacity: .5; cursor: not-allowed; }
 .actions a { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; padding: 14px 0; white-space: nowrap; }
@@ -51,7 +46,6 @@
     .summary { font-size: 14px; line-height: 1.45; margin-top: 12px; }
     .purchase { margin-top: 18px; }
     .priceRow strong { font-size: 27px; }
-    .variants { margin-top: 14px; }
     .actions { margin-top: 16px; }
     .actions button { padding: 16px; }
     .details { margin-top: 20px; }
