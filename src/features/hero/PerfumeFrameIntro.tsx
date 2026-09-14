@@ -7,8 +7,16 @@ import styles from './PerfumeFrameIntro.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FRAME_COUNT = 66; // last 30 of the 96 extracted frames trimmed off — shorter intro
-const framePath = (i: number) => `/frames/fakhar/frame_${String(i).padStart(4, '0')}.webp`;
+// Two separate frame sequences, shot in the aspect ratio each device
+// actually needs — mobile (9:16 portrait) and desktop (16:9 landscape) —
+// rather than stretching/cropping one source to fit both. Scroll distance
+// per frame is kept equal (~33px/frame) so the scrub pace feels the same.
+const PX_PER_FRAME = 2200 / 66;
+const FRAME_SETS = {
+    mobile: { dir: 'fakhar', count: 66 },
+    desktop: { dir: 'fakhar-desktop', count: 120 },
+} as const;
+const MOBILE_BREAKPOINT = 768;
 
 /**
  * Full-viewport pinned frame-sequence intro. Scrubs through the perfume
@@ -22,6 +30,11 @@ export function PerfumeFrameIntro() {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
+        const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+        const { dir, count: FRAME_COUNT } = isMobile ? FRAME_SETS.mobile : FRAME_SETS.desktop;
+        const framePath = (i: number) => `/frames/${dir}/frame_${String(i).padStart(4, '0')}.webp`;
+        const scrollDistance = Math.round(PX_PER_FRAME * FRAME_COUNT);
+
         const images: HTMLImageElement[] = [];
 
         const draw = (idx: number) => {
@@ -99,7 +112,7 @@ export function PerfumeFrameIntro() {
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
-                end: '+=2200', // scaled down with FRAME_COUNT so per-frame scroll pacing stays the same
+                end: `+=${scrollDistance}`,
                 pin: true,
                 scrub: 0.6,
                 onUpdate: (self) => {
