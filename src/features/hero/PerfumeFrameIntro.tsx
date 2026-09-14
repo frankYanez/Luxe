@@ -7,7 +7,7 @@ import styles from './PerfumeFrameIntro.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FRAME_COUNT = 96;
+const FRAME_COUNT = 66; // last 30 of the 96 extracted frames trimmed off — shorter intro
 const framePath = (i: number) => `/frames/fakhar/frame_${String(i).padStart(4, '0')}.webp`;
 
 /**
@@ -98,7 +98,7 @@ export function PerfumeFrameIntro() {
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
-                end: '+=3200',
+                end: '+=2200', // scaled down with FRAME_COUNT so per-frame scroll pacing stays the same
                 pin: true,
                 scrub: 0.6,
                 onUpdate: (self) => {
