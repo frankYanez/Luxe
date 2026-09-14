@@ -38,14 +38,17 @@ export function PerfumeFrameIntro() {
             let dx = 0;
             let dy = 0;
 
+            // Contain fit — show the whole frame instead of cropping/zooming
+            // into a cover fill (the portrait source video was being blown up
+            // to fill a wide desktop viewport, cropping most of the bottle).
             if (imgRatio > canvasRatio) {
-                dh = height;
-                dw = height * imgRatio;
-                dx = (width - dw) / 2;
-            } else {
                 dw = width;
                 dh = width / imgRatio;
                 dy = (height - dh) / 2;
+            } else {
+                dh = height;
+                dw = height * imgRatio;
+                dx = (width - dw) / 2;
             }
 
             ctx.clearRect(0, 0, width, height);
