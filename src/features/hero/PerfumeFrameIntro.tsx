@@ -85,6 +85,16 @@ export function PerfumeFrameIntro() {
                 return;
             }
 
+            // Mobile browsers resize the viewport as the address bar hides/shows
+            // while scrolling, which throws off the pin's height calculations
+            // mid-scroll (the pinned section visibly shrinks and the page
+            // underneath bleeds through). Lock scroll to the JS thread so the
+            // viewport stays put for the whole pin duration.
+            const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+            if (isCoarsePointer) {
+                ScrollTrigger.normalizeScroll(true);
+            }
+
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
@@ -104,6 +114,7 @@ export function PerfumeFrameIntro() {
         return () => {
             window.removeEventListener('resize', resize);
             ctx.revert();
+            ScrollTrigger.normalizeScroll(false);
         };
     }, []);
 
