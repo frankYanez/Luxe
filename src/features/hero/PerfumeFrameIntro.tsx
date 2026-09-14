@@ -76,15 +76,13 @@ export function PerfumeFrameIntro() {
 
         window.addEventListener('resize', resize);
 
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+        // This is a scroll-scrubbed reveal, not autoplaying motion — the user
+        // already controls pace and direction via their own scroll input, so
+        // we run it regardless of prefers-reduced-motion (which otherwise
+        // made the intro jump straight to the last frame with no scrub at
+        // all on any machine with OS-level "reduce motion" / animation
+        // effects turned off, Chromium's own toggle or not).
         const ctx = gsap.context(() => {
-            if (prefersReduced) {
-                currentFrameRef.current = FRAME_COUNT - 1;
-                images[FRAME_COUNT - 1].onload = () => draw(FRAME_COUNT - 1);
-                return;
-            }
-
             // Mobile browsers resize the viewport as the address bar hides/shows
             // while scrolling, which throws off the pin's height calculations
             // mid-scroll (the pinned section visibly shrinks and the page
