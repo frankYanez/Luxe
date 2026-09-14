@@ -97,7 +97,7 @@ export function HeroSection() {
                     </p>
 
                     <div ref={ctaRef} className={styles.ctaGroup}>
-                        <ShinyButton href="#catalogo">
+                        <ShinyButton href="/coleccion">
                             Descubrí tu Esencia
                         </ShinyButton>
                         <Button variant="secondary" href="/coleccion">
@@ -112,7 +112,7 @@ export function HeroSection() {
                         <span className={styles.spotlightGlow} aria-hidden />
                         <div className={styles.spotlightImage}>
                             <Image
-                                src="/images/club-de-nuit-intense-man.png"
+                                src="/images/club-de-nuit-promo-white-v1.png"
                                 alt="Club de Nuit Intense Man de Armaf — perfume árabe en Luxe Essence Tandil"
                                 width={600}
                                 height={750}
@@ -156,3 +156,4 @@ export function HeroSection() {
         </section>
     );
 }
+

@@ -20,11 +20,17 @@ export function AsadFeature() {
         <section className={styles.section}>
             <Container>
                 <div ref={gridRef} className={styles.grid}>
-                    <div>
+                    <Image
+                        src="/images/asad-bourbon-banner-v1.png"
+                        alt="Asad Bourbon de Lattafa"
+                        fill
+                        sizes="(max-width: 1280px) 100vw, 1280px"
+                        className={styles.image}
+                    />
+                    <div className={styles.copy}>
                         <span className={styles.eyebrow}>Asad Bourbon &middot; Lattafa</span>
                         <h2 className={styles.title}>
-                            {wordReveal('Dura')}<br />
-                            {wordReveal('todo')}<br />
+                            <span className={styles.titleLine}>{wordReveal('Dura todo')}</span>
                             <span className={styles.accent}>{wordReveal('el día')}</span>
                         </h2>
                         <p className={styles.desc}>
@@ -34,15 +40,6 @@ export function AsadFeature() {
                         <a href={waUrl} target="_blank" rel="noreferrer" className={styles.cta}>
                             Consultar disponibilidad
                         </a>
-                    </div>
-                    <div className={styles.visual}>
-                        <Image
-                            src="/images/asad-bourbon.jpg"
-                            alt="Asad Bourbon de Lattafa — perfume árabe en Luxe Essence Tandil"
-                            width={520}
-                            height={650}
-                            className={styles.image}
-                        />
                     </div>
                 </div>
             </Container>

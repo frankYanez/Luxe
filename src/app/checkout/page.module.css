@@ -10,7 +10,7 @@
 /* ─── Header ─────────────────────────────────────────────── */
 .header {
     position: sticky;
-    top: 0;
+    top: 36px; /* TopBanner height — sit below it instead of overlapping */
     z-index: 20;
     display: flex;
     align-items: center;
@@ -20,6 +20,12 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(197,160,89,0.15);
+}
+
+@media (max-width: 768px) {
+    .header {
+        top: 48px; /* TopBanner grows to 48px on mobile */
+    }
 }
 
 .backBtn {

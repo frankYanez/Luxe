@@ -7,13 +7,23 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-2xl);
-    background: #fff;
+    background: #faf4eb;
     border: 1px solid rgba(17, 17, 17, 0.08);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    min-height: clamp(440px, 46vw, 640px);
     align-items: center;
-    gap: clamp(1.125rem, 3vw, 2.5rem);
     padding: clamp(1.75rem, 4vw, 3.75rem);
+}
+
+.copy {
+    position: relative;
+    z-index: 1;
+    width: 58%;
+}
+
+.titleLine {
+    display: block;
+    white-space: nowrap;
 }
 
 .eyebrow {
@@ -27,8 +37,8 @@
 
 .title {
     margin: 0;
-    font-size: clamp(2.375rem, 9.6vw, 6rem);
-    line-height: 0.86;
+    font-size: clamp(2.375rem, 7.5vw, 6.5rem);
+    line-height: 0.98;
 }
 
 .accent {
@@ -64,22 +74,27 @@
     transform: translateY(-3px);
 }
 
-.visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: clamp(260px, 40vh, 440px);
-}
-
 .image {
-    width: 92%;
-    height: auto;
-    max-height: clamp(260px, 42vh, 460px);
-    object-fit: contain;
-    animation: asadFloat 9s ease-in-out infinite;
+    object-fit: cover;
+    object-position: center;
 }
 
-@keyframes asadFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-14px); }
+@media (max-width: 640px) {
+    .grid {
+        min-height: 600px;
+        align-items: start;
+        padding: 28px 24px 260px;
+    }
+
+    .copy { width: 100%; }
+    .title { font-size: clamp(2.5rem, 11vw, 4rem); }
+    .desc { max-width: 32ch; }
+    .cta { padding: 16px 20px; letter-spacing: 0.12em; }
+
+    .image {
+        top: auto !important;
+        height: 260px !important;
+        object-position: right bottom;
+        mask-image: linear-gradient(to bottom, transparent, #000 25%);
+    }
 }

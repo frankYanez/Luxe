@@ -2,14 +2,23 @@ import { getServiceClient } from './supabase-client';
 import type { Product, Category } from '../types/product';
 
 function mapRow(row: any): Product {
+    const fullPrice = Number(row.price) || 0;
+    // Every catalog perfume has a 5 ml decant presentation. When the
+    // merchandising table has no explicit value yet, derive the decant
+    // price from the full bottle so the decant category stays complete.
+    const storedDecantPrice = Number(row.decant_price);
+    const decantPrice = storedDecantPrice > 0
+        ? storedDecantPrice
+        : Math.max(1000, Math.round((fullPrice * 0.18) / 500) * 500);
+
     return {
         id:               String(row.id),
         slug:             row.slug,
         name:             row.name,
         brand:            row.brand,
         category:         row.category as Category,
-        price:            Number(row.price),
-        decantPrice:      row.decant_price ? Number(row.decant_price) : undefined,
+        price:            fullPrice,
+        decantPrice,
         description:      row.description ?? '',
         shortDescription: row.short_description ?? '',
         image:            row.image ?? '',
@@ -67,7 +76,8 @@ export async function fetchProductById(id: string): Promise<Product | null> {
         .select('*')
         .eq('id', id)
         .single();
-    if (error || !data) return null;
+    if (error && error.code !== 'PGRST116') throw new Error(error.message);
+    if (!data) return null;
     return mapRow(data);
 }
 

@@ -17,7 +17,7 @@ export function SiteHeader() {
                 LUXE<span className={styles.dot}>.</span>ESSENCE
             </Link>
             <nav className={styles.nav}>
-                <a href="#catalogo" className={styles.navLink}>Colección</a>
+                <Link href="/coleccion" className={styles.navLink}>Colección</Link>
                 <a href="#decants" className={styles.navLink}>Decants</a>
                 <a href={waUrl} target="_blank" rel="noreferrer" className={styles.cta}>
                     <span className={styles.ctaDot} />
@@ -30,3 +30,4 @@ export function SiteHeader() {
         </header>
     );
 }
+

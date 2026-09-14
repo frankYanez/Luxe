@@ -294,7 +294,11 @@ export function CollectionClient() {
 
                     {!loading && !error && filtered.map((product, i) => (
                         <div key={product.id} data-card>
-                            <ProductCard product={product} animationDelay={i * 0.04} />
+                            <ProductCard
+                                product={product}
+                                animationDelay={i * 0.04}
+                                defaultVariant={isDecantFilter ? 'decant' : 'frasco'}
+                            />
                         </div>
                     ))}
 

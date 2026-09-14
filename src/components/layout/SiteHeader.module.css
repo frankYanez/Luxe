@@ -1,6 +1,6 @@
 .header {
     position: sticky;
-    top: 0;
+    top: 36px; /* TopBanner height — sit below it instead of overlapping */
     z-index: 40;
     display: flex;
     flex-wrap: wrap;
@@ -109,6 +109,12 @@
 
     100% {
         transform: translateX(400%);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        top: 48px; /* TopBanner grows to 48px on mobile */
     }
 }
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -25,7 +26,6 @@ const PRODUCTS_PER_PAGE = 6;
  */
 export function ProductsSection() {
     const [selectedCategory, setSelectedCategory] = useState<Category | 'all'>('all');
-    const [displayCount, setDisplayCount] = useState(PRODUCTS_PER_PAGE);
     const headerRef = useRef<HTMLDivElement>(null);
     const filterRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,6 @@ export function ProductsSection() {
     });
 
     useEffect(() => {
-        setDisplayCount(PRODUCTS_PER_PAGE);
         refetch();
     }, [selectedCategory]);
 
@@ -81,12 +80,8 @@ export function ProductsSection() {
         }
     }, { scope: headerRef });
 
-    const handleLoadMore = () => {
-        setDisplayCount(prev => prev + PRODUCTS_PER_PAGE);
-    };
-
-    const displayedProducts = products.slice(0, displayCount);
-    const hasMore = displayCount < products.length;
+    const displayedProducts = products.slice(0, PRODUCTS_PER_PAGE);
+    const hasMore = products.length > PRODUCTS_PER_PAGE;
 
     return (
         <Section id="catalogo">
@@ -148,12 +143,12 @@ export function ProductsSection() {
                     {/* Load More */}
                     {!loading && !error && hasMore && (
                         <div className={styles.loadMoreContainer}>
-                            <button className={styles.loadMoreButton} onClick={handleLoadMore}>
+                            <Link className={styles.loadMoreButton} href="/coleccion">
                                 <span>Ver Más Productos</span>
                                 <span className={styles.loadMoreCount}>
-                                    ({products.length - displayCount} restantes)
+                                    ({products.length - PRODUCTS_PER_PAGE} restantes)
                                 </span>
-                            </button>
+                            </Link>
                         </div>
                     )}
                 </div>

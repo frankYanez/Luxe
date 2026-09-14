@@ -1,0 +1,18 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+const report = JSON.parse(readFileSync('output/perfume-images/association-report.json', 'utf8'));
+const response = await fetch('https://www.luxefragancias.com/api/products');
+if (!response.ok) throw new Error(`Catalog HTTP ${response.status}`);
+const json = await response.json();
+const products = json.data;
+if (!Array.isArray(products)) throw new Error('Invalid catalog response');
+const matching = products.filter(p => report.some(r => r.id === p.id && r.url === p.image));
+const mismatches = products.filter(p => report.some(r => r.id === p.id) && !matching.includes(p));
+if (mismatches.length) throw new Error(`Stale images: ${mismatches.map(p => p.slug).join(', ')}`);
+const sample = matching[0];
+if (!sample) throw new Error('No associated images in public catalog');
+const optimized = await fetch(`https://www.luxefragancias.com/_next/image?url=${encodeURIComponent(sample.image)}&w=640&q=75`);
+if (!optimized.ok || !optimized.headers.get('content-type')?.startsWith('image/')) throw new Error(`Image optimizer HTTP ${optimized.status}`);
+await optimized.arrayBuffer();
+const result = { verified_at: new Date().toISOString(), associated: report.filter(r => r.status === 'associated_verified').length, public_catalog_matches: matching.length, public_catalog_total: products.length, mismatches: mismatches.length, optimized_image_status: optimized.status, sample: sample.slug };
+writeFileSync('output/perfume-images/web-verification.json', JSON.stringify(result, null, 2));
+console.log(JSON.stringify(result, null, 2));

@@ -147,8 +147,19 @@
     min-height: clamp(230px, 36vh, 390px);
 }
 
+.decantsImage {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: min(100%, 680px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 24px 24px rgba(0, 0, 0, 0.36));
+}
+
 .ringOuter {
     position: absolute;
+    z-index: 0;
     width: 72%;
     aspect-ratio: 1;
     border-radius: 9999px;
@@ -158,6 +169,7 @@
 
 .ringInner {
     position: absolute;
+    z-index: 0;
     width: 94%;
     aspect-ratio: 1;
     border-radius: 9999px;
@@ -207,6 +219,7 @@
 
 .tag {
     position: absolute;
+    z-index: 2;
     bottom: -6px;
     left: 50%;
     transform: translateX(-50%);

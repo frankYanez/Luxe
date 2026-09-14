@@ -1,0 +1,58 @@
+.page { position: relative; isolation: isolate; min-height: calc(100dvh - 36px); background: #fff; color: var(--color-deep-black); display: grid; grid-template-columns: 55% 45%; align-items: center; }
+.media { position: absolute; inset: 0 45% 0 0; background: #fff; overflow: hidden; }
+.photo { object-fit: contain; padding: 80px 5% 40px; }
+.imageFallback { display: grid; place-items: center; height: 100%; color: #777; }
+.nav { position: absolute; top: 0; inset-inline: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 24px 4%; }
+.back { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; }
+.logo { font-size: 12px; font-weight: 600; letter-spacing: .16em; }
+.content { grid-column: 2; position: relative; padding: 100px clamp(24px, 5vw, 80px) 64px 24px; }
+.identity { display: flex; flex-wrap: wrap; gap: 16px; color: #76602e; font-size: 13px; margin-bottom: 18px; }
+.content h1 { font-family: 'Anton', sans-serif; font-size: clamp(40px, 5.2vw, 80px); line-height: 1.06; font-weight: 400; margin: 0; overflow-wrap: anywhere; }
+.summary { margin: 18px 0 0; font-size: 16px; line-height: 1.6; color: #555; }
+.purchase { margin-top: 28px; }
+.priceRow { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.priceRow strong { font-size: 30px; font-weight: 500; }
+.priceRow > span { font-size: 12px; color: #555; }
+.variants { border: 0; margin: 20px 0 0; padding: 0; display: flex; gap: 10px; }
+.variants legend { font-size: 12px; margin-bottom: 8px; }
+.variants label { position: relative; cursor: pointer; }
+.variants input { position: absolute; opacity: 0; }
+.variants span { display: block; padding: 10px 22px; border: 1px solid #bbb; border-radius: 999px; font-size: 13px; }
+.variants input:checked + span { background: #171717; border-color: #171717; color: white; }
+.variants input:focus-visible + span { outline: 3px solid #9b7d33; outline-offset: 3px; }
+.actions { display: flex; gap: 12px; align-items: center; margin-top: 20px; }
+.actions button { flex: 1; border: 0; background: #171717; color: #fff; padding: 17px 22px; border-radius: 999px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.actions button:disabled { opacity: .5; cursor: not-allowed; }
+.actions a { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; padding: 14px 0; white-space: nowrap; }
+.page a:focus-visible, .page button:focus-visible, .details summary:focus-visible { outline: 3px solid #9b7d33; outline-offset: 4px; }
+.details { margin-top: 24px; border-top: 1px solid #ddd; padding-top: 18px; }
+.details summary { cursor: pointer; font-size: 14px; }
+.details p { font-size: 14px; line-height: 1.7; white-space: pre-line; margin-top: 16px; }
+.facts { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.facts dt { font-size: 11px; color: #666; margin-bottom: 5px; }
+.facts dd { margin: 0; font-size: 14px; }
+.video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; }
+.videoPlaying { opacity: 1; }
+.videoControl { position: absolute; right: 20px; top: 76px; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; background: #fff; color: #171717; border: 1px solid #ddd; border-radius: 50%; }
+@media (max-width: 767px) {
+    .page { display: flex; flex-direction: column; justify-content: flex-end; min-height: calc(100svh - 36px); background: transparent; }
+    .media { position: fixed; inset: 36px 0 0; z-index: -2; background: transparent; }
+    .photo { padding: 30px 8% 230px; object-position: center top; }
+    /* Video takes over as the true page background — hide the static cutout so its white backdrop doesn't block it */
+    .media[data-video="true"] .photo { display: none; }
+    .video { opacity: 0; }
+    .videoPlaying { opacity: 0.7; }
+    .nav { padding: 20px; }
+    .back, .logo { background: rgba(255,255,255,.94); padding: 8px 10px; border-radius: 6px; }
+    .logo { font-size: 10px; }
+    .content { width: 100%; margin-top: 36svh; padding: 56px 24px max(28px, env(safe-area-inset-bottom)); background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.96) 64px, #fff 160px); }
+    .identity { margin-bottom: 10px; gap: 12px; }
+    .content h1 { font-size: clamp(32px, 9vw, 48px); }
+    .summary { font-size: 14px; line-height: 1.45; margin-top: 12px; }
+    .purchase { margin-top: 18px; }
+    .priceRow strong { font-size: 27px; }
+    .variants { margin-top: 14px; }
+    .actions { margin-top: 16px; }
+    .actions button { padding: 16px; }
+    .details { margin-top: 20px; }
+}

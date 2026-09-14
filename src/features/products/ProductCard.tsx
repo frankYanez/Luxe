@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -9,6 +10,7 @@ import { useRef } from 'react';
 import type { Product } from '@/core/types/product';
 import { useCart } from '@/context/CartContext';
 import { siteConfig } from '@/core/config/site';
+import productVideos from '@/core/data/product-videos.json';
 import styles from './ProductCard.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface ProductCardProps {
     product: Product;
     animationDelay?: number;
+    defaultVariant?: Variant;
 }
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -26,16 +29,41 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 type Variant = 'frasco' | 'decant';
 
-export const ProductCard = React.memo(function ProductCard({ product, animationDelay = 0 }: ProductCardProps) {
+export const ProductCard = React.memo(function ProductCard({ product, animationDelay = 0, defaultVariant = 'frasco' }: ProductCardProps) {
     const { addToCart } = useCart();
     const [imageError, setImageError] = useState(false);
-    const [variant, setVariant] = useState<Variant>('frasco');
+    const [variant, setVariant] = useState<Variant>(defaultVariant);
     const [added, setAdded] = useState(false);
+    const [hovering, setHovering] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const addedTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    const videoSrc = (productVideos as Record<string, string>)[product.id];
+
+    const handleMediaEnter = () => {
+        setHovering(true);
+        const video = videoRef.current;
+        if (video) {
+            video.currentTime = 0;
+            void video.play().catch(() => {});
+        }
+    };
+
+    const handleMediaLeave = () => {
+        setHovering(false);
+        videoRef.current?.pause();
+    };
 
     const hasDecant = !!product.decantPrice;
     const activePrice = variant === 'decant' && product.decantPrice ? product.decantPrice : product.price;
+    const activeImage = variant === 'decant'
+        ? `/images/decants/${product.slug}.png`
+        : product.image;
+
+    useEffect(() => {
+        setVariant(defaultVariant);
+    }, [defaultVariant]);
 
     const rightLabel = useMemo(() => product.longevity || product.intensity, [product.longevity, product.intensity]);
 
@@ -65,7 +93,7 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
         e.stopPropagation();
         if (!product.inStock || added) return;
         if (variant === 'decant' && product.decantPrice) {
-            addToCart({ id: `${product.id}-decant`, name: product.name, price: product.decantPrice, image: product.image, variant: 'Decant' });
+            addToCart({ id: `${product.id}-decant`, name: product.name, price: product.decantPrice, image: activeImage, variant: 'Decant' });
         } else {
             addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, variant: 'Frasco' });
         }
@@ -81,7 +109,13 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
     };
 
     return (
-        <article ref={cardRef} className={`${styles.card} ${!product.inStock ? styles.cardOut : ''}`} data-card>
+        <article
+            ref={cardRef}
+            className={`${styles.card} ${!product.inStock ? styles.cardOut : ''}`}
+            data-card
+            onMouseEnter={handleMediaEnter}
+            onMouseLeave={handleMediaLeave}
+        >
             {/* ── Media ── */}
             <div className={styles.media}>
                 <span className={styles.mediaGlow} aria-hidden />
@@ -98,12 +132,12 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                 )}
 
                 <div className={styles.imageWrap}>
-                    {!imageError && product.image ? (
+                    {!imageError && activeImage ? (
                         <Image
-                            src={product.image}
-                            alt={product.name}
+                            src={activeImage}
+                            alt={variant === 'decant' ? `${product.name} decant` : product.name}
                             fill
-                            className={styles.image}
+                            className={`${styles.image} ${hovering && videoSrc ? styles.imageHidden : ''}`}
                             onError={() => setImageError(true)}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
@@ -114,11 +148,28 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                         </div>
                     )}
                 </div>
+
+                {videoSrc && (
+                    <video
+                        ref={videoRef}
+                        className={`${styles.hoverVideo} ${hovering ? styles.hoverVideoActive : ''}`}
+                        src={videoSrc}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
+                    />
+                )}
             </div>
 
             {/* ── Info ── */}
             <div className={styles.info}>
-                <h3 className={styles.name}>{product.name}</h3>
+                <h3 className={styles.name}>
+                    <Link href={`/perfume/${product.id}`} className={styles.detailLink}>
+                        {product.name}
+                    </Link>
+                </h3>
                 {product.shortDescription && <p className={styles.note}>{product.shortDescription}</p>}
 
                 <div className={styles.priceRow}>
@@ -174,4 +225,4 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
             </div>
         </article>
     );
-}, (prev, next) => prev.product.id === next.product.id && prev.animationDelay === next.animationDelay);
+}, (prev, next) => prev.product.id === next.product.id && prev.animationDelay === next.animationDelay && prev.defaultVariant === next.defaultVariant);
