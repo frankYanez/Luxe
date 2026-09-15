@@ -13,9 +13,10 @@ gsap.registerPlugin(ScrollTrigger);
 // per frame is kept equal (~33px/frame) so the scrub pace feels the same.
 const PX_PER_FRAME = 2200 / 66;
 const FRAME_SETS = {
-    // Starts at frame 31 — the first 30 (bottle just sitting there, closed)
-    // got trimmed so the mobile intro opens already mid-motion.
-    mobile: { dir: 'fakhar', start: 31, end: 66 },
+    // Frames 1-10 were trimmed (pure duplicate statics) — 11 is the first
+    // frame on disk, bottle fully closed. Start there so mobile doesn't
+    // open mid-motion.
+    mobile: { dir: 'fakhar', start: 11, end: 66 },
     // Same idea on desktop: frames 1-20 (static) and 95-120 (fully open,
     // holding still) trimmed off both ends — only files 21-94 exist on disk.
     desktop: { dir: 'fakhar-desktop', start: 21, end: 94 },
@@ -23,12 +24,14 @@ const FRAME_SETS = {
 const MOBILE_BREAKPOINT = 768;
 
 /**
- * Full-viewport pinned frame-sequence intro. Scrubs through the perfume
- * disassembly frames as the user scrolls, then releases the pin so the
- * rest of the page (header, hero copy, sections) scrolls into view.
+ * Full-viewport frame-sequence intro, fixed behind the rest of the page.
+ * Scrubs through the perfume disassembly frames as the user scrolls, holds
+ * on the last frame, then the page content (header, hero copy, sections)
+ * scrolls up over it like a sheet, covering it for good.
  */
 export function PerfumeFrameIntro() {
     const sectionRef = useRef<HTMLElement>(null);
+    const spacerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const word1Ref = useRef<HTMLSpanElement>(null);
     const word2Ref = useRef<HTMLSpanElement>(null);
@@ -81,11 +84,21 @@ export function PerfumeFrameIntro() {
 
         const resize = () => {
             const canvas = canvasRef.current;
-            if (!canvas) return;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            draw(currentFrameRef.current);
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                draw(currentFrameRef.current);
+            }
+            // Spacer reserves the scroll room the fixed intro no longer
+            // takes up in the flow: one viewport's worth to hold the frozen
+            // last frame while the page content sheet slides over it, plus
+            // the frame-scrub distance itself.
+            if (spacerRef.current) {
+                spacerRef.current.style.height = `${window.innerHeight + scrollDistance}px`;
+            }
+            ScrollTrigger.refresh();
         };
+        resize();
 
         for (let i = 1; i <= FRAME_COUNT; i++) {
             const img = new Image();
@@ -111,10 +124,11 @@ export function PerfumeFrameIntro() {
         // effects turned off, Chromium's own toggle or not).
         const ctx = gsap.context(() => {
             // Mobile browsers resize the viewport as the address bar hides/shows
-            // while scrolling, which throws off the pin's height calculations
-            // mid-scroll (the pinned section visibly shrinks and the page
-            // underneath bleeds through). Lock scroll to the JS thread so the
-            // viewport stays put for the whole pin duration.
+            // while scrolling, which used to throw off the pinned section's
+            // height calculations mid-scroll. The intro is now plain
+            // position: fixed (see CSS) instead of a GSAP pin, which sidesteps
+            // that class of bug entirely, but touch-drag on horizontally
+            // scrolling children (product carousels) still needs this.
             const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
             if (isCoarsePointer) {
                 // allowNestedScroll — without it, normalizeScroll swallows
@@ -124,20 +138,24 @@ export function PerfumeFrameIntro() {
                 ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
             }
 
-            // "Perfumes" and "Árabes" fade in one after the other in the
-            // last stretch of the pinned scroll, then both hold on screen
-            // until the pin itself releases right at the very end — that's
-            // the moment the page content slides up and covers the intro.
-            const WORD1_RANGE: [number, number] = [0.72, 0.85];
-            const WORD2_RANGE: [number, number] = [0.85, 0.96];
+            // "Perfumes" and "Árabes" fade in early — well before the scrub
+            // finishes — then hold on screen through the rest of the frame
+            // sequence and the trailing hold, right up until the content
+            // sheet below covers the (now fixed, frozen-on-last-frame) intro.
+            const WORD1_RANGE: [number, number] = [0.32, 0.46];
+            const WORD2_RANGE: [number, number] = [0.46, 0.6];
             const revealProgress = (p: number, [from, to]: [number, number]) =>
                 gsap.utils.clamp(0, 1, (p - from) / (to - from));
 
+            // Trigger is the spacer, not the (fixed, out-of-flow) intro
+            // section itself — no pin: the intro just stays fixed in place
+            // the whole time, and scrolling through the spacer both drives
+            // the frame scrub (first `scrollDistance` px) and, after that,
+            // lets the page content underneath scroll up and cover it.
             ScrollTrigger.create({
-                trigger: sectionRef.current,
+                trigger: spacerRef.current,
                 start: 'top top',
                 end: `+=${scrollDistance}`,
-                pin: true,
                 scrub: 0.6,
                 onUpdate: (self) => {
                     const idx = Math.min(FRAME_COUNT - 1, Math.floor(self.progress * FRAME_COUNT));
@@ -168,17 +186,22 @@ export function PerfumeFrameIntro() {
     }, []);
 
     return (
-        <section ref={sectionRef} className={styles.intro}>
-            <canvas ref={canvasRef} className={styles.canvas} />
-            <div className={styles.vignette} aria-hidden />
-            <h2 className={styles.introTitle} aria-hidden="true">
-                <span ref={word1Ref} className={styles.introWord}>Perfumes</span>
-                <span ref={word2Ref} className={`${styles.introWord} ${styles.introWordAccent}`}>Árabes</span>
-            </h2>
-            <div className={styles.scrollCue} data-visible={ready}>
-                <span>Desplazate</span>
-                <span className={styles.scrollLine} />
-            </div>
-        </section>
+        <>
+            <section ref={sectionRef} className={styles.intro}>
+                <canvas ref={canvasRef} className={styles.canvas} />
+                <div className={styles.vignette} aria-hidden />
+                <h2 className={styles.introTitle} aria-hidden="true">
+                    <span ref={word1Ref} className={styles.introWord}>Perfumes</span>
+                    <span ref={word2Ref} className={`${styles.introWord} ${styles.introWordAccent}`}>Árabes</span>
+                </h2>
+                <div className={styles.scrollCue} data-visible={ready}>
+                    <span>Desplazate</span>
+                    <span className={styles.scrollLine} />
+                </div>
+            </section>
+            {/* Reserves the scroll room the now-fixed intro no longer takes
+                up in the flow — see resize() above. */}
+            <div ref={spacerRef} aria-hidden />
+        </>
     );
 }

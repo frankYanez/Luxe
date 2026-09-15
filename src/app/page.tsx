@@ -4,6 +4,7 @@ import { PerfumeFrameIntro } from '@/features/hero/PerfumeFrameIntro';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { HeroSection } from '@/features/hero/HeroSection';
 import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
+import styles from './page.module.css';
 
 // Below-fold sections — lazy loaded to reduce initial bundle
 const NewArrivalsSection  = nextDynamic(() => import('@/features/products/NewArrivalsSection').then(m => ({ default: m.NewArrivalsSection })));
@@ -17,10 +18,10 @@ const FinalCTASection     = nextDynamic(() => import('@/features/checkout/FinalC
 const WhatsAppCTA         = nextDynamic(() => import('@/features/checkout/WhatsAppCTA').then(m => ({ default: m.WhatsAppCTA })));
 const SocialFooter        = nextDynamic(() => import('@/components/footer/SocialFooter').then(m => ({ default: m.SocialFooter })));
 
-// Product data is live from Supabase and several below-fold sections use
-// browser-only libs (GSAP/OGL/canvas) that can't be statically prerendered —
-// render this route per-request instead of at build time.
-export const dynamic = 'force-dynamic';
+// Every section below the fold is a 'use client' component that fetches
+// its own data in the browser (useProducts etc.) — the server-rendered
+// shell has no per-request data dependency, so it can be fully static
+// and served from cache/CDN instead of re-rendered on every request.
 
 /**
  * Homepage — Luxe Essence
@@ -46,22 +47,26 @@ export default function HomePage() {
     return (
         <main>
             <PerfumeFrameIntro />
-            <SiteHeader />
-            <HeroSection />
-            <ScrollVelocity
-                text="3 CUOTAS SIN INTERÉS • ENVÍOS A TODO EL PAÍS • 100% ORIGINALES • "
-                velocity={1}
-            />
-            <NewArrivalsSection />
-            <DecantsCTABand />
-            <ProductsSection />
-            <AsadFeature />
-            <DecantsSection />
-            <GaleriaWall />
-            <TestimonialsSection />
-            <FinalCTASection />
-            <WhatsAppCTA />
-            <SocialFooter />
+            {/* Own stacking context, above the (fixed) intro — scrolls up
+                over it like a sheet once the frame scrub ends. */}
+            <div className={styles.contentSheet}>
+                <SiteHeader />
+                <HeroSection />
+                <ScrollVelocity
+                    text="3 CUOTAS SIN INTERÉS • ENVÍOS A TODO EL PAÍS • 100% ORIGINALES • "
+                    velocity={1}
+                />
+                <NewArrivalsSection />
+                <DecantsCTABand />
+                <ProductsSection />
+                <AsadFeature />
+                <DecantsSection />
+                <GaleriaWall />
+                <TestimonialsSection />
+                <FinalCTASection />
+                <WhatsAppCTA />
+                <SocialFooter />
+            </div>
         </main>
     );
 }

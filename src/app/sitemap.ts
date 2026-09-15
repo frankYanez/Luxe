@@ -1,9 +1,12 @@
 import { MetadataRoute } from 'next';
+import { fetchProducts } from '@/core/api/products.api';
 
 const SITE_URL = 'https://luxefragancias.com';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    // /checkout is intentionally left out — it's disallowed in robots.ts,
+    // so listing it here would just be a contradictory, wasted crawl entry.
+    const staticRoutes: MetadataRoute.Sitemap = [
         {
             url: SITE_URL,
             lastModified: new Date(),
@@ -16,11 +19,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'weekly',
             priority: 0.8,
         },
-        {
-            url: `${SITE_URL}/checkout`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.5,
-        },
     ];
+
+    const products = await fetchProducts().catch(() => []);
+    const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
+        url: `${SITE_URL}/perfume/${product.id}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+    }));
+
+    return [...staticRoutes, ...productRoutes];
 }

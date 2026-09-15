@@ -1,0 +1,8 @@
+/* Everything after the frame intro sits in its own stacking context, above
+   it, so it visually acts like a sheet sliding up and covering the intro
+   (which is position: fixed and stays behind) once the scrub finishes. */
+.contentSheet {
+    position: relative;
+    z-index: 1;
+    background: var(--color-cream-white);
+}

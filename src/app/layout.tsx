@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import '@/styles/tailwind.css';
 import { siteConfig } from '@/core/config/site';
@@ -6,6 +7,12 @@ import { PageLoader } from '@/components/shared/PageLoader';
 import { TopBanner } from '@/components/layout/TopBanner';
 
 const SITE_URL = 'https://luxefragancias.com';
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#C5A059',
+};
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
@@ -74,9 +81,11 @@ export default function RootLayout({
                     rel="stylesheet"
                     href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@200;300;400;500;600;700&display=swap"
                 />
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
+            </head>
+            <body>
+                {/* afterInteractive — pixel doesn't need to block first paint */}
+                <Script id="fb-pixel" strategy="afterInteractive">
+                    {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -87,11 +96,8 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1044839991768381');
 fbq('track', 'PageView');
-`
-                    }}
-                />
-            </head>
-            <body>
+`}
+                </Script>
                 <noscript>
                     <img 
                         height="1" 
