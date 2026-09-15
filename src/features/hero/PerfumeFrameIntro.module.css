@@ -21,6 +21,36 @@
     background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
 
+.introTitle {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    margin: 0;
+    pointer-events: none;
+}
+
+.introWord {
+    display: inline-block;
+    opacity: 0;
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.75rem, 9vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.introWordAccent {
+    color: var(--color-matte-gold);
+}
+
 .scrollCue {
     position: absolute;
     left: 50%;

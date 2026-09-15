@@ -30,6 +30,8 @@ const MOBILE_BREAKPOINT = 768;
 export function PerfumeFrameIntro() {
     const sectionRef = useRef<HTMLElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const word1Ref = useRef<HTMLSpanElement>(null);
+    const word2Ref = useRef<HTMLSpanElement>(null);
     const currentFrameRef = useRef(0);
     const [ready, setReady] = useState(false);
 
@@ -58,24 +60,19 @@ export function PerfumeFrameIntro() {
             let dx = 0;
             let dy = 0;
 
-            if (isMobile) {
-                // Always fill the full screen width on mobile — never
-                // pillarbox with black bars on the sides. Crops top/bottom
-                // instead when the frame is relatively taller than the
-                // screen, which reads fine for a portrait bottle shot.
-                dw = width;
-                dh = width / imgRatio;
-                dy = (height - dh) / 2;
-            } else if (imgRatio > canvasRatio) {
-                // Contain fit — show the whole frame instead of cropping/zooming
-                // into a cover fill.
-                dw = width;
-                dh = width / imgRatio;
-                dy = (height - dh) / 2;
-            } else {
+            // Cover fit on both mobile and desktop — always fill the full
+            // viewport, cropping whichever dimension overflows. Desktop now
+            // has its own 16:9 sequence shot for this, so cropping is
+            // minor (only kicks in when the window isn't exactly 16:9)
+            // instead of leaving black pillarbox bars on the sides.
+            if (imgRatio > canvasRatio) {
                 dh = height;
                 dw = height * imgRatio;
                 dx = (width - dw) / 2;
+            } else {
+                dw = width;
+                dh = width / imgRatio;
+                dy = (height - dh) / 2;
             }
 
             ctx.clearRect(0, 0, width, height);
@@ -127,6 +124,15 @@ export function PerfumeFrameIntro() {
                 ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
             }
 
+            // "Perfumes" and "Árabes" fade in one after the other in the
+            // last stretch of the pinned scroll, then both hold on screen
+            // until the pin itself releases right at the very end — that's
+            // the moment the page content slides up and covers the intro.
+            const WORD1_RANGE: [number, number] = [0.72, 0.85];
+            const WORD2_RANGE: [number, number] = [0.85, 0.96];
+            const revealProgress = (p: number, [from, to]: [number, number]) =>
+                gsap.utils.clamp(0, 1, (p - from) / (to - from));
+
             ScrollTrigger.create({
                 trigger: sectionRef.current,
                 start: 'top top',
@@ -138,6 +144,17 @@ export function PerfumeFrameIntro() {
                     if (idx !== currentFrameRef.current || !images[idx]?.complete) {
                         currentFrameRef.current = idx;
                         draw(idx);
+                    }
+
+                    const w1 = revealProgress(self.progress, WORD1_RANGE);
+                    const w2 = revealProgress(self.progress, WORD2_RANGE);
+                    if (word1Ref.current) {
+                        word1Ref.current.style.opacity = String(w1);
+                        word1Ref.current.style.transform = `translateY(${(1 - w1) * 18}px)`;
+                    }
+                    if (word2Ref.current) {
+                        word2Ref.current.style.opacity = String(w2);
+                        word2Ref.current.style.transform = `translateY(${(1 - w2) * 18}px)`;
                     }
                 },
             });
@@ -154,6 +171,10 @@ export function PerfumeFrameIntro() {
         <section ref={sectionRef} className={styles.intro}>
             <canvas ref={canvasRef} className={styles.canvas} />
             <div className={styles.vignette} aria-hidden />
+            <h2 className={styles.introTitle} aria-hidden="true">
+                <span ref={word1Ref} className={styles.introWord}>Perfumes</span>
+                <span ref={word2Ref} className={`${styles.introWord} ${styles.introWordAccent}`}>Árabes</span>
+            </h2>
             <div className={styles.scrollCue} data-visible={ready}>
                 <span>Desplazate</span>
                 <span className={styles.scrollLine} />
