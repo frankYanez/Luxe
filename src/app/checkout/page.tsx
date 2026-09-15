@@ -3,6 +3,8 @@
 import React, { Suspense, useState, useRef, useCallback, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowLeft, ArrowUpRight, CreditCard, MessageCircle, LockKeyhole, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useCart, type CartItem } from '@/context/CartContext';
@@ -81,7 +83,7 @@ function Confetti() {
 }
 
 function CheckoutInner() {
-    const { items, cartTotal, clearCart } = useCart();
+    const { items, cartTotal, clearCart, updateQuantity, removeFromCart } = useCart();
     const router       = useRouter();
     const searchParams = useSearchParams();
 
@@ -93,6 +95,7 @@ function CheckoutInner() {
     const [paymentUrl,   setPaymentUrl]   = useState<string | null>(null);
     const [savedTotal,   setSavedTotal]   = useState(0);
     const [showConfetti, setShowConfetti] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
     const containerRef = useRef<HTMLDivElement>(null);
     const cardRef      = useRef<HTMLDivElement>(null);
@@ -203,6 +206,8 @@ function CheckoutInner() {
     /* ── Step 2 submit → create order ── */
     const handleDetailsSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isSubmitting) return;
+        setSubmitError('');
         setIsSubmitting(true);
         try {
             const res  = await fetch('/api/checkout', {
@@ -217,10 +222,10 @@ function CheckoutInner() {
                 goToStep('payment');
                 toast.success(`Pedido ${encodeOrderId(data.orderId)} creado`);
             } else {
-                toast.error(data.error || 'Error al crear el pedido.');
+                setSubmitError(data.error || 'No pudimos crear tu pedido. Intentá nuevamente.');
             }
         } catch {
-            toast.error('Error de conexión. Intentá de nuevo.');
+            setSubmitError('No pudimos conectar. Revisá tu conexión e intentá nuevamente.');
         } finally {
             setIsSubmitting(false);
         }
@@ -254,8 +259,9 @@ function CheckoutInner() {
             contents: items.map(i => ({ id: i.id, quantity: i.quantity })),
             num_items: items.reduce((n, i) => n + i.quantity, 0),
         });
+        setSavedTotal(cartTotal);
         clearCart();
-        router.push('/');
+        goToStep('success');
     };
 
     const displayTotal  = savedTotal || cartTotal;
@@ -267,8 +273,11 @@ function CheckoutInner() {
     if (items.length === 0 && step !== 'payment' && step !== 'success') {
         return (
             <div className={styles.emptyPage}>
-                <p>Tu carrito está vacío.</p>
-                <button className={styles.primaryBtn} style={{ maxWidth: 200 }} onClick={() => router.push('/')}>
+                <ShoppingBag size={36} strokeWidth={1.2} />
+                <span className={styles.eyebrow}>Luxe Essence</span>
+                <h1>Tu próxima fragancia<br />te espera.</h1>
+                <p>Todavía no agregaste perfumes a tu selección.</p>
+                <button className={styles.primaryBtn} onClick={() => router.push('/coleccion')}>
                     Ver Colección
                 </button>
             </div>
@@ -283,11 +292,12 @@ function CheckoutInner() {
 
             {/* Header */}
             <header ref={headerRef} className={styles.header}>
-                <button onClick={() => router.push('/')} className={styles.backBtn}>← Volver</button>
-                <span className={styles.logo}>Luxe Essence</span>
-                <span className={styles.secureTag}>🔒 Pago Seguro</span>
+                <Link href="/coleccion" className={styles.backBtn}><ArrowLeft size={16} /> Colección</Link>
+                <Link href="/" className={styles.logo}>LUXE<span>ESSENCE</span></Link>
+                <span className={styles.secureTag}><LockKeyhole size={14} /> Tu compra</span>
             </header>
 
+            <div className={styles.intro}><span className={styles.eyebrow}>El siguiente paso es tuyo</span><h1>Hacé tuya<br /><span>esa fragancia.</span></h1><p>Revisá tu selección, completá tus datos y elegí cómo pagar.</p></div>
             <div className={styles.layout}>
 
                 {/* Left: form side */}
@@ -298,7 +308,7 @@ function CheckoutInner() {
                         <div ref={stepBarRef} className={styles.stepBar}>
                             {STEPS.map((s, i) => (
                                 <React.Fragment key={s.key}>
-                                    <div className={`${styles.stepItem} ${stepIndex === i ? styles.stepActive : ''} ${stepIndex > i ? styles.stepDone : ''}`}>
+                                    <div aria-current={stepIndex === i ? 'step' : undefined} className={`${styles.stepItem} ${stepIndex === i ? styles.stepActive : ''} ${stepIndex > i ? styles.stepDone : ''}`}>
                                         <div className={styles.stepCircle}>{stepIndex > i ? '✓' : s.num}</div>
                                         <span className={styles.stepLabel}>{s.label}</span>
                                     </div>
@@ -315,7 +325,8 @@ function CheckoutInner() {
                     {/* ── STEP 1: Resumen ── */}
                     {step === 'review' && (
                         <>
-                            <h2 className={styles.cardTitle}>Tu Selección</h2>
+                            <h2 className={styles.cardTitle}>Tu selección</h2>
+                            <p className={styles.cardSubtitle}>Revisá tus perfumes antes de continuar.</p>
                             <ul className={styles.itemList}>
                                 {items.map(item => (
                                     <li key={item.id} className={styles.item}>
@@ -326,7 +337,12 @@ function CheckoutInner() {
                                         <div className={styles.itemInfo}>
                                             <span className={styles.itemName}>{item.name}</span>
                                             {item.variant && <span className={styles.itemVariant}>{item.variant}</span>}
-                                            <span className={styles.itemQty}>{item.quantity} unidad{item.quantity > 1 ? 'es' : ''}</span>
+                                            <div className={styles.quantityControls}>
+                                                <button type="button" onClick={() => updateQuantity(item.id, -1)} aria-label={`Quitar una unidad de ${item.name}`}><Minus size={14} /></button>
+                                                <span aria-live="polite">{item.quantity}</span>
+                                                <button type="button" onClick={() => updateQuantity(item.id, 1)} aria-label={`Sumar una unidad de ${item.name}`}><Plus size={14} /></button>
+                                                <button type="button" className={styles.removeItem} onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button>
+                                            </div>
                                         </div>
                                         <span className={styles.itemPrice}>
                                             ${(item.price * item.quantity).toLocaleString('es-AR')}
@@ -347,28 +363,28 @@ function CheckoutInner() {
 
                     {/* ── STEP 2: Datos ── */}
                     {step === 'details' && (
-                        <form onSubmit={handleDetailsSubmit} noValidate>
-                            <h2 className={styles.cardTitle}>Tus Datos</h2>
+                        <form onSubmit={handleDetailsSubmit}>
+                            <h2 className={styles.cardTitle}>Tus datos</h2>
                             <p className={styles.cardSubtitle}>Solo necesitamos lo básico para confirmar tu pedido.</p>
 
                             <div className={styles.formStack}>
                                 <div className={styles.field}>
                                     <Label className={styles.label} htmlFor="fullName">Nombre completo *</Label>
-                                    <Input id="fullName" className={styles.input} required
+                                    <Input id="fullName" autoComplete="name" className={styles.input} required pattern=".*\S.*"
                                         value={customer.fullName}
                                         onChange={e => setCustomer(p => ({ ...p, fullName: e.target.value }))}
                                         placeholder="Nombre y apellido" />
                                 </div>
                                 <div className={styles.field}>
                                     <Label className={styles.label} htmlFor="email">Email *</Label>
-                                    <Input id="email" className={styles.input} type="email" required
+                                    <Input id="email" autoComplete="email" className={styles.input} type="email" required
                                         value={customer.email}
                                         onChange={e => setCustomer(p => ({ ...p, email: e.target.value }))}
                                         placeholder="tu@email.com" />
                                 </div>
                                 <div className={styles.field}>
                                     <Label className={styles.label} htmlFor="phone">WhatsApp / Teléfono *</Label>
-                                    <Input id="phone" className={styles.input} type="tel" required
+                                    <Input id="phone" autoComplete="tel" className={styles.input} type="tel" required
                                         value={customer.phone}
                                         onChange={e => setCustomer(p => ({ ...p, phone: e.target.value }))}
                                         placeholder="+54 9 249 400-0000" />
@@ -377,19 +393,20 @@ function CheckoutInner() {
                                     <Label className={styles.label} htmlFor="address">
                                         Dirección de envío <span className={styles.labelOptional}>(opcional)</span>
                                     </Label>
-                                    <Input id="address" className={styles.input}
+                                    <Input id="address" autoComplete="street-address" className={styles.input}
                                         value={customer.address}
                                         onChange={e => setCustomer(p => ({ ...p, address: e.target.value }))}
                                         placeholder="Calle, número, ciudad" />
                                 </div>
                             </div>
 
+                            {submitError && <p className={styles.formError} role="alert">{submitError}</p>}
                             <div className={styles.btnRow}>
                                 <button type="button" className={styles.secondaryBtn} onClick={() => goToStep('review')}>
                                     ← Volver
                                 </button>
                                 <button type="submit" className={styles.primaryBtn} disabled={isSubmitting}>
-                                    {isSubmitting ? <span className={styles.spinner} /> : 'Confirmar pedido →'}
+                                    {isSubmitting ? <><span className={styles.spinner} aria-hidden="true" /> Preparando pedido…</> : 'Confirmar pedido →'}
                                 </button>
                             </div>
                         </form>
@@ -405,35 +422,35 @@ function CheckoutInner() {
 
                             <h2 className={styles.cardTitle}>Elegí cómo pagar</h2>
                             <p className={styles.cardSubtitle}>
-                                Total: <strong style={{ color: '#C9A84C' }}>${cartTotal.toLocaleString('es-AR')}</strong>
+                                Total: <strong className={styles.highlight}>${cartTotal.toLocaleString('es-AR')}</strong>
                                 {' '}— Completá el pago para confirmar tu envío.
                             </p>
 
                             <div className={styles.paymentOptions}>
                                 {paymentUrl && (
                                     <button className={`${styles.paymentOption} ${styles.paymentOnline}`} onClick={handleOnlinePayment}>
-                                        <span className={styles.payIcon}>💳</span>
+                                        <span className={styles.payIcon}><CreditCard size={24} strokeWidth={1.5} /></span>
                                         <div className={styles.payInfo}>
                                             <strong>Pagar con Ualá</strong>
-                                            <p>Tarjeta de crédito, débito o cuenta Ualá · Acreditación inmediata</p>
+                                            <p>Continuá en Ualá para completar tu pago</p>
                                         </div>
                                         <span className={styles.payArrow}>→</span>
                                     </button>
                                 )}
                                 <button className={`${styles.paymentOption} ${styles.paymentWhatsApp}`} onClick={handleWhatsAppPayment}>
-                                    <span className={styles.payIcon}>💬</span>
+                                    <span className={styles.payIcon}><MessageCircle size={24} strokeWidth={1.5} /></span>
                                     <div className={styles.payInfo}>
                                         <strong>Coordinar por WhatsApp</strong>
-                                        <p>Transferencia, efectivo u otro acuerdo · Respuesta inmediata</p>
+                                        <p>Coordiná el pago y la entrega con nuestro equipo</p>
                                     </div>
                                     <span className={styles.payArrow}>→</span>
                                 </button>
                             </div>
 
                             <div className={styles.trustRow}>
-                                <span className={styles.trustItem}>🔒 SSL encriptado</span>
-                                <span className={styles.trustItem}>✓ Datos protegidos</span>
-                                <span className={styles.trustItem}>🇦🇷 Pago local</span>
+                                <span className={styles.trustItem}><LockKeyhole size={14} /> Pago con Ualá</span>
+                                <span className={styles.trustItem}>Atención personalizada</span>
+                                <span className={styles.trustItem}>Precios en pesos</span>
                             </div>
 
                             <p className={styles.payNote}>
@@ -461,7 +478,7 @@ function CheckoutInner() {
                             <p data-reveal className={styles.successTagline}>Gracias por elegir Luxe Essence</p>
                             <p data-reveal className={styles.successSubtitle}>
                                 Recibimos tu pedido con éxito.{' '}
-                                {customer.email && <>Te enviaremos los detalles a <strong style={{ color: '#C9A84C' }}>{customer.email}</strong>.</>}
+                                {customer.email && <>Te enviaremos los detalles a <strong className={styles.highlight}>{customer.email}</strong>.</>}
                                 {' '}Nos pondremos en contacto para coordinar el envío.
                             </p>
 
@@ -482,7 +499,7 @@ function CheckoutInner() {
 
                             <div data-reveal className={styles.successMarketing}>
                                 <p>
-                                    "Cada fragancia es una historia. La tuya acaba de comenzar." — Preparamos tu pedido con el mismo cuidado con el que elegiste tu perfume. Pronto vas a recibir tu fragancia árabe premium.
+                                    Vamos a preparar tu selección. Si necesitás ajustar los datos de entrega, escribinos con tu número de pedido.
                                 </p>
                             </div>
 
@@ -496,7 +513,7 @@ function CheckoutInner() {
                                     rel="noreferrer"
                                     className={styles.successWa}
                                 >
-                                    💬 Coordinar envío por WhatsApp
+                                    Coordinar envío por WhatsApp
                                 </a>
                             </div>
                         </>
@@ -506,23 +523,20 @@ function CheckoutInner() {
 
                 </div>{/* end formSide */}
 
-                {/* Right: perfume image */}
-                <div className={styles.imageSide}>
-                    <div className={styles.imageWrap}>
-                        <Image
-                            src="/images/club-de-nuit.png"
-                            alt="Luxe Essence"
-                            fill
-                            priority
-                            style={{ objectFit: 'cover', objectPosition: 'center' }}
-                        />
-                    </div>
-                    <div className={styles.imageOverlay} />
-                    <div className={styles.imageQuote}>
-                        <p>"Cada fragancia es una historia que el tiempo no borra."</p>
-                        <span>— Luxe Essence</span>
-                    </div>
-                </div>
+                <aside className={styles.orderSummary} aria-label="Resumen de tu pedido">
+                    <span className={styles.eyebrow}>Tu selección Luxe</span>
+                    <h2>Buen gusto.<br />Buena elección.</h2>
+                    {items.length > 0 && <div className={styles.summaryProducts}>
+                        {items.map(item => <div className={styles.summaryProduct} key={item.id}>
+                            <div className={styles.summaryImage}><Image src={item.image} alt={item.name} fill sizes="64px" /></div>
+                            <div><strong>{item.name}</strong><span>{item.variant || 'Frasco'} · Cantidad: {item.quantity}</span></div>
+                            <span>${(item.price * item.quantity).toLocaleString('es-AR')}</span>
+                        </div>)}
+                    </div>}
+                    <div className={styles.summaryTotal}><span>Total del pedido</span><strong>${displayTotal.toLocaleString('es-AR')}</strong></div>
+                    <p className={styles.summaryNote}>Precios en pesos argentinos. Coordinamos la entrega personalmente.</p>
+                    <a className={styles.summaryHelp} href={`https://wa.me/${siteConfig.whatsapp.replace('+', '')}`} target="_blank" rel="noreferrer">¿Necesitás una mano? <ArrowUpRight size={16} /></a>
+                </aside>
 
             </div>{/* end layout */}
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import styles from './FloatingCart.module.css';
 
@@ -10,8 +11,9 @@ import styles from './FloatingCart.module.css';
  */
 export function FloatingCart() {
     const { toggleCart, itemCount } = useCart();
+    const pathname = usePathname();
 
-    if (itemCount === 0) return null;
+    if (itemCount === 0 || pathname === '/checkout') return null;
 
     return (
         <button

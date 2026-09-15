@@ -28,7 +28,7 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
     const activeImage = variant === 'Decant'
         ? `/images/decants/${product.slug}.png`
         : product.image;
-    const waUrl = `https://wa.me/${siteConfig.whatsapp.replace('+', '')}?text=${encodeURIComponent(`Hola! Me interesa ${product.name} de ${product.brand}, presentación ${variant}. ¿Está disponible?`)}`;
+    const waUrl = `https://wa.me/${siteConfig.whatsapp.replace('+', '')}?text=${encodeURIComponent(`Hola Luxe Essence, quiero comprar ${product.name} de ${product.brand}. Presentación: ${variant}${variant === 'Decant' ? ' 5 ml' : ''}. Precio: $${price.toLocaleString('es-AR')}. Quiero coordinar el pago y la entrega.`)}`;
 
     useEffect(() => {
         setVariant(searchParams.get('variant') === 'decant' && product.decantPrice ? 'Decant' : 'Frasco');
@@ -90,13 +90,18 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
             <h1 id="perfume-title">{product.name}</h1>
             {product.shortDescription && <p className={styles.summary}>{product.shortDescription}</p>}
             <div className={styles.purchase}>
-                <div className={styles.priceRow}><strong>${price.toLocaleString('es-AR')}</strong><span>{product.inStock ? 'Disponible' : 'Sin stock'}</span></div>
+                {product.decantPrice && <div className={styles.variants} role="group" aria-label="Presentación">
+                    {(['Frasco', 'Decant'] as const).map((option) => <button key={option} type="button" aria-pressed={variant === option} onClick={() => { setVariant(option); setImageFailed(false); }}>
+                        {option === 'Decant' ? 'Decant · 5 ml' : 'Frasco completo'}
+                    </button>)}
+                </div>}
+                <div className={styles.priceRow}><strong>${price.toLocaleString('es-AR')}</strong></div>
                 <div className={styles.actions}>
-                    <button type="button" disabled={!product.inStock} onClick={() => {
+                    {product.inStock && <button type="button" onClick={() => {
                         if (!product.inStock) return;
                         addToCart({ id: variant === 'Decant' ? `${product.id}-decant` : product.id, name: product.name, price, image: activeImage, variant });
-                    }}>{product.inStock ? 'Agregar al carrito' : 'Sin stock'}</button>
-                    <a href={waUrl} target="_blank" rel="noreferrer">Consultar <ArrowUpRight size={18} /></a>
+                    }}>Agregar al carrito</button>}
+                    <a href={waUrl} target="_blank" rel="noreferrer">Comprar por WhatsApp <ArrowUpRight size={18} /></a>
                 </div>
                 {variant === 'Frasco' && product.decantPrice && (
                     <Link href={`/perfume/${product.id}?variant=decant`} className={styles.tryCta}>

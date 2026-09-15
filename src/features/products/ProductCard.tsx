@@ -114,7 +114,7 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
     return (
         <article
             ref={cardRef}
-            className={`${styles.card} ${!product.inStock ? styles.cardOut : ''}`}
+            className={styles.card}
             data-card
             onMouseEnter={handleMediaEnter}
             onMouseLeave={handleMediaLeave}
@@ -125,10 +125,9 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
 
                 <span className={styles.categoryChip}>{CATEGORY_LABEL[product.category]}</span>
 
-                {(!product.inStock || product.featured) && (
+                {product.featured && (
                     <div className={styles.badges}>
-                        {!product.inStock && <span className={styles.badge}>Sin Stock</span>}
-                        {product.featured && product.inStock && (
+                        {product.featured && (
                             <span className={`${styles.badge} ${styles.badgeFeatured}`}>✦ Destacado</span>
                         )}
                     </div>
@@ -222,12 +221,11 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                 <div className={styles.ctas}>
                     <button
                         className={`${styles.btnMain} ${added ? styles.btnDone : ''}`}
-                        onClick={handleAdd}
-                        disabled={!product.inStock}
+                        onClick={product.inStock ? handleAdd : handleWhatsApp}
                     >
                         {added
                             ? 'Agregado ✓'
-                            : product.inStock ? 'Agregar al carrito' : 'Sin stock'}
+                            : product.inStock ? 'Agregar al carrito' : 'Consultar'}
                     </button>
 
                     <button className={styles.btnWa} onClick={handleWhatsApp} aria-label="Consultar por WhatsApp">

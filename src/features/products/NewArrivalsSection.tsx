@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useProducts } from '@/core/hooks/useProducts';
+import newArrivalSlugs from '@/core/data/new-arrivals.json';
 import { Container } from '@/components/shared/ui/Container';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import styles from './NewArrivalsSection.module.css';
@@ -13,8 +14,6 @@ const CATEGORY_LABEL: Record<string, string> = {
     femenino: 'Femenino',
     unisex: 'Unisex',
 };
-
-const MAX_ITEMS = 6;
 
 /**
  * New Arrivals — big, dramatic spotlight for the newest additions to the
@@ -28,7 +27,12 @@ export function NewArrivalsSection() {
 
     if (loading || products.length === 0) return null;
 
-    const newest = products.slice(0, MAX_ITEMS);
+    const newest = newArrivalSlugs.flatMap((slug) => {
+        const product = products.find((item) => item.slug === slug);
+        return product ? [product] : [];
+    });
+
+    if (newest.length === 0) return null;
 
     return (
         <section className={styles.section}>
@@ -68,13 +72,18 @@ export function NewArrivalsSection() {
                                 <span className={styles.category}>
                                     {product.brand} &middot; {CATEGORY_LABEL[product.category]}
                                 </span>
-                                <h3 className={styles.name}>{product.name}</h3>
+                                <h3 className={styles.name}>
+                                    <Link href={`/perfume/${product.id}`}>{product.name}</Link>
+                                </h3>
+                                <span className={styles.price}>
+                                    ${product.price.toLocaleString('es-AR')}
+                                </span>
                                 {product.decantPrice && (
                                     <Link
-                                        href={`/perfume/${product.id}?variant=decant`}
+                                        href={`/perfume/${product.id}${product.inStock ? '?variant=decant' : ''}`}
                                         className={styles.tryBtn}
                                     >
-                                        Lo quiero probar gratis
+                                        {product.inStock ? 'Lo quiero probar gratis' : 'Ver perfume'}
                                         <span aria-hidden>&rarr;</span>
                                     </Link>
                                 )}

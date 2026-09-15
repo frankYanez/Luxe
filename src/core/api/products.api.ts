@@ -40,7 +40,6 @@ export async function fetchProducts(params?: {
     let query = client
         .from('products')
         .select('*')
-        .eq('in_stock', true)
         .order('created_at', { ascending: false });
 
     if (params?.category) query = query.eq('category', params.category);

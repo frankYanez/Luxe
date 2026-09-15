@@ -1,0 +1,188 @@
+{
+  "date": "2026-09-15",
+  "currency": "ARS",
+  "prices": [
+    {
+      "slug": "khamrah",
+      "price": 80000
+    },
+    {
+      "slug": "khamrah-qahwa",
+      "price": 80000
+    },
+    {
+      "slug": "asad",
+      "price": 70000
+    },
+    {
+      "slug": "asad-bourbon",
+      "price": 75000
+    },
+    {
+      "slug": "asad-elixir",
+      "price": 90000
+    },
+    {
+      "slug": "sublime",
+      "price": 65000
+    },
+    {
+      "slug": "honor-and-glory",
+      "price": 65000
+    },
+    {
+      "slug": "oud-for-glory",
+      "price": 65000
+    },
+    {
+      "slug": "fakhar-black",
+      "price": 65000
+    },
+    {
+      "slug": "fakhar-rose",
+      "price": 65000
+    },
+    {
+      "slug": "yara-rose",
+      "price": 50000
+    },
+    {
+      "slug": "yara-candy",
+      "price": 65000
+    },
+    {
+      "slug": "lattafa-eclaire",
+      "price": 80000
+    },
+    {
+      "slug": "hayaati-florence",
+      "price": 70000
+    },
+    {
+      "slug": "lattafa-hayaati-masculino",
+      "price": 75000
+    },
+    {
+      "slug": "lattafa-mayar",
+      "price": 70000
+    },
+    {
+      "slug": "lattafa-mayar-natural-intense",
+      "price": 70000
+    },
+    {
+      "slug": "lattafa-qaed-al-fursan",
+      "price": 60000
+    },
+    {
+      "slug": "afnan-9pm",
+      "price": 80000
+    },
+    {
+      "slug": "afnan-9am",
+      "price": 80000
+    },
+    {
+      "slug": "afnan-9pm-rebel",
+      "price": 90000
+    },
+    {
+      "slug": "mandarin-sky",
+      "price": 80000
+    },
+    {
+      "slug": "amber-oud-ge",
+      "price": 145000
+    },
+    {
+      "slug": "aqua-dubai",
+      "price": 115000
+    },
+    {
+      "slug": "bharara-king",
+      "price": 135000
+    },
+    {
+      "slug": "club-de-nuit-man",
+      "price": 85000
+    },
+    {
+      "slug": "club-de-nuit-woman",
+      "price": 75000
+    },
+    {
+      "slug": "club-de-nuit-milestone",
+      "price": 75000
+    },
+    {
+      "slug": "club-de-nuit-sillage",
+      "price": 80000
+    },
+    {
+      "slug": "club-de-nuit-precieux",
+      "price": 110000
+    },
+    {
+      "slug": "hawas-for-him",
+      "price": 78000
+    },
+    {
+      "slug": "jean-lowe-azure",
+      "price": 75000
+    },
+    {
+      "slug": "jean-lowe-vibe",
+      "price": 75000
+    },
+    {
+      "slug": "la-rouge-baroque-extreme",
+      "price": 60000
+    },
+    {
+      "slug": "delilah",
+      "price": 65000
+    }
+  ],
+  "newProducts": [
+    {
+      "slug": "hawas-for-him",
+      "name": "Hawas For Him",
+      "brand": "Rasasi",
+      "category": "masculino",
+      "description": "Una fragancia de carácter fresco, acuático y frutal, con un fondo amaderado. Eau de Parfum de Rasasi en presentación de 100 ml.",
+      "short_description": "Fresco, acuático y frutal"
+    },
+    {
+      "slug": "jean-lowe-azure",
+      "name": "Jean Lowe Azure",
+      "brand": "Maison Alhambra",
+      "category": "unisex",
+      "description": "Una composición fresca con bergamota y mandarina, un corazón de jazmín y cedro y un fondo de ámbar gris y almizcle. Eau de Parfum de 100 ml.",
+      "short_description": "Cítrico, fresco y amaderado"
+    },
+    {
+      "slug": "jean-lowe-vibe",
+      "name": "Jean Lowe Vibe",
+      "brand": "Maison Alhambra",
+      "category": "unisex",
+      "description": "Jean Lowe Vibe de Maison Alhambra. Eau de Parfum en presentación de 100 ml.",
+      "short_description": "Jean Lowe · Eau de Parfum"
+    },
+    {
+      "slug": "la-rouge-baroque-extreme",
+      "name": "La Rouge Baroque Extreme",
+      "brand": "Maison Alhambra",
+      "category": "unisex",
+      "description": "Una fragancia de carácter ambarado, floral y amaderado. La Rouge Baroque Extreme de Maison Alhambra, en presentación de 100 ml.",
+      "short_description": "Ambarado, floral y amaderado"
+    },
+    {
+      "slug": "delilah",
+      "name": "Delilah",
+      "brand": "Maison Alhambra",
+      "category": "femenino",
+      "description": "Una apertura frutal de bergamota, lichi y ruibarbo da paso a un corazón floral de peonía, lirio y rosa. El fondo combina vainilla, almizcle blanco y cachemira. Eau de Parfum de 100 ml.",
+      "short_description": "Floral y frutal · Fondo suave de vainilla"
+    }
+  ]
+}

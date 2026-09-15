@@ -185,6 +185,16 @@
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.price {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #fff;
+    font-size: 18px;
+}
+
+
 .tryBtn:hover {
     background: #fff;
     transform: translateY(-2px);
