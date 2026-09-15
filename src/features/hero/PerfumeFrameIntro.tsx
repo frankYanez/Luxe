@@ -6,6 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './PerfumeFrameIntro.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
+// Mobile browsers fire `resize` when the address bar hides/shows mid-scroll
+// (height-only change, no rotation). Without this, ScrollTrigger's own
+// auto-refresh recalculates positions on every one of those and the scroll
+// visibly snaps/rubber-bands.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 // Two separate frame sequences, shot in the aspect ratio each device
 // actually needs — mobile (9:16 portrait) and desktop (16:9 landscape) —
@@ -48,6 +53,9 @@ export function PerfumeFrameIntro() {
         const scrollDistance = Math.round(PX_PER_FRAME * FRAME_COUNT);
 
         const images: HTMLImageElement[] = [];
+        const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        let lastWidth = window.innerWidth;
+        let sized = false;
 
         const draw = (idx: number) => {
             const canvas = canvasRef.current;
@@ -83,12 +91,26 @@ export function PerfumeFrameIntro() {
         };
 
         const resize = () => {
+            // Canvas sizing is always safe to redo — it's inside the fixed,
+            // out-of-flow section, so it can never affect document/scroll
+            // height, unlike the spacer below.
             const canvas = canvasRef.current;
             if (canvas) {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
                 draw(currentFrameRef.current);
             }
+
+            const widthChanged = window.innerWidth !== lastWidth;
+            lastWidth = window.innerWidth;
+            // On mobile, a height-only change is the address bar hiding/showing
+            // while the user scrolls — not a real resize. Resizing the spacer
+            // in response (while the user is scrolled partway through it) is
+            // what caused the scroll to snap back. Only react to real width
+            // changes (rotation, actual resize) once past the initial mount.
+            if (sized && isCoarsePointer && !widthChanged) return;
+            sized = true;
+
             // Spacer reserves the scroll room the fixed intro no longer
             // takes up in the flow: one viewport's worth to hold the frozen
             // last frame while the page content sheet slides over it, plus
@@ -96,7 +118,6 @@ export function PerfumeFrameIntro() {
             if (spacerRef.current) {
                 spacerRef.current.style.height = `${window.innerHeight + scrollDistance}px`;
             }
-            ScrollTrigger.refresh();
         };
         resize();
 
@@ -129,7 +150,6 @@ export function PerfumeFrameIntro() {
             // position: fixed (see CSS) instead of a GSAP pin, which sidesteps
             // that class of bug entirely, but touch-drag on horizontally
             // scrolling children (product carousels) still needs this.
-            const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
             if (isCoarsePointer) {
                 // allowNestedScroll — without it, normalizeScroll swallows
                 // touch-drag on horizontally-scrolling children (product
