@@ -7,7 +7,6 @@ import { ScrollVelocity } from '@/components/shared/ui/ScrollVelocity';
 
 // Below-fold sections — lazy loaded to reduce initial bundle
 const NewArrivalsSection  = nextDynamic(() => import('@/features/products/NewArrivalsSection').then(m => ({ default: m.NewArrivalsSection })));
-const VitrinaRail         = nextDynamic(() => import('@/features/gallery/VitrinaRail').then(m => ({ default: m.VitrinaRail })));
 const DecantsCTABand      = nextDynamic(() => import('@/features/decants/DecantsCTABand').then(m => ({ default: m.DecantsCTABand })));
 const ProductsSection     = nextDynamic(() => import('@/features/products/ProductsSection').then(m => ({ default: m.ProductsSection })));
 const AsadFeature         = nextDynamic(() => import('@/features/products/AsadFeature').then(m => ({ default: m.AsadFeature })));
@@ -33,16 +32,15 @@ export const dynamic = 'force-dynamic';
  *  1. Hero           → gancho emocional, bento spotlight + doble CTA
  *  2. ScrollVelocity → trust signals inmediatos (cuotas, envíos, originales)
  *  3. NewArrivalsSection → spotlight de nuevos ingresos, prueba gratis
- *  4. VitrinaRail    → vidriera continua de la colección
- *  5. DecantsCTABand → puerta de entrada a los decants
- *  6. ProductsSection → catálogo completo
- *  7. AsadFeature    → banner de producto individual
- *  8. DecantsSection → puente/tripwire (convierte indecisos)
- *  9. GaleriaWall    → muro de imágenes (única sección heredada de la web anterior)
- * 10. TestimonialsSection → validación social
- * 11. FinalCTASection → cierre editorial (WhatsApp + Instagram)
- * 12. WhatsAppCTA    → botón flotante persistente
- * 13. SocialFooter
+ *  4. DecantsCTABand → puerta de entrada a los decants
+ *  5. ProductsSection → catálogo completo
+ *  6. AsadFeature    → banner de producto individual
+ *  7. DecantsSection → puente/tripwire (convierte indecisos)
+ *  8. GaleriaWall    → muro de imágenes (única sección heredada de la web anterior)
+ *  9. TestimonialsSection → validación social
+ * 10. FinalCTASection → cierre editorial (WhatsApp + Instagram)
+ * 11. WhatsAppCTA    → botón flotante persistente
+ * 12. SocialFooter
  */
 export default function HomePage() {
     return (
@@ -55,7 +53,6 @@ export default function HomePage() {
                 velocity={1}
             />
             <NewArrivalsSection />
-            <VitrinaRail />
             <DecantsCTABand />
             <ProductsSection />
             <AsadFeature />

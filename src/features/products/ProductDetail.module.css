@@ -33,8 +33,10 @@
     .page { display: flex; flex-direction: column; justify-content: flex-end; min-height: calc(100svh - 36px); background: transparent; }
     .media { position: fixed; inset: 36px 0 0; z-index: -2; background: transparent; }
     .photo { padding: 30px 8% 230px; object-position: center top; }
-    /* Video takes over as the true page background — hide the static cutout so its white backdrop doesn't block it */
-    .media[data-video="true"] .photo { display: none; }
+    /* Video takes over as the true page background only while it's actually
+       playing — if it's paused (autoplay blocked, user paused it, etc.)
+       the static photo stays the fallback instead of a blank frame. */
+    .media[data-playing="true"] .photo { display: none; }
     .video { opacity: 0; }
     .videoPlaying { opacity: 0.7; }
     .nav { padding: 20px; }

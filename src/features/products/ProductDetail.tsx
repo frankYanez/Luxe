@@ -58,9 +58,27 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
     };
 
     return <main className={styles.page}>
-        <div className={styles.media} data-video={showVideo}>
+        <div className={styles.media} data-playing={playing}>
             {activeImage && !imageFailed ? <Image src={activeImage} alt={variant === 'Decant' ? `${product.name} decant` : product.name} fill priority sizes="(max-width: 767px) 100vw, 55vw" className={styles.photo} onError={() => setImageFailed(true)} /> : <div className={styles.imageFallback}>{product.brand}</div>}
-            {showVideo && <video ref={videoRef} className={`${styles.video} ${playing ? styles.videoPlaying : ''}`} src={videoSrc} muted loop playsInline autoPlay={!reducedMotion} preload={reducedMotion ? 'none' : 'metadata'} onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => { setVideoFailed(true); setPlaying(false); }} aria-hidden="true" />}
+            {showVideo && (
+                <video
+                    ref={videoRef}
+                    className={`${styles.video} ${playing ? styles.videoPlaying : ''}`}
+                    src={videoSrc}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay={!reducedMotion}
+                    preload={reducedMotion ? 'none' : 'metadata'}
+                    onPlay={() => setPlaying(true)}
+                    onPlaying={() => setPlaying(true)}
+                    onPause={() => setPlaying(false)}
+                    onWaiting={() => setPlaying(false)}
+                    onStalled={() => setPlaying(false)}
+                    onError={() => { setVideoFailed(true); setPlaying(false); }}
+                    aria-hidden="true"
+                />
+            )}
         </div>
         <nav className={styles.nav} aria-label="Navegación del perfume">
             <Link href="/coleccion" className={styles.back}><ArrowLeft size={18} /> Colección</Link>

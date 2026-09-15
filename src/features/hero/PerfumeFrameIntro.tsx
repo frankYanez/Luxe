@@ -120,7 +120,11 @@ export function PerfumeFrameIntro() {
             // viewport stays put for the whole pin duration.
             const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
             if (isCoarsePointer) {
-                ScrollTrigger.normalizeScroll(true);
+                // allowNestedScroll — without it, normalizeScroll swallows
+                // touch-drag on horizontally-scrolling children (product
+                // carousels) since it grabs touchmove for the vertical
+                // normalization itself.
+                ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
             }
 
             ScrollTrigger.create({
