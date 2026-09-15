@@ -243,6 +243,28 @@ export function CollectionClient() {
                     ))}
                 </div>
 
+                {/* Filter select — mobile only. The pill bar scrolls
+                    horizontally but nothing signals that on a touch
+                    screen, so mobile visitors only ever saw "Masculinos /
+                    Femeninas" and assumed that was the whole list. */}
+                <div className={styles.filterSelectWrap}>
+                    <select
+                        className={styles.filterSelect}
+                        value={activeFilter}
+                        onChange={e => handleFilterChange(e.target.value as FilterKey)}
+                        aria-label="Filtrar por categoría"
+                    >
+                        {FILTERS.map(f => (
+                            <option key={f.key} value={f.key}>
+                                {f.label}{counts[f.key] > 0 ? ` (${counts[f.key]})` : ''}
+                            </option>
+                        ))}
+                    </select>
+                    <svg className={styles.sortChevron} width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                </div>
+
                 {/* Sort select */}
                 <div className={styles.sortWrapper}>
                     <svg className={styles.sortIcon} width="14" height="14" viewBox="0 0 14 14" fill="none">

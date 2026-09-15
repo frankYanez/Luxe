@@ -16,7 +16,9 @@ const FRAME_SETS = {
     // Starts at frame 31 — the first 30 (bottle just sitting there, closed)
     // got trimmed so the mobile intro opens already mid-motion.
     mobile: { dir: 'fakhar', start: 31, end: 66 },
-    desktop: { dir: 'fakhar-desktop', start: 1, end: 120 },
+    // Same idea on desktop: frames 1-20 (static) and 95-120 (fully open,
+    // holding still) trimmed off both ends — only files 21-94 exist on disk.
+    desktop: { dir: 'fakhar-desktop', start: 21, end: 94 },
 } as const;
 const MOBILE_BREAKPOINT = 768;
 
