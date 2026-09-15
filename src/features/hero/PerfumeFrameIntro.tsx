@@ -13,8 +13,10 @@ gsap.registerPlugin(ScrollTrigger);
 // per frame is kept equal (~33px/frame) so the scrub pace feels the same.
 const PX_PER_FRAME = 2200 / 66;
 const FRAME_SETS = {
-    mobile: { dir: 'fakhar', count: 66 },
-    desktop: { dir: 'fakhar-desktop', count: 120 },
+    // Starts at frame 31 — the first 30 (bottle just sitting there, closed)
+    // got trimmed so the mobile intro opens already mid-motion.
+    mobile: { dir: 'fakhar', start: 31, end: 66 },
+    desktop: { dir: 'fakhar-desktop', start: 1, end: 120 },
 } as const;
 const MOBILE_BREAKPOINT = 768;
 
@@ -31,8 +33,11 @@ export function PerfumeFrameIntro() {
 
     useEffect(() => {
         const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-        const { dir, count: FRAME_COUNT } = isMobile ? FRAME_SETS.mobile : FRAME_SETS.desktop;
-        const framePath = (i: number) => `/frames/${dir}/frame_${String(i).padStart(4, '0')}.webp`;
+        const { dir, start, end } = isMobile ? FRAME_SETS.mobile : FRAME_SETS.desktop;
+        const FRAME_COUNT = end - start + 1;
+        // i is the 1-based index into the active sequence; map it to the
+        // real file number (offset by `start`) on disk.
+        const framePath = (i: number) => `/frames/${dir}/frame_${String(start + i - 1).padStart(4, '0')}.webp`;
         const scrollDistance = Math.round(PX_PER_FRAME * FRAME_COUNT);
 
         const images: HTMLImageElement[] = [];
@@ -51,10 +56,17 @@ export function PerfumeFrameIntro() {
             let dx = 0;
             let dy = 0;
 
-            // Contain fit — show the whole frame instead of cropping/zooming
-            // into a cover fill (the portrait source video was being blown up
-            // to fill a wide desktop viewport, cropping most of the bottle).
-            if (imgRatio > canvasRatio) {
+            if (isMobile) {
+                // Always fill the full screen width on mobile — never
+                // pillarbox with black bars on the sides. Crops top/bottom
+                // instead when the frame is relatively taller than the
+                // screen, which reads fine for a portrait bottle shot.
+                dw = width;
+                dh = width / imgRatio;
+                dy = (height - dh) / 2;
+            } else if (imgRatio > canvasRatio) {
+                // Contain fit — show the whole frame instead of cropping/zooming
+                // into a cover fill.
                 dw = width;
                 dh = width / imgRatio;
                 dy = (height - dh) / 2;

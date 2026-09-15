@@ -17,15 +17,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BENEFITS = [
     { icon: '✦', title: '100% Original', text: 'Misma fragancia del frasco de fábrica. Sin diluciones ni alteraciones.' },
-    { icon: '◈', title: 'Accesible', text: 'Probá fragancias de lujo sin invertir en el frasco completo.' },
-    { icon: '◎', title: 'Sin Riesgos', text: 'Descubrí tu fragancia perfecta antes de comprometerte con un frasco completo.' },
+    { icon: '◈', title: 'Te sale gratis', text: 'Comprás el frasco después y te descontamos cada peso que pagaste por el decant.' },
+    { icon: '◎', title: 'Cero Riesgo', text: 'Lo probás en tu piel antes de gastar en el frasco completo. Sin apuros.' },
     { icon: '❋', title: 'Variedad', text: 'Armá tu colección con múltiples fragancias para cada ocasión.' },
 ];
 
 const STEPS = [
-    { num: '01', title: 'Frasco Original', text: 'Comenzamos con perfumes 100% originales de las casas más prestigiosas de Medio Oriente.' },
-    { num: '02', title: 'Extracción Cuidadosa', text: 'Con técnicas profesionales, transferimos el perfume preservando cada nota intacta.' },
-    { num: '03', title: 'Atomizador Premium', text: 'Empaquetado en frascos de vidrio de alta calidad con atomizador profesional.' },
+    { num: '01', title: 'Elegís tu decant', text: 'Pagás solo 5ml del perfume 100% original en un atomizador premium. Sin compromiso, sin letra chica.' },
+    { num: '02', title: 'Lo probás en tu piel', text: 'Nada de tester en papel: vivís la fragancia real, en tu piel, las veces que quieras antes de decidir.' },
+    { num: '03', title: 'Si te enamorás, comprás el frasco', text: 'Te descontamos el 100% de lo que pagaste por el decant. Tu prueba termina saliendo gratis.' },
 ];
 
 /**
@@ -124,17 +124,17 @@ export function DecantsSection() {
                 <div ref={sectionRef} className={styles.decantsContent}>
                     {/* Header */}
                     <div ref={headerRef} className={styles.header}>
-                        <span className={styles.eyebrow} data-eyebrow>La Puerta de Entrada</span>
+                        <span className={styles.eyebrow} data-eyebrow>Probá sin arriesgar</span>
                         <h2 className={styles.title}>
                             {wordReveal('Lujo fraccionado:')}
                             <span className={styles.titleAccent}>
-                                {wordReveal('¿Qué son los Decants?')}
+                                {wordReveal('tu decant sale gratis')}
                             </span>
                         </h2>
                         <p className={styles.description} data-desc>
-                            Un decant es una porción de perfume original extraída directamente del frasco de fábrica
-                            y transferida a un atomizador de vidrio premium. Es la forma perfecta de experimentar
-                            fragancias de lujo sin comprometer la calidad ni la autenticidad.
+                            Pagás solo el decant: 5ml del perfume original, extraído del frasco de fábrica.
+                            ¿Te enamoraste? Comprás el frasco completo y te descontamos <strong>el 100%</strong> de
+                            lo que ya pagaste por el decant. Así, probar una fragancia de lujo termina saliéndote gratis.
                         </p>
                     </div>
 

@@ -38,6 +38,11 @@
     margin: 0 auto;
 }
 
+.description strong {
+    color: var(--color-matte-gold);
+    font-weight: 700;
+}
+
 /* Timeline */
 .timeline {
     position: relative;

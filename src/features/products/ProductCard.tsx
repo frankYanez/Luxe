@@ -11,6 +11,7 @@ import type { Product } from '@/core/types/product';
 import { useCart } from '@/context/CartContext';
 import { siteConfig } from '@/core/config/site';
 import productVideos from '@/core/data/product-videos.json';
+import { PaymentBadges } from '@/components/shared/ui/PaymentBadges';
 import styles from './ProductCard.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -66,6 +67,8 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
     }, [defaultVariant]);
 
     const rightLabel = useMemo(() => product.longevity || product.intensity, [product.longevity, product.intensity]);
+    const cashPrice = Math.round(activePrice * 0.9);
+    const installmentPrice = Math.round(activePrice / 3);
 
     /* ── GSAP scroll entrance — reveal from bottom, like the rest of the page ── */
     useGSAP(() => {
@@ -176,6 +179,17 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                     <span className={styles.price}>${activePrice.toLocaleString('es-AR')}</span>
                     {rightLabel && <span className={styles.rightLabel}>{rightLabel}</span>}
                 </div>
+
+                <div className={styles.priceDetails}>
+                    <span className={styles.cashPrice}>
+                        ${cashPrice.toLocaleString('es-AR')} efectivo/transferencia
+                    </span>
+                    <span className={styles.installments}>
+                        3 cuotas sin interés de ${installmentPrice.toLocaleString('es-AR')}
+                    </span>
+                </div>
+
+                <PaymentBadges className={styles.paymentBadges} />
 
                 {hasDecant && (
                     <div className={styles.toggle} role="tablist" aria-label="Presentación">
