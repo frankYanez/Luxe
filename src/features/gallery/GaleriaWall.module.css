@@ -28,6 +28,12 @@
     margin: 0;
 }
 
+.titleAccent {
+    display: block;
+    color: var(--color-matte-gold);
+    font-style: italic;
+}
+
 .wallWrap {
     position: relative;
     height: 620px;
