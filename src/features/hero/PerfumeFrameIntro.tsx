@@ -145,20 +145,6 @@ export function PerfumeFrameIntro() {
         // all on any machine with OS-level "reduce motion" / animation
         // effects turned off, Chromium's own toggle or not).
         const ctx = gsap.context(() => {
-            // Mobile browsers resize the viewport as the address bar hides/shows
-            // while scrolling, which used to throw off the pinned section's
-            // height calculations mid-scroll. The intro is now plain
-            // position: fixed (see CSS) instead of a GSAP pin, which sidesteps
-            // that class of bug entirely, but touch-drag on horizontally
-            // scrolling children (product carousels) still needs this.
-            if (isCoarsePointer) {
-                // allowNestedScroll — without it, normalizeScroll swallows
-                // touch-drag on horizontally-scrolling children (product
-                // carousels) since it grabs touchmove for the vertical
-                // normalization itself.
-                ScrollTrigger.normalizeScroll({ allowNestedScroll: true });
-            }
-
             // "Perfumes" and "Árabes" fade in early — well before the scrub
             // finishes — then hold on screen through the rest of the frame
             // sequence and the trailing hold, right up until the content
@@ -202,7 +188,6 @@ export function PerfumeFrameIntro() {
         return () => {
             window.removeEventListener('resize', resize);
             ctx.revert();
-            ScrollTrigger.normalizeScroll(false);
         };
     }, []);
 
