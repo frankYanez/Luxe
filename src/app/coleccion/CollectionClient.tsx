@@ -42,13 +42,17 @@ const SORT_OPTIONS: { key: SortKey; label: string }[] = [
 ];
 
 /* ─── Filter / sort helpers ──────────────────────────────────── */
+// Unisex products belong in both gendered tabs — otherwise they only ever
+// show up under "Todos" and are invisible from every other filter,
+// including their own decants (e.g. Khamrah never appeared under
+// "Masculinos", "Femeninas", or either decant tab).
 function applyFilter(products: Product[], filter: FilterKey): Product[] {
     switch (filter) {
         case 'todos':            return products;
-        case 'masculino':        return products.filter(p => p.category === 'masculino');
-        case 'femenino':         return products.filter(p => p.category === 'femenino');
-        case 'decant-masculino': return products.filter(p => p.category === 'masculino' && !!p.decantPrice);
-        case 'decant-femenino':  return products.filter(p => p.category === 'femenino' && !!p.decantPrice);
+        case 'masculino':        return products.filter(p => p.category === 'masculino' || p.category === 'unisex');
+        case 'femenino':         return products.filter(p => p.category === 'femenino' || p.category === 'unisex');
+        case 'decant-masculino': return products.filter(p => (p.category === 'masculino' || p.category === 'unisex') && !!p.decantPrice);
+        case 'decant-femenino':  return products.filter(p => (p.category === 'femenino' || p.category === 'unisex') && !!p.decantPrice);
     }
 }
 
@@ -64,11 +68,11 @@ function applySort(products: Product[], sort: SortKey): Product[] {
 
 function getCounts(products: Product[]): Record<FilterKey, number> {
     return {
-        todos:            products.length,
-        masculino:        products.filter(p => p.category === 'masculino').length,
-        femenino:         products.filter(p => p.category === 'femenino').length,
-        'decant-masculino': products.filter(p => p.category === 'masculino' && !!p.decantPrice).length,
-        'decant-femenino':  products.filter(p => p.category === 'femenino' && !!p.decantPrice).length,
+        todos:              products.length,
+        masculino:          applyFilter(products, 'masculino').length,
+        femenino:           applyFilter(products, 'femenino').length,
+        'decant-masculino': applyFilter(products, 'decant-masculino').length,
+        'decant-femenino':  applyFilter(products, 'decant-femenino').length,
     };
 }
 
