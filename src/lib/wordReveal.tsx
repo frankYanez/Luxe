@@ -17,7 +17,11 @@ export function wordReveal(text: string): React.ReactNode[] {
             <span
                 style={{
                     display: 'inline-block',
-                    overflow: 'hidden',
+                    // Hide only vertically (for the slide-up reveal) — clipping
+                    // both axes cut off the trailing edge of italic words,
+                    // since italic glyphs slant past their own advance width.
+                    overflowX: 'visible',
+                    overflowY: 'hidden',
                     verticalAlign: 'bottom',
                     lineHeight: 1.3,
                 }}

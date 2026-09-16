@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -8,18 +10,22 @@ import { Container } from '@/components/shared/ui/Container';
 import { Section } from '@/components/shared/ui/Section';
 import styles from './DecantsSection.module.css';
 import { wordReveal } from '@/lib/wordReveal';
-import MagicBento from '@/components/MagicBento';
 import DecryptedText from '@/components/DecryptedText';
-
-const LUXE_GOLD_RGB = '201, 168, 76';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BENEFITS = [
-    { icon: '✦', title: '100% Original', text: 'Misma fragancia del frasco de fábrica. Sin diluciones ni alteraciones.' },
-    { icon: '◈', title: 'Te sale gratis', text: 'Comprás el frasco después y te descontamos cada peso que pagaste por el decant.' },
-    { icon: '◎', title: 'Cero Riesgo', text: 'Lo probás en tu piel antes de gastar en el frasco completo. Sin apuros.' },
-    { icon: '❋', title: 'Variedad', text: 'Armá tu colección con múltiples fragancias para cada ocasión.' },
+// Real bottle+decant product shots — reused here (instead of a generic
+// icon grid) so the "how it works" step actually shows what a decant is.
+const SHOWCASE_IMAGE = { src: '/images/decants/asad.png', alt: 'Frasco y decant de 5ml de Asad, Lattafa' };
+
+// Same idea for the closing banner: a spread of real products, not a
+// stock photo, on the light background the catalog shots already share.
+const BANNER_IMAGES = [
+    { src: '/images/decants/khamrah.png', alt: 'Khamrah, Lattafa' },
+    { src: '/images/decants/club-de-nuit-woman.png', alt: 'Club de Nuit Woman, Armaf' },
+    { src: '/images/decants/bharara-king.png', alt: 'Bharara King' },
+    { src: '/images/decants/fakhar-rose.png', alt: 'Fakhar Rose, Lattafa' },
+    { src: '/images/decants/asad-bourbon.png', alt: 'Asad Bourbon, Lattafa' },
 ];
 
 const STEPS = [
@@ -30,7 +36,9 @@ const STEPS = [
 
 /**
  * Decants Educational Section
- * Explains the decant concept with scroll-animated timeline and benefits grid.
+ * Explains the decant concept with a scroll-animated timeline next to a real
+ * product shot, then closes with a banner spreading several real decants
+ * and perfumes across a light background.
  */
 export function DecantsSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -138,44 +146,60 @@ export function DecantsSection() {
                         </p>
                     </div>
 
-                    {/* Process Timeline */}
-                    <div ref={timelineRef} className={styles.timeline}>
-                        {/* Animated vertical line */}
-                        <span data-timeline-line className={styles.timelineLine} />
+                    {/* Process — real product shot alongside the steps */}
+                    <div className={styles.showcase}>
+                        <div className={styles.showcaseVisual}>
+                            <Image
+                                src={SHOWCASE_IMAGE.src}
+                                alt={SHOWCASE_IMAGE.alt}
+                                fill
+                                sizes="(max-width: 900px) 100vw, 440px"
+                                className={styles.showcaseImage}
+                            />
+                        </div>
 
-                        {STEPS.map(({ num, title, text }) => (
-                            <div key={num} data-timeline-item className={styles.timelineItem}>
-                                <div className={styles.timelineIcon}>
-                                    <DecryptedText
-                                        text={num}
-                                        className={styles.iconNumber}
-                                        encryptedClassName={styles.iconNumber}
-                                        animateOn="view"
-                                        speed={40}
-                                        maxIterations={8}
-                                    />
+                        <div ref={timelineRef} className={styles.timeline}>
+                            {/* Animated vertical line */}
+                            <span data-timeline-line className={styles.timelineLine} />
+
+                            {STEPS.map(({ num, title, text }) => (
+                                <div key={num} data-timeline-item className={styles.timelineItem}>
+                                    <div className={styles.timelineIcon}>
+                                        <DecryptedText
+                                            text={num}
+                                            className={styles.iconNumber}
+                                            encryptedClassName={styles.iconNumber}
+                                            animateOn="view"
+                                            speed={40}
+                                            maxIterations={8}
+                                        />
+                                    </div>
+                                    <div className={styles.timelineContent}>
+                                        <h3 className={styles.timelineTitle}>{title}</h3>
+                                        <p className={styles.timelineText}>{text}</p>
+                                    </div>
                                 </div>
-                                <div className={styles.timelineContent}>
-                                    <h3 className={styles.timelineTitle}>{title}</h3>
-                                    <p className={styles.timelineText}>{text}</p>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Benefits Grid — react-bits MagicBento */}
-                    <div className={styles.benefitsGrid}>
-                        <MagicBento
-                            cards={BENEFITS.map(({ icon, title, text }) => ({ icon, title, description: text }))}
-                            glowColor={LUXE_GOLD_RGB}
-                            spotlightRadius={260}
-                            particleCount={8}
-                            enableTilt
-                            enableBorderGlow
-                            enableStars
-                            clickEffect
-                            enableMagnetism
-                        />
+                    {/* Closing banner — spread of real decants + perfumes */}
+                    <div className={styles.banner}>
+                        <div className={styles.bannerGlow} aria-hidden />
+                        <div className={styles.bannerCollage}>
+                            {BANNER_IMAGES.map(({ src, alt }, i) => (
+                                <div key={src} className={styles.bannerItem} data-index={i}>
+                                    <Image src={src} alt={alt} fill sizes="200px" />
+                                </div>
+                            ))}
+                        </div>
+                        <div className={styles.bannerCopy}>
+                            <h3>Toda la colección, también en decant</h3>
+                            <p>Cada perfume de Luxe Essence tiene su versión de 5ml. Elegí, probá en tu piel, enamorate.</p>
+                            <Link href="/coleccion" className={styles.bannerCta}>
+                                Ver todos los decants <span aria-hidden>&rarr;</span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </Container>

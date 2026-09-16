@@ -119,6 +119,16 @@ export function ProductDetail({ product, videoSrc }: { product: Product; videoSr
                     {product.olfactoryNotes.filter(note => note.notes?.length).map((note, i) => <div key={`${note.type}-${i}`}><dt>{noteLabels[note.type]}</dt><dd>{note.notes.join(', ')}</dd></div>)}
                 </dl>
             </details>
+
+            {product.decantPrice && (
+                <div className={styles.decantPitch}>
+                    <span className={styles.decantPitchBadge}>✦ Sistema Luxe Decant</span>
+                    <p>
+                        Probá {product.name} antes de decidir: pagás solo <strong>${product.decantPrice.toLocaleString('es-AR')}</strong> por
+                        el decant de 5ml y, si te enamorás, te descontamos el 100% al comprar el frasco completo.
+                    </p>
+                </div>
+            )}
         </section>
     </main>;
 }

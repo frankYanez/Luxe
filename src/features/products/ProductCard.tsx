@@ -179,14 +179,16 @@ export const ProductCard = React.memo(function ProductCard({ product, animationD
                     {rightLabel && <span className={styles.rightLabel}>{rightLabel}</span>}
                 </div>
 
-                <div className={styles.priceDetails}>
-                    <span className={styles.cashPrice}>
-                        ${cashPrice.toLocaleString('es-AR')} efectivo/transferencia
-                    </span>
-                    <span className={styles.installments}>
-                        3 cuotas sin interés de ${installmentPrice.toLocaleString('es-AR')}
-                    </span>
-                </div>
+                {variant === 'frasco' && (
+                    <div className={styles.priceDetails}>
+                        <span className={styles.cashPrice}>
+                            ${cashPrice.toLocaleString('es-AR')} efectivo/transferencia
+                        </span>
+                        <span className={styles.installments}>
+                            3 cuotas sin interés de ${installmentPrice.toLocaleString('es-AR')}
+                        </span>
+                    </div>
+                )}
 
                 <PaymentBadges className={styles.paymentBadges} />
 

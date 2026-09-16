@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-16",
+  "defaultDecantPrice": 9500,
+  "exceptions": {
+    "afnan-9pm-rebel": 10000,
+    "club-de-nuit-precieux": 12000,
+    "khamrah": 10000,
+    "khamrah-qahwa": 10000,
+    "amber-oud-ge": 13000,
+    "mandarin-sky": 10500
+  },
+  "outOfStock": ["lattafa-qaed-al-fursan"]
+}

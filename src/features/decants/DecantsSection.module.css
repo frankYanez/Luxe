@@ -43,13 +43,35 @@
     font-weight: 700;
 }
 
+/* Process showcase — real product shot + steps side by side */
+.showcase {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+    margin: var(--space-3xl) 0;
+}
+
+.showcaseVisual {
+    position: relative;
+    aspect-ratio: 4 / 4.6;
+    border-radius: 1.75rem;
+    overflow: hidden;
+    background: linear-gradient(150deg, #fdfaf3 0%, #f3ead9 100%);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.showcaseImage {
+    object-fit: contain;
+    padding: 28px;
+}
+
 /* Timeline */
 .timeline {
     position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
-    margin: var(--space-3xl) 0;
     padding-left: var(--space-2xl);
 }
 
@@ -113,65 +135,142 @@
     color: var(--color-gray-700);
 }
 
-/* Benefits Grid */
-.benefitsGrid {
-    /* MagicBento owns its own internal grid — this wrapper is layout-plain */
-    margin-top: var(--space-3xl);
-}
-
-.benefitCard {
+/* Closing banner — light, "seedance"-style product spread */
+.banner {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xl);
+    margin-top: var(--space-3xl);
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: 2rem;
     overflow: hidden;
-    padding: var(--space-xl);
-    border-radius: 1.5rem;
-    background: linear-gradient(150deg, #131313 0%, #0d0d0d 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition:
-        border-color 0.35s ease,
-        box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Layered dark card shadow */
-    box-shadow:
-        0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
-        0 2px 5px rgba(0, 0, 0, 0.45),
-        0 8px 22px rgba(0, 0, 0, 0.35),
-        0 20px 44px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(150deg, #fdfaf4 0%, #f6ecd8 55%, #f0e2c4 100%);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
 }
 
-.benefitCard:hover {
-    transform: translateY(-8px);
-    border-color: rgba(201, 168, 76, 0.3);
-    box-shadow:
-        0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
-        0 4px 10px rgba(0, 0, 0, 0.55),
-        0 16px 40px rgba(0, 0, 0, 0.45),
-        0 36px 72px rgba(0, 0, 0, 0.28),
-        0 48px 96px rgba(201, 168, 76, 0.08);
+.bannerGlow {
+    position: absolute;
+    top: 50%;
+    left: 28%;
+    width: 60%;
+    height: 140%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
+    pointer-events: none;
 }
 
-.benefitIcon {
-    font-size: 2rem;
-    margin-bottom: var(--space-md);
-    color: var(--color-matte-gold);
-    line-height: 1;
+.bannerCollage {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    flex: 1 1 340px;
 }
 
-.benefitTitle {
-    font-size: 1.2rem;
+.bannerItem {
+    position: relative;
+    flex: none;
+    width: clamp(120px, 14vw, 168px);
+    aspect-ratio: 3 / 4;
+    margin-left: -2.2rem;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bannerItem:first-child {
+    margin-left: 0;
+}
+
+.bannerItem:nth-child(odd) {
+    transform: translateY(-14px) rotate(-3deg);
+}
+
+.bannerItem:nth-child(even) {
+    transform: translateY(10px) rotate(3deg);
+}
+
+.bannerItem:hover {
+    transform: translateY(-6px) rotate(0deg) scale(1.05);
+    z-index: 2;
+}
+
+.bannerCopy {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 280px;
+    max-width: 380px;
+}
+
+.bannerCopy h3 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    color: var(--color-deep-black);
     margin-bottom: var(--space-sm);
-    color: #fff;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 700;
 }
 
-.benefitText {
-    font-size: 0.875rem;
+.bannerCopy p {
+    font-size: 0.9375rem;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--color-gray-700);
+    margin-bottom: var(--space-lg);
+}
+
+.bannerCta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 9999px;
+    background: var(--color-deep-black);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.bannerCta:hover {
+    background: var(--color-matte-gold);
+    transform: translateY(-2px);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .showcaseVisual {
+        aspect-ratio: 4 / 3;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .bannerCollage {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .bannerItem {
+        margin-left: 0;
+        width: 100px;
+    }
+
+    .bannerCopy {
+        max-width: none;
+    }
+
     .timeline {
         padding-left: var(--space-lg);
     }

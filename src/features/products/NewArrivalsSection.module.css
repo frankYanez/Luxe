@@ -82,7 +82,7 @@
     position: relative;
     flex: none;
     width: clamp(260px, 32vw, 400px);
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     display: flex;
     flex-direction: column;
     border-radius: 26px;
@@ -203,5 +203,12 @@
 @media (max-width: 640px) {
     .card {
         width: 78vw;
+    }
+
+    /* Card is 78vw — needs 11vw of padding on each side so it can actually
+       reach dead center when it snaps, instead of hugging the rail's edge. */
+    .rail {
+        padding-left: 11vw;
+        padding-right: 11vw;
     }
 }
