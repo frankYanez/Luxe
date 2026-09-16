@@ -15,8 +15,9 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 // Two separate frame sequences, shot in the aspect ratio each device
 // actually needs — mobile (9:16 portrait) and desktop (16:9 landscape) —
 // rather than stretching/cropping one source to fit both. Scroll distance
-// per frame is kept equal (~33px/frame) so the scrub pace feels the same.
-const PX_PER_FRAME = 2200 / 66;
+// per frame is kept equal (~25px/frame — 25% shorter than the original
+// ~33px/frame, same on both breakpoints) so the scrub pace feels the same.
+const PX_PER_FRAME = (2200 / 66) * 0.75;
 const FRAME_SETS = {
     // Frames 1-10 were trimmed (pure duplicate statics) — 11 is the first
     // frame on disk, bottle fully closed. Start there so mobile doesn't
