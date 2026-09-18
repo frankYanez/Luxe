@@ -62,8 +62,10 @@
 }
 
 .showcaseImage {
-    object-fit: contain;
-    padding: 28px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 46%;
 }
 
 /* Timeline */
@@ -135,76 +137,54 @@
     color: var(--color-gray-700);
 }
 
-/* Closing banner — light, "seedance"-style product spread */
+/* Closing banner — one cinematic, full-bleed product spread */
 .banner {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2xl);
+    align-items: flex-end;
+    justify-content: flex-start;
     margin-top: var(--space-3xl);
-    padding: clamp(2rem, 5vw, 4rem);
+    min-height: clamp(360px, 40vw, 520px);
+    padding: clamp(1.5rem, 5vw, 3.5rem);
     border-radius: 2rem;
     overflow: hidden;
-    background: linear-gradient(150deg, #fdfaf4 0%, #f6ecd8 55%, #f0e2c4 100%);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+    isolation: isolate;
+    background: #fbfaf7;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+}
+
+.bannerImage {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.bannerShade {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(251, 250, 247, 1) 0%, rgba(251, 250, 247, 0.86) 45%, rgba(251, 250, 247, 0.04) 68%, transparent 100%);
+    pointer-events: none;
 }
 
 .bannerGlow {
     position: absolute;
-    top: 50%;
-    left: 28%;
-    width: 60%;
-    height: 140%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
+    z-index: -1;
+    inset: -30%;
+    background: radial-gradient(ellipse at 45% 80%, rgba(201, 168, 76, 0.14), transparent 44%);
+    mix-blend-mode: multiply;
+    opacity: 0.7;
     pointer-events: none;
-}
-
-.bannerCollage {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    flex: 1 1 340px;
-}
-
-.bannerItem {
-    position: relative;
-    flex: none;
-    width: clamp(120px, 14vw, 168px);
-    aspect-ratio: 3 / 4;
-    margin-left: -2.2rem;
-    border-radius: 1.1rem;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.bannerItem:first-child {
-    margin-left: 0;
-}
-
-.bannerItem:nth-child(odd) {
-    transform: translateY(-14px) rotate(-3deg);
-}
-
-.bannerItem:nth-child(even) {
-    transform: translateY(10px) rotate(3deg);
-}
-
-.bannerItem:hover {
-    transform: translateY(-6px) rotate(0deg) scale(1.05);
-    z-index: 2;
 }
 
 .bannerCopy {
     position: relative;
-    z-index: 1;
-    flex: 1 1 280px;
-    max-width: 380px;
+    z-index: 2;
+    width: min(100%, 400px);
 }
 
 .bannerCopy h3 {
@@ -252,23 +232,13 @@
     }
 
     .banner {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .bannerCollage {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .bannerItem {
-        margin-left: 0;
-        width: 100px;
+        min-height: 500px;
+        padding: 1.5rem;
     }
 
     .bannerCopy {
-        max-width: none;
+        width: 100%;
+        max-width: 30rem;
     }
 
     .timeline {

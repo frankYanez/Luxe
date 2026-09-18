@@ -18,16 +18,6 @@ gsap.registerPlugin(ScrollTrigger);
 // icon grid) so the "how it works" step actually shows what a decant is.
 const SHOWCASE_IMAGE = { src: '/images/decants/asad.png', alt: 'Frasco y decant de 5ml de Asad, Lattafa' };
 
-// Same idea for the closing banner: a spread of real products, not a
-// stock photo, on the light background the catalog shots already share.
-const BANNER_IMAGES = [
-    { src: '/images/decants/khamrah.png', alt: 'Khamrah, Lattafa' },
-    { src: '/images/decants/club-de-nuit-woman.png', alt: 'Club de Nuit Woman, Armaf' },
-    { src: '/images/decants/bharara-king.png', alt: 'Bharara King' },
-    { src: '/images/decants/fakhar-rose.png', alt: 'Fakhar Rose, Lattafa' },
-    { src: '/images/decants/asad-bourbon.png', alt: 'Asad Bourbon, Lattafa' },
-];
-
 const STEPS = [
     { num: '01', title: 'Elegís tu decant', text: 'Pagás solo 5ml del perfume 100% original en un atomizador premium. Sin compromiso, sin letra chica.' },
     { num: '02', title: 'Lo probás en tu piel', text: 'Nada de tester en papel: vivís la fragancia real, en tu piel, las veces que quieras antes de decidir.' },
@@ -37,8 +27,8 @@ const STEPS = [
 /**
  * Decants Educational Section
  * Explains the decant concept with a scroll-animated timeline next to a real
- * product shot, then closes with a banner spreading several real decants
- * and perfumes across a light background.
+ * product shot, then closes with a cinematic banner showing real perfumes
+ * and their decants.
  */
 export function DecantsSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -61,20 +51,20 @@ export function DecantsSection() {
                 toggleActions: 'play none none none',
             },
         })
-        .fromTo(eyebrow,
-            { opacity: 0, y: 18, letterSpacing: '0.25em' },
-            { opacity: 1, y: 0, letterSpacing: '0.1em', duration: 0.7, ease: 'power2.out' }
-        )
-        .fromTo(words,
-            { y: '115%' },
-            { y: '0%', duration: 0.85, stagger: 0.06, ease: 'power3.out' },
-            '-=0.35'
-        )
-        .fromTo(desc,
-            { opacity: 0, y: 28 },
-            { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-            '-=0.4'
-        );
+            .fromTo(eyebrow,
+                { opacity: 0, y: 18, letterSpacing: '0.25em' },
+                { opacity: 1, y: 0, letterSpacing: '0.1em', duration: 0.7, ease: 'power2.out' }
+            )
+            .fromTo(words,
+                { y: '115%' },
+                { y: '0%', duration: 0.85, stagger: 0.06, ease: 'power3.out' },
+                '-=0.35'
+            )
+            .fromTo(desc,
+                { opacity: 0, y: 28 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+                '-=0.4'
+            );
     }, { scope: headerRef });
 
     /* ── GSAP timeline items — alternate slide in ── */
@@ -183,18 +173,19 @@ export function DecantsSection() {
                         </div>
                     </div>
 
-                    {/* Closing banner — spread of real decants + perfumes */}
+                    {/* Closing banner — one cinematic spread of real decants + perfumes */}
                     <div className={styles.banner}>
+                        <Image
+                            src="/images/decants-banner-cinematic-v1.png"
+                            alt="Selección de perfumes Luxe Essence y decants de 5 ml"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 1100px"
+                            className={styles.bannerImage}
+                        />
+                        <div className={styles.bannerShade} aria-hidden />
                         <div className={styles.bannerGlow} aria-hidden />
-                        <div className={styles.bannerCollage}>
-                            {BANNER_IMAGES.map(({ src, alt }, i) => (
-                                <div key={src} className={styles.bannerItem} data-index={i}>
-                                    <Image src={src} alt={alt} fill sizes="200px" />
-                                </div>
-                            ))}
-                        </div>
                         <div className={styles.bannerCopy}>
-                            <h3>Toda la colección, también en decant</h3>
+                            <h2>Toda la colección, también en decant</h2>
                             <p>Cada perfume de Luxe Essence tiene su versión de 5ml. Elegí, probá en tu piel, enamorate.</p>
                             <Link href="/coleccion" className={styles.bannerCta}>
                                 Ver todos los decants <span aria-hidden>&rarr;</span>
